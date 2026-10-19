@@ -25,8 +25,10 @@ locals {
     "style-src 'self' https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/ https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/",
     # The map tiles are OpenStreetMap's.
     "img-src 'self' blob: data: https://tile.openstreetmap.org",
-    # Receipts go straight to the files bucket through a presigned POST.
-    "connect-src 'self' https://cognito-idp.${var.region}.amazonaws.com https://*.s3.${var.region}.amazonaws.com",
+    # Receipts go straight to the files bucket through a presigned POST. The
+    # service worker (web/sw.js) fetches and keeps the libraries itself, and
+    # a worker's fetch counts as connect-src.
+    "connect-src 'self' https://cognito-idp.${var.region}.amazonaws.com https://*.s3.${var.region}.amazonaws.com https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.15/ https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/ https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/ https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

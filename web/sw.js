@@ -5,7 +5,7 @@
 // everything is fetched as before and the cache only follows. Files, map
 // tiles and every write go past the cache; the page queues the new events
 // itself (app.js, the outbox).
-const SHELL = "cars-shell-v2";
+const SHELL = "cars-shell-v3";
 const DATA = "cars-data-v1";
 const PAGE = ["/", "/index.html", "/app.js", "/stats.js", "/charts.js", "/i18n.js", "/styles.css", "/favicon.svg", "/config.js", "/manifest.json"];
 // Versioned and with subresource integrity: kept once fetched. The two the
