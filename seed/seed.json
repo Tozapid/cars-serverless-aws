@@ -1,0 +1,7717 @@
+{
+ "cars": [
+  {
+   "car": {
+    "name": "Model 3",
+    "make": "Tesla",
+    "model": "Model 3 Long Range",
+    "year": 2021,
+    "vin": "5YJ3E7EB0MF000001",
+    "plate": "B-EV 2021",
+    "unit": "kWh",
+    "currency": "EUR",
+    "notes": "Bought used at 41 200 km."
+   },
+   "events": [
+    {
+     "kind": "refuel",
+     "days_ago": 726,
+     "time": "21:34",
+     "odometer": 41433,
+     "category": "Home wallbox",
+     "quantity": 26.5,
+     "price": 0.32,
+     "amount": 8.48,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514419,
+      "lon": 13.423075
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 724,
+     "time": "10:41",
+     "odometer": 41530,
+     "category": "Office parking",
+     "quantity": 21.6,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531008,
+      "lon": 13.384406
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 724,
+     "time": "19:41",
+     "odometer": 41530,
+     "category": "Home wallbox",
+     "quantity": 40.1,
+     "price": 0.32,
+     "amount": 12.83,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514483,
+      "lon": 13.423327
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 720,
+     "time": "23:41",
+     "odometer": 41723,
+     "category": "Home wallbox",
+     "quantity": 39.4,
+     "price": 0.32,
+     "amount": 12.61,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514417,
+      "lon": 13.423031
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 717,
+     "time": "23:41",
+     "odometer": 41921,
+     "category": "Home wallbox",
+     "quantity": 18.3,
+     "price": 0.32,
+     "amount": 5.86,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514404,
+      "lon": 13.422996
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 715,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 714,
+     "time": "20:55",
+     "odometer": 42109,
+     "category": "Home wallbox",
+     "quantity": 18.7,
+     "price": 0.32,
+     "amount": 5.98,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51449,
+      "lon": 13.423064
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 713,
+     "time": "13:05",
+     "odometer": 42216,
+     "category": "Office parking",
+     "quantity": 8.5,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.53117,
+      "lon": 13.384731
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 712,
+     "time": "16:12",
+     "odometer": 42261,
+     "category": "Office parking",
+     "quantity": 12.8,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530985,
+      "lon": 13.384835
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 711,
+     "time": "23:12",
+     "odometer": 42285,
+     "category": "Home wallbox",
+     "quantity": 31.2,
+     "price": 0.32,
+     "amount": 9.98,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514552,
+      "lon": 13.423013
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 710,
+     "time": "10:30",
+     "odometer": 42285,
+     "category": "Tyre change",
+     "amount": 60.0,
+     "location": {
+      "lat": 52.475243,
+      "lon": 13.441162
+     },
+     "notes": "Summer"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 708,
+     "time": "19:55",
+     "odometer": 42446,
+     "category": "Home wallbox",
+     "quantity": 36.1,
+     "price": 0.32,
+     "amount": 11.55,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514428,
+      "lon": 13.423202
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 706,
+     "time": "22:20",
+     "odometer": 42510,
+     "category": "Home wallbox",
+     "quantity": 19.8,
+     "price": 0.32,
+     "amount": 6.34,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514484,
+      "lon": 13.423107
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 702,
+     "time": "20:41",
+     "odometer": 42605,
+     "category": "Home wallbox",
+     "quantity": 21.0,
+     "price": 0.32,
+     "amount": 6.72,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514437,
+      "lon": 13.423188
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 700,
+     "time": "08:00",
+     "category": "Insurance",
+     "amount": 742.0,
+     "notes": "Comprehensive, yearly"
+    },
+    {
+     "kind": "expense",
+     "days_ago": 699,
+     "time": "11:34",
+     "odometer": 42748,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523514,
+      "lon": 13.452037
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 699,
+     "time": "21:05",
+     "odometer": 42748,
+     "category": "Home wallbox",
+     "quantity": 44.0,
+     "price": 0.32,
+     "amount": 14.08,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514569,
+      "lon": 13.423396
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 697,
+     "time": "21:12",
+     "odometer": 42964,
+     "category": "Home wallbox",
+     "quantity": 35.0,
+     "price": 0.32,
+     "amount": 11.2,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514465,
+      "lon": 13.42306
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 694,
+     "time": "23:20",
+     "odometer": 43137,
+     "category": "Home wallbox",
+     "quantity": 18.3,
+     "price": 0.32,
+     "amount": 5.86,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514586,
+      "lon": 13.423356
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 690,
+     "time": "22:48",
+     "odometer": 43250,
+     "category": "Home wallbox",
+     "quantity": 18.5,
+     "price": 0.32,
+     "amount": 5.92,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514566,
+      "lon": 13.423102
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 686,
+     "time": "21:48",
+     "odometer": 43499,
+     "category": "Home wallbox",
+     "quantity": 21.9,
+     "price": 0.32,
+     "amount": 7.01,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514624,
+      "lon": 13.423079
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 685,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 683,
+     "time": "22:20",
+     "odometer": 43705,
+     "category": "Home wallbox",
+     "quantity": 29.5,
+     "price": 0.32,
+     "amount": 9.44,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.5144,
+      "lon": 13.423169
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 680,
+     "time": "10:55",
+     "odometer": 43797,
+     "category": "Office parking",
+     "quantity": 21.2,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531081,
+      "lon": 13.384386
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 680,
+     "time": "19:20",
+     "odometer": 43797,
+     "category": "Home wallbox",
+     "quantity": 39.2,
+     "price": 0.32,
+     "amount": 12.54,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514473,
+      "lon": 13.423102
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 678,
+     "time": "23:41",
+     "odometer": 43875,
+     "category": "Home wallbox",
+     "quantity": 29.9,
+     "price": 0.32,
+     "amount": 9.57,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514516,
+      "lon": 13.423182
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 677,
+     "time": "14:34",
+     "odometer": 43896,
+     "category": "Office parking",
+     "quantity": 21.4,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530858,
+      "lon": 13.384629
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 675,
+     "time": "19:55",
+     "odometer": 44037,
+     "category": "Home wallbox",
+     "quantity": 20.1,
+     "price": 0.32,
+     "amount": 6.43,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514621,
+      "lon": 13.423223
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 671,
+     "time": "21:55",
+     "odometer": 44225,
+     "category": "Home wallbox",
+     "quantity": 43.2,
+     "price": 0.32,
+     "amount": 13.82,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514534,
+      "lon": 13.423168
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 667,
+     "time": "23:55",
+     "odometer": 44393,
+     "category": "Home wallbox",
+     "quantity": 39.8,
+     "price": 0.32,
+     "amount": 12.74,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514468,
+      "lon": 13.423288
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 664,
+     "time": "23:12",
+     "odometer": 44580,
+     "category": "Home wallbox",
+     "quantity": 27.1,
+     "price": 0.32,
+     "amount": 8.67,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514613,
+      "lon": 13.423354
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 662,
+     "time": "23:05",
+     "odometer": 44651,
+     "category": "Home wallbox",
+     "quantity": 36.9,
+     "price": 0.32,
+     "amount": 11.81,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514512,
+      "lon": 13.423199
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 659,
+     "time": "19:05",
+     "odometer": 44864,
+     "category": "Home wallbox",
+     "quantity": 29.6,
+     "price": 0.32,
+     "amount": 9.47,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514412,
+      "lon": 13.423283
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 656,
+     "time": "21:05",
+     "odometer": 44945,
+     "category": "Home wallbox",
+     "quantity": 36.7,
+     "price": 0.32,
+     "amount": 11.74,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514538,
+      "lon": 13.42322
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 655,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 653,
+     "time": "19:05",
+     "odometer": 45078,
+     "category": "Home wallbox",
+     "quantity": 19.2,
+     "price": 0.32,
+     "amount": 6.14,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51448,
+      "lon": 13.423263
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 651,
+     "time": "22:34",
+     "odometer": 45224,
+     "category": "Home wallbox",
+     "quantity": 23.0,
+     "price": 0.32,
+     "amount": 7.36,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514452,
+      "lon": 13.42302
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 647,
+     "time": "22:48",
+     "odometer": 45322,
+     "category": "Home wallbox",
+     "quantity": 44.0,
+     "price": 0.32,
+     "amount": 14.08,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514587,
+      "lon": 13.423394
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 644,
+     "time": "21:41",
+     "odometer": 45417,
+     "category": "Home wallbox",
+     "quantity": 23.8,
+     "price": 0.32,
+     "amount": 7.62,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51445,
+      "lon": 13.423381
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 642,
+     "time": "17:55",
+     "odometer": 45497,
+     "category": "Fast charger A10",
+     "quantity": 57.6,
+     "price": 0.52,
+     "amount": 29.95,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386344,
+      "lon": 13.520326
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 642,
+     "time": "23:55",
+     "odometer": 45497,
+     "category": "Home wallbox",
+     "quantity": 22.0,
+     "price": 0.32,
+     "amount": 7.04,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51454,
+      "lon": 13.423048
+     }
+    },
+    {
+     "kind": "income",
+     "days_ago": 640,
+     "time": "10:00",
+     "category": "GHG quota",
+     "amount": 310.0,
+     "notes": "Yearly greenhouse gas quota"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 640,
+     "time": "20:05",
+     "odometer": 45574,
+     "category": "Home wallbox",
+     "quantity": 36.3,
+     "price": 0.32,
+     "amount": 11.62,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514448,
+      "lon": 13.423188
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 637,
+     "time": "22:55",
+     "odometer": 45697,
+     "category": "Home wallbox",
+     "quantity": 45.1,
+     "price": 0.32,
+     "amount": 14.43,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514604,
+      "lon": 13.422993
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 636,
+     "time": "14:41",
+     "odometer": 45718,
+     "category": "Fast charger A10",
+     "quantity": 50.9,
+     "price": 0.48,
+     "amount": 24.43,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385977,
+      "lon": 13.520654
+     },
+     "notes": "Weekend trip"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 635,
+     "time": "19:48",
+     "odometer": 45754,
+     "category": "Home wallbox",
+     "quantity": 22.7,
+     "price": 0.32,
+     "amount": 7.26,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514522,
+      "lon": 13.423313
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 632,
+     "time": "22:12",
+     "odometer": 45927,
+     "category": "Home wallbox",
+     "quantity": 33.6,
+     "price": 0.32,
+     "amount": 10.75,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514372,
+      "lon": 13.42299
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 629,
+     "time": "20:34",
+     "odometer": 45982,
+     "category": "Home wallbox",
+     "quantity": 43.9,
+     "price": 0.32,
+     "amount": 14.05,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514631,
+      "lon": 13.423332
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 627,
+     "time": "21:48",
+     "odometer": 46034,
+     "category": "Home wallbox",
+     "quantity": 44.8,
+     "price": 0.32,
+     "amount": 14.34,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514436,
+      "lon": 13.423125
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 625,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 624,
+     "time": "20:20",
+     "odometer": 46158,
+     "category": "Home wallbox",
+     "quantity": 36.0,
+     "price": 0.32,
+     "amount": 11.52,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514464,
+      "lon": 13.423116
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 622,
+     "time": "20:34",
+     "odometer": 46232,
+     "category": "Home wallbox",
+     "quantity": 33.8,
+     "price": 0.32,
+     "amount": 10.82,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514536,
+      "lon": 13.422986
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 621,
+     "time": "07:41",
+     "odometer": 46276,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 27.4,
+     "price": 0.59,
+     "amount": 16.17,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.50033,
+      "lon": 13.373106
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 619,
+     "time": "23:55",
+     "odometer": 46319,
+     "category": "Home wallbox",
+     "quantity": 37.9,
+     "price": 0.32,
+     "amount": 12.13,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514431,
+      "lon": 13.423219
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 618,
+     "time": "14:55",
+     "odometer": 46377,
+     "category": "Office parking",
+     "quantity": 17.9,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531028,
+      "lon": 13.384322
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 617,
+     "time": "22:48",
+     "odometer": 46388,
+     "category": "Home wallbox",
+     "quantity": 29.1,
+     "price": 0.32,
+     "amount": 9.31,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514435,
+      "lon": 13.423344
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 614,
+     "time": "23:48",
+     "odometer": 46595,
+     "category": "Home wallbox",
+     "quantity": 20.4,
+     "price": 0.32,
+     "amount": 6.53,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514505,
+      "lon": 13.423173
+     }
+    },
+    {
+     "kind": "income",
+     "days_ago": 611,
+     "time": "12:20",
+     "category": "Ride share",
+     "amount": 25.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 611,
+     "time": "19:12",
+     "odometer": 46727,
+     "category": "Home wallbox",
+     "quantity": 40.8,
+     "price": 0.32,
+     "amount": 13.06,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51447,
+      "lon": 13.423279
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 610,
+     "time": "09:00",
+     "odometer": 46764,
+     "category": "Inspection",
+     "amount": 179.0,
+     "location": {
+      "lat": 52.47522,
+      "lon": 13.441258
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 608,
+     "time": "19:05",
+     "odometer": 46844,
+     "category": "Home wallbox",
+     "quantity": 33.5,
+     "price": 0.32,
+     "amount": 10.72,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514374,
+      "lon": 13.423325
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 606,
+     "time": "19:41",
+     "odometer": 46895,
+     "category": "Home wallbox",
+     "quantity": 45.6,
+     "price": 0.32,
+     "amount": 14.59,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514563,
+      "lon": 13.423207
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 605,
+     "time": "12:15",
+     "odometer": 46928,
+     "category": "Cabin filter",
+     "amount": 42.9
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 603,
+     "time": "21:12",
+     "odometer": 46958,
+     "category": "Home wallbox",
+     "quantity": 18.8,
+     "price": 0.32,
+     "amount": 6.02,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514418,
+      "lon": 13.423094
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 600,
+     "time": "21:41",
+     "odometer": 47148,
+     "category": "Home wallbox",
+     "quantity": 35.9,
+     "price": 0.32,
+     "amount": 11.49,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514545,
+      "lon": 13.423179
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 598,
+     "time": "20:41",
+     "odometer": 47217,
+     "category": "Home wallbox",
+     "quantity": 19.2,
+     "price": 0.32,
+     "amount": 6.14,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514423,
+      "lon": 13.42309
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 595,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 594,
+     "time": "11:48",
+     "odometer": 47372,
+     "category": "Fast charger A10",
+     "quantity": 47.2,
+     "price": 0.45,
+     "amount": 21.24,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385944,
+      "lon": 13.521182
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 594,
+     "time": "19:41",
+     "odometer": 47372,
+     "category": "Home wallbox",
+     "quantity": 40.0,
+     "price": 0.32,
+     "amount": 12.8,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514407,
+      "lon": 13.423001
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 591,
+     "time": "22:34",
+     "odometer": 47542,
+     "category": "Home wallbox",
+     "quantity": 31.8,
+     "price": 0.32,
+     "amount": 10.18,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514596,
+      "lon": 13.423398
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 590,
+     "time": "11:00",
+     "odometer": 47542,
+     "category": "Brake fluid",
+     "amount": 89.0,
+     "location": {
+      "lat": 52.475489,
+      "lon": 13.440533
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 588,
+     "time": "21:41",
+     "odometer": 47627,
+     "category": "Home wallbox",
+     "quantity": 36.1,
+     "price": 0.32,
+     "amount": 11.55,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514464,
+      "lon": 13.423351
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 584,
+     "time": "12:05",
+     "odometer": 47831,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 27.5,
+     "price": 0.59,
+     "amount": 16.22,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.500539,
+      "lon": 13.372178
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 584,
+     "time": "22:55",
+     "odometer": 47831,
+     "category": "Home wallbox",
+     "quantity": 30.6,
+     "price": 0.32,
+     "amount": 9.79,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514547,
+      "lon": 13.423308
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 582,
+     "time": "20:34",
+     "odometer": 47905,
+     "category": "Home wallbox",
+     "quantity": 44.8,
+     "price": 0.32,
+     "amount": 14.34,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514507,
+      "lon": 13.423
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 578,
+     "time": "22:12",
+     "odometer": 48060,
+     "category": "Home wallbox",
+     "quantity": 38.0,
+     "price": 0.32,
+     "amount": 12.16,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514474,
+      "lon": 13.423002
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 577,
+     "time": "18:12",
+     "odometer": 48102,
+     "category": "Fast charger A10",
+     "quantity": 56.1,
+     "price": 0.48,
+     "amount": 26.93,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385762,
+      "lon": 13.5204
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 575,
+     "time": "23:05",
+     "odometer": 48247,
+     "category": "Home wallbox",
+     "quantity": 35.3,
+     "price": 0.32,
+     "amount": 11.3,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514468,
+      "lon": 13.422988
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 572,
+     "time": "19:55",
+     "odometer": 48366,
+     "category": "Home wallbox",
+     "quantity": 29.2,
+     "price": 0.32,
+     "amount": 9.34,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514481,
+      "lon": 13.423211
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 569,
+     "time": "15:41",
+     "odometer": 48473,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.523335,
+      "lon": 13.452115
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 569,
+     "time": "22:48",
+     "odometer": 48473,
+     "category": "Home wallbox",
+     "quantity": 38.4,
+     "price": 0.32,
+     "amount": 12.29,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514576,
+      "lon": 13.423156
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 567,
+     "time": "20:55",
+     "odometer": 48651,
+     "category": "Home wallbox",
+     "quantity": 37.4,
+     "price": 0.32,
+     "amount": 11.97,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514491,
+      "lon": 13.423273
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 565,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 563,
+     "time": "20:41",
+     "odometer": 48881,
+     "category": "Home wallbox",
+     "quantity": 44.1,
+     "price": 0.32,
+     "amount": 14.11,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514389,
+      "lon": 13.423383
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 559,
+     "time": "23:48",
+     "odometer": 49082,
+     "category": "Home wallbox",
+     "quantity": 23.6,
+     "price": 0.32,
+     "amount": 7.55,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514524,
+      "lon": 13.423223
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 558,
+     "time": "16:34",
+     "odometer": 49113,
+     "category": "Fast charger A10",
+     "quantity": 41.5,
+     "price": 0.45,
+     "amount": 18.68,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.38634,
+      "lon": 13.52083
+     },
+     "notes": ""
+    },
+    {
+     "kind": "expense",
+     "days_ago": 556,
+     "time": "14:55",
+     "odometer": 49163,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523278,
+      "lon": 13.451639
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 556,
+     "time": "20:05",
+     "odometer": 49163,
+     "category": "Home wallbox",
+     "quantity": 38.3,
+     "price": 0.32,
+     "amount": 12.26,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514412,
+      "lon": 13.423241
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 554,
+     "time": "21:41",
+     "odometer": 49210,
+     "category": "Home wallbox",
+     "quantity": 24.8,
+     "price": 0.32,
+     "amount": 7.94,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514597,
+      "lon": 13.423201
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 553,
+     "time": "09:55",
+     "odometer": 49210,
+     "category": "Office parking",
+     "quantity": 20.0,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531179,
+      "lon": 13.384439
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "expense",
+     "days_ago": 550,
+     "time": "16:55",
+     "odometer": 49382,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.523198,
+      "lon": 13.452136
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 550,
+     "time": "21:48",
+     "odometer": 49382,
+     "category": "Home wallbox",
+     "quantity": 21.1,
+     "price": 0.32,
+     "amount": 6.75,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514535,
+      "lon": 13.423373
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 546,
+     "time": "23:41",
+     "odometer": 49611,
+     "category": "Home wallbox",
+     "quantity": 33.7,
+     "price": 0.32,
+     "amount": 10.78,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514571,
+      "lon": 13.423408
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 545,
+     "time": "16:41",
+     "odometer": 49611,
+     "category": "Fast charger A10",
+     "quantity": 61.5,
+     "price": 0.45,
+     "amount": 27.68,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385833,
+      "lon": 13.520197
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 542,
+     "time": "23:48",
+     "odometer": 49744,
+     "category": "Home wallbox",
+     "quantity": 28.8,
+     "price": 0.32,
+     "amount": 9.22,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514524,
+      "lon": 13.423034
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 539,
+     "time": "23:20",
+     "odometer": 49891,
+     "category": "Home wallbox",
+     "quantity": 32.2,
+     "price": 0.32,
+     "amount": 10.3,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514534,
+      "lon": 13.423135
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 538,
+     "time": "15:12",
+     "odometer": 49947,
+     "category": "Office parking",
+     "quantity": 9.3,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530831,
+      "lon": 13.38437
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 536,
+     "time": "22:20",
+     "odometer": 49990,
+     "category": "Home wallbox",
+     "quantity": 20.8,
+     "price": 0.32,
+     "amount": 6.66,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514416,
+      "lon": 13.423221
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 535,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 533,
+     "time": "09:12",
+     "odometer": 50201,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 15.8,
+     "price": 0.59,
+     "amount": 9.32,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.500424,
+      "lon": 13.372335
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 533,
+     "time": "11:05",
+     "odometer": 50201,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523441,
+      "lon": 13.452178
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 533,
+     "time": "23:48",
+     "odometer": 50201,
+     "category": "Home wallbox",
+     "quantity": 22.9,
+     "price": 0.32,
+     "amount": 7.33,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51457,
+      "lon": 13.42309
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 530,
+     "time": "10:30",
+     "odometer": 50335,
+     "category": "Tyre change",
+     "amount": 60.0,
+     "location": {
+      "lat": 52.475304,
+      "lon": 13.440473
+     },
+     "notes": "Winter"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 530,
+     "time": "22:55",
+     "odometer": 50335,
+     "category": "Home wallbox",
+     "quantity": 24.0,
+     "price": 0.32,
+     "amount": 7.68,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514479,
+      "lon": 13.423395
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 527,
+     "time": "19:20",
+     "odometer": 50487,
+     "category": "Home wallbox",
+     "quantity": 22.9,
+     "price": 0.32,
+     "amount": 7.33,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514425,
+      "lon": 13.423116
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 523,
+     "time": "20:05",
+     "odometer": 50616,
+     "category": "Home wallbox",
+     "quantity": 42.5,
+     "price": 0.32,
+     "amount": 13.6,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514606,
+      "lon": 13.423182
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 521,
+     "time": "19:20",
+     "odometer": 50754,
+     "category": "Home wallbox",
+     "quantity": 41.4,
+     "price": 0.32,
+     "amount": 13.25,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514386,
+      "lon": 13.423309
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 519,
+     "time": "18:41",
+     "odometer": 50879,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.523049,
+      "lon": 13.452295
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 517,
+     "time": "21:34",
+     "odometer": 50920,
+     "category": "Home wallbox",
+     "quantity": 37.4,
+     "price": 0.32,
+     "amount": 11.97,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514377,
+      "lon": 13.422995
+     }
+    },
+    {
+     "kind": "income",
+     "days_ago": 516,
+     "time": "07:55",
+     "category": "Ride share",
+     "amount": 32.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 514,
+     "time": "20:05",
+     "odometer": 51048,
+     "category": "Home wallbox",
+     "quantity": 36.4,
+     "price": 0.32,
+     "amount": 11.65,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514611,
+      "lon": 13.423042
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 511,
+     "time": "21:34",
+     "odometer": 51280,
+     "category": "Home wallbox",
+     "quantity": 30.9,
+     "price": 0.32,
+     "amount": 9.89,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514618,
+      "lon": 13.423152
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 508,
+     "time": "21:55",
+     "odometer": 51391,
+     "category": "Home wallbox",
+     "quantity": 35.6,
+     "price": 0.32,
+     "amount": 11.39,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514483,
+      "lon": 13.423284
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 506,
+     "time": "21:55",
+     "odometer": 51493,
+     "category": "Home wallbox",
+     "quantity": 40.3,
+     "price": 0.32,
+     "amount": 12.9,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51453,
+      "lon": 13.42331
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 505,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 502,
+     "time": "21:05",
+     "odometer": 51666,
+     "category": "Home wallbox",
+     "quantity": 19.2,
+     "price": 0.32,
+     "amount": 6.14,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514407,
+      "lon": 13.423211
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 499,
+     "time": "19:48",
+     "odometer": 51760,
+     "category": "Home wallbox",
+     "quantity": 35.6,
+     "price": 0.32,
+     "amount": 11.39,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514534,
+      "lon": 13.423146
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 495,
+     "time": "20:41",
+     "odometer": 51896,
+     "category": "Home wallbox",
+     "quantity": 41.6,
+     "price": 0.32,
+     "amount": 13.31,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514468,
+      "lon": 13.423275
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 493,
+     "time": "19:41",
+     "odometer": 51958,
+     "category": "Home wallbox",
+     "quantity": 24.9,
+     "price": 0.32,
+     "amount": 7.97,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514634,
+      "lon": 13.423066
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 490,
+     "time": "18:12",
+     "odometer": 52083,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.522926,
+      "lon": 13.451673
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 489,
+     "time": "19:34",
+     "odometer": 52083,
+     "category": "Home wallbox",
+     "quantity": 26.2,
+     "price": 0.32,
+     "amount": 8.38,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514395,
+      "lon": 13.423331
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 486,
+     "time": "19:20",
+     "odometer": 52247,
+     "category": "Home wallbox",
+     "quantity": 38.4,
+     "price": 0.32,
+     "amount": 12.29,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514504,
+      "lon": 13.423289
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 483,
+     "time": "20:12",
+     "odometer": 52395,
+     "category": "Home wallbox",
+     "quantity": 29.9,
+     "price": 0.32,
+     "amount": 9.57,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514426,
+      "lon": 13.423151
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 480,
+     "time": "23:34",
+     "odometer": 52500,
+     "category": "Home wallbox",
+     "quantity": 18.4,
+     "price": 0.32,
+     "amount": 5.89,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514481,
+      "lon": 13.423081
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 479,
+     "time": "16:41",
+     "odometer": 52570,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 24.8,
+     "price": 0.59,
+     "amount": 14.63,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.500625,
+      "lon": 13.372425
+     }
+    },
+    {
+     "kind": "income",
+     "days_ago": 478,
+     "time": "17:41",
+     "category": "Ride share",
+     "amount": 25.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 476,
+     "time": "23:55",
+     "odometer": 52669,
+     "category": "Home wallbox",
+     "quantity": 45.8,
+     "price": 0.32,
+     "amount": 14.66,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514566,
+      "lon": 13.423414
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 475,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 473,
+     "time": "20:48",
+     "odometer": 52871,
+     "category": "Home wallbox",
+     "quantity": 22.1,
+     "price": 0.32,
+     "amount": 7.07,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514623,
+      "lon": 13.423149
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 472,
+     "time": "18:48",
+     "odometer": 52929,
+     "category": "Fast charger A10",
+     "quantity": 61.0,
+     "price": 0.45,
+     "amount": 27.45,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386144,
+      "lon": 13.520771
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 471,
+     "time": "21:20",
+     "odometer": 52967,
+     "category": "Home wallbox",
+     "quantity": 39.7,
+     "price": 0.32,
+     "amount": 12.7,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514385,
+      "lon": 13.423418
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 469,
+     "time": "20:20",
+     "odometer": 53087,
+     "category": "Home wallbox",
+     "quantity": 26.8,
+     "price": 0.32,
+     "amount": 8.58,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514462,
+      "lon": 13.423363
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 466,
+     "time": "21:12",
+     "odometer": 53292,
+     "category": "Home wallbox",
+     "quantity": 37.3,
+     "price": 0.32,
+     "amount": 11.94,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514511,
+      "lon": 13.423266
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 463,
+     "time": "14:05",
+     "odometer": 53403,
+     "category": "Fast charger A10",
+     "quantity": 59.1,
+     "price": 0.45,
+     "amount": 26.6,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385851,
+      "lon": 13.520532
+     },
+     "notes": "Weekend trip"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 463,
+     "time": "19:12",
+     "odometer": 53403,
+     "category": "Home wallbox",
+     "quantity": 34.5,
+     "price": 0.32,
+     "amount": 11.04,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514609,
+      "lon": 13.423155
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 460,
+     "time": "13:20",
+     "odometer": 53518,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523261,
+      "lon": 13.452552
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 460,
+     "time": "19:20",
+     "odometer": 53518,
+     "category": "Home wallbox",
+     "quantity": 22.1,
+     "price": 0.32,
+     "amount": 7.07,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514411,
+      "lon": 13.423186
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 458,
+     "time": "19:55",
+     "odometer": 53586,
+     "category": "Home wallbox",
+     "quantity": 31.8,
+     "price": 0.32,
+     "amount": 10.18,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51457,
+      "lon": 13.423408
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 457,
+     "time": "09:55",
+     "odometer": 53636,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.523089,
+      "lon": 13.452429
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 455,
+     "time": "21:12",
+     "odometer": 53746,
+     "category": "Home wallbox",
+     "quantity": 32.1,
+     "price": 0.32,
+     "amount": 10.27,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514481,
+      "lon": 13.42336
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 451,
+     "time": "20:12",
+     "odometer": 53874,
+     "category": "Home wallbox",
+     "quantity": 18.4,
+     "price": 0.32,
+     "amount": 5.89,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514577,
+      "lon": 13.423365
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 447,
+     "time": "20:20",
+     "odometer": 54090,
+     "category": "Home wallbox",
+     "quantity": 23.1,
+     "price": 0.32,
+     "amount": 7.39,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514456,
+      "lon": 13.423165
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 445,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "expense",
+     "days_ago": 444,
+     "time": "16:34",
+     "odometer": 54225,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.523365,
+      "lon": 13.451512
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 444,
+     "time": "22:34",
+     "odometer": 54225,
+     "category": "Home wallbox",
+     "quantity": 21.9,
+     "price": 0.32,
+     "amount": 7.01,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514563,
+      "lon": 13.423356
+     }
+    },
+    {
+     "kind": "income",
+     "days_ago": 442,
+     "time": "14:48",
+     "category": "Ride share",
+     "amount": 32.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 441,
+     "time": "21:34",
+     "odometer": 54338,
+     "category": "Home wallbox",
+     "quantity": 44.1,
+     "price": 0.32,
+     "amount": 14.11,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514477,
+      "lon": 13.423297
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 440,
+     "time": "16:48",
+     "odometer": 54390,
+     "category": "Fast charger A10",
+     "quantity": 52.3,
+     "price": 0.48,
+     "amount": 25.1,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385798,
+      "lon": 13.520522
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 439,
+     "time": "23:34",
+     "odometer": 54457,
+     "category": "Home wallbox",
+     "quantity": 45.6,
+     "price": 0.32,
+     "amount": 14.59,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514442,
+      "lon": 13.423276
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 436,
+     "time": "20:55",
+     "odometer": 54647,
+     "category": "Home wallbox",
+     "quantity": 37.1,
+     "price": 0.32,
+     "amount": 11.87,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514597,
+      "lon": 13.423146
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 433,
+     "time": "23:12",
+     "odometer": 54744,
+     "category": "Home wallbox",
+     "quantity": 19.1,
+     "price": 0.32,
+     "amount": 6.11,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514542,
+      "lon": 13.423024
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 432,
+     "time": "11:34",
+     "odometer": 54776,
+     "category": "Office parking",
+     "quantity": 16.6,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530984,
+      "lon": 13.384694
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 429,
+     "time": "09:55",
+     "odometer": 54868,
+     "category": "Office parking",
+     "quantity": 11.2,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530875,
+      "lon": 13.384433
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 429,
+     "time": "21:20",
+     "odometer": 54868,
+     "category": "Home wallbox",
+     "quantity": 25.3,
+     "price": 0.32,
+     "amount": 8.1,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514461,
+      "lon": 13.423175
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 427,
+     "time": "22:55",
+     "odometer": 54943,
+     "category": "Home wallbox",
+     "quantity": 28.2,
+     "price": 0.32,
+     "amount": 9.02,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514531,
+      "lon": 13.423079
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 425,
+     "time": "23:34",
+     "odometer": 55013,
+     "category": "Home wallbox",
+     "quantity": 21.9,
+     "price": 0.32,
+     "amount": 7.01,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514536,
+      "lon": 13.423201
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 424,
+     "time": "16:41",
+     "odometer": 55059,
+     "category": "Office parking",
+     "quantity": 8.6,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531049,
+      "lon": 13.384334
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 421,
+     "time": "23:20",
+     "odometer": 55191,
+     "category": "Home wallbox",
+     "quantity": 34.7,
+     "price": 0.32,
+     "amount": 11.1,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514527,
+      "lon": 13.423329
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 419,
+     "time": "20:48",
+     "odometer": 55291,
+     "category": "Home wallbox",
+     "quantity": 41.3,
+     "price": 0.32,
+     "amount": 13.22,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514399,
+      "lon": 13.423038
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 416,
+     "time": "21:12",
+     "odometer": 55368,
+     "category": "Home wallbox",
+     "quantity": 38.2,
+     "price": 0.32,
+     "amount": 12.22,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514496,
+      "lon": 13.423144
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 415,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 413,
+     "time": "19:12",
+     "odometer": 55525,
+     "category": "Home wallbox",
+     "quantity": 46.0,
+     "price": 0.32,
+     "amount": 14.72,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514511,
+      "lon": 13.423183
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 411,
+     "time": "09:12",
+     "odometer": 55557,
+     "category": "Fast charger A10",
+     "quantity": 43.4,
+     "price": 0.48,
+     "amount": 20.83,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386375,
+      "lon": 13.52081
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 411,
+     "time": "22:55",
+     "odometer": 55557,
+     "category": "Home wallbox",
+     "quantity": 36.8,
+     "price": 0.32,
+     "amount": 11.78,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514578,
+      "lon": 13.423285
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 408,
+     "time": "22:55",
+     "odometer": 55753,
+     "category": "Home wallbox",
+     "quantity": 31.1,
+     "price": 0.32,
+     "amount": 9.95,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514573,
+      "lon": 13.423038
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 406,
+     "time": "22:34",
+     "odometer": 55842,
+     "category": "Home wallbox",
+     "quantity": 33.0,
+     "price": 0.32,
+     "amount": 10.56,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514524,
+      "lon": 13.423417
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 404,
+     "time": "22:20",
+     "odometer": 55947,
+     "category": "Home wallbox",
+     "quantity": 22.9,
+     "price": 0.32,
+     "amount": 7.33,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514395,
+      "lon": 13.423286
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 401,
+     "time": "23:12",
+     "odometer": 56007,
+     "category": "Home wallbox",
+     "quantity": 38.6,
+     "price": 0.32,
+     "amount": 12.35,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51461,
+      "lon": 13.423376
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 398,
+     "time": "21:12",
+     "odometer": 56157,
+     "category": "Home wallbox",
+     "quantity": 18.3,
+     "price": 0.32,
+     "amount": 5.86,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514564,
+      "lon": 13.423027
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 395,
+     "time": "22:05",
+     "odometer": 56309,
+     "category": "Home wallbox",
+     "quantity": 26.0,
+     "price": 0.32,
+     "amount": 8.32,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514375,
+      "lon": 13.423013
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 392,
+     "time": "21:05",
+     "odometer": 56475,
+     "category": "Home wallbox",
+     "quantity": 32.5,
+     "price": 0.32,
+     "amount": 10.4,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514501,
+      "lon": 13.423348
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 389,
+     "time": "20:20",
+     "odometer": 56543,
+     "category": "Home wallbox",
+     "quantity": 37.9,
+     "price": 0.32,
+     "amount": 12.13,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514618,
+      "lon": 13.423286
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 386,
+     "time": "23:41",
+     "odometer": 56704,
+     "category": "Home wallbox",
+     "quantity": 43.7,
+     "price": 0.32,
+     "amount": 13.98,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514391,
+      "lon": 13.42319
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 385,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 383,
+     "time": "22:05",
+     "odometer": 56883,
+     "category": "Home wallbox",
+     "quantity": 22.9,
+     "price": 0.32,
+     "amount": 7.33,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51459,
+      "lon": 13.423213
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 380,
+     "time": "19:41",
+     "odometer": 57043,
+     "category": "Home wallbox",
+     "quantity": 41.6,
+     "price": 0.32,
+     "amount": 13.31,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514485,
+      "lon": 13.423046
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 379,
+     "time": "13:12",
+     "odometer": 57069,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 16.1,
+     "price": 0.59,
+     "amount": 9.5,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.500367,
+      "lon": 13.372718
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 378,
+     "time": "19:34",
+     "odometer": 57116,
+     "category": "Home wallbox",
+     "quantity": 41.7,
+     "price": 0.32,
+     "amount": 13.34,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51461,
+      "lon": 13.422988
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 377,
+     "time": "15:12",
+     "odometer": 57162,
+     "category": "Fast charger A10",
+     "quantity": 41.8,
+     "price": 0.52,
+     "amount": 21.74,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385956,
+      "lon": 13.520267
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "expense",
+     "days_ago": 377,
+     "time": "16:48",
+     "odometer": 57162,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523292,
+      "lon": 13.451877
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 375,
+     "time": "23:05",
+     "odometer": 57198,
+     "category": "Home wallbox",
+     "quantity": 36.1,
+     "price": 0.32,
+     "amount": 11.55,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514585,
+      "lon": 13.423098
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 374,
+     "time": "18:48",
+     "odometer": 57248,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.523185,
+      "lon": 13.452047
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 373,
+     "time": "22:20",
+     "odometer": 57307,
+     "category": "Home wallbox",
+     "quantity": 37.0,
+     "price": 0.32,
+     "amount": 11.84,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514466,
+      "lon": 13.423064
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 369,
+     "time": "17:05",
+     "odometer": 57533,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.522897,
+      "lon": 13.451542
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 369,
+     "time": "19:48",
+     "odometer": 57533,
+     "category": "Home wallbox",
+     "quantity": 32.2,
+     "price": 0.32,
+     "amount": 10.3,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514477,
+      "lon": 13.423094
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 366,
+     "time": "20:20",
+     "odometer": 57636,
+     "category": "Home wallbox",
+     "quantity": 41.4,
+     "price": 0.32,
+     "amount": 13.25,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514606,
+      "lon": 13.423318
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 363,
+     "time": "21:55",
+     "odometer": 57751,
+     "category": "Home wallbox",
+     "quantity": 41.5,
+     "price": 0.32,
+     "amount": 13.28,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514487,
+      "lon": 13.423013
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 360,
+     "time": "19:48",
+     "odometer": 57857,
+     "category": "Home wallbox",
+     "quantity": 26.6,
+     "price": 0.32,
+     "amount": 8.51,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514395,
+      "lon": 13.423153
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 358,
+     "time": "10:05",
+     "odometer": 57942,
+     "category": "Fast charger A10",
+     "quantity": 48.3,
+     "price": 0.52,
+     "amount": 25.12,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385777,
+      "lon": 13.520476
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "expense",
+     "days_ago": 358,
+     "time": "14:20",
+     "odometer": 57942,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523366,
+      "lon": 13.451691
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 358,
+     "time": "19:48",
+     "odometer": 57942,
+     "category": "Home wallbox",
+     "quantity": 29.2,
+     "price": 0.32,
+     "amount": 9.34,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51454,
+      "lon": 13.423212
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 355,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 355,
+     "time": "19:20",
+     "odometer": 58059,
+     "category": "Home wallbox",
+     "quantity": 23.0,
+     "price": 0.32,
+     "amount": 7.36,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514439,
+      "lon": 13.423301
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 352,
+     "time": "20:48",
+     "odometer": 58238,
+     "category": "Home wallbox",
+     "quantity": 28.2,
+     "price": 0.32,
+     "amount": 9.02,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514555,
+      "lon": 13.423069
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 351,
+     "time": "12:41",
+     "odometer": 58248,
+     "category": "Office parking",
+     "quantity": 21.1,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.53094,
+      "lon": 13.384403
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 349,
+     "time": "21:55",
+     "odometer": 58293,
+     "category": "Home wallbox",
+     "quantity": 21.8,
+     "price": 0.32,
+     "amount": 6.98,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514389,
+      "lon": 13.422982
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 346,
+     "time": "19:20",
+     "odometer": 58433,
+     "category": "Home wallbox",
+     "quantity": 37.3,
+     "price": 0.32,
+     "amount": 11.94,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514606,
+      "lon": 13.423112
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 345,
+     "time": "10:30",
+     "odometer": 58487,
+     "category": "Tyre change",
+     "amount": 60.0,
+     "location": {
+      "lat": 52.474842,
+      "lon": 13.441156
+     },
+     "notes": "Summer"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 343,
+     "time": "22:20",
+     "odometer": 58552,
+     "category": "Home wallbox",
+     "quantity": 26.5,
+     "price": 0.32,
+     "amount": 8.48,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514367,
+      "lon": 13.423144
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 342,
+     "time": "13:34",
+     "odometer": 58598,
+     "category": "Fast charger A10",
+     "quantity": 38.3,
+     "price": 0.45,
+     "amount": 17.23,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386207,
+      "lon": 13.520662
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 341,
+     "time": "21:48",
+     "odometer": 58628,
+     "category": "Home wallbox",
+     "quantity": 26.9,
+     "price": 0.32,
+     "amount": 8.61,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514518,
+      "lon": 13.423386
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 339,
+     "time": "13:12",
+     "odometer": 58717,
+     "category": "Office parking",
+     "quantity": 19.3,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531117,
+      "lon": 13.384673
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 338,
+     "time": "20:41",
+     "odometer": 58718,
+     "category": "Home wallbox",
+     "quantity": 21.0,
+     "price": 0.32,
+     "amount": 6.72,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51441,
+      "lon": 13.42341
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 336,
+     "time": "22:41",
+     "odometer": 58857,
+     "category": "Home wallbox",
+     "quantity": 30.6,
+     "price": 0.32,
+     "amount": 9.79,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514397,
+      "lon": 13.423304
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 335,
+     "time": "08:00",
+     "category": "Insurance",
+     "amount": 781.6,
+     "notes": "Comprehensive, yearly"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 335,
+     "time": "15:55",
+     "odometer": 58918,
+     "category": "Office parking",
+     "quantity": 11.1,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531126,
+      "lon": 13.384607
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 334,
+     "time": "19:41",
+     "odometer": 58991,
+     "category": "Home wallbox",
+     "quantity": 41.6,
+     "price": 0.32,
+     "amount": 13.31,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51446,
+      "lon": 13.423108
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 331,
+     "time": "20:12",
+     "odometer": 59132,
+     "category": "Home wallbox",
+     "quantity": 21.2,
+     "price": 0.32,
+     "amount": 6.78,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514484,
+      "lon": 13.423241
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 328,
+     "time": "19:12",
+     "odometer": 59203,
+     "category": "Home wallbox",
+     "quantity": 38.9,
+     "price": 0.32,
+     "amount": 12.45,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514378,
+      "lon": 13.423322
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 326,
+     "time": "16:34",
+     "odometer": 59343,
+     "category": "Office parking",
+     "quantity": 12.9,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.53103,
+      "lon": 13.38488
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "expense",
+     "days_ago": 325,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 325,
+     "time": "22:41",
+     "odometer": 59370,
+     "category": "Home wallbox",
+     "quantity": 19.2,
+     "price": 0.32,
+     "amount": 6.14,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514449,
+      "lon": 13.42322
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 322,
+     "time": "19:41",
+     "odometer": 59530,
+     "category": "Home wallbox",
+     "quantity": 34.4,
+     "price": 0.32,
+     "amount": 11.01,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514556,
+      "lon": 13.423409
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 319,
+     "time": "21:20",
+     "odometer": 59639,
+     "category": "Home wallbox",
+     "quantity": 41.8,
+     "price": 0.32,
+     "amount": 13.38,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514551,
+      "lon": 13.423091
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 315,
+     "time": "19:12",
+     "odometer": 59819,
+     "category": "Home wallbox",
+     "quantity": 43.4,
+     "price": 0.32,
+     "amount": 13.89,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514549,
+      "lon": 13.423114
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 312,
+     "time": "21:55",
+     "odometer": 59992,
+     "category": "Home wallbox",
+     "quantity": 20.8,
+     "price": 0.32,
+     "amount": 6.66,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514475,
+      "lon": 13.423346
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 309,
+     "time": "23:34",
+     "odometer": 60169,
+     "category": "Home wallbox",
+     "quantity": 27.0,
+     "price": 0.32,
+     "amount": 8.64,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514567,
+      "lon": 13.423145
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 307,
+     "time": "22:20",
+     "odometer": 60251,
+     "category": "Home wallbox",
+     "quantity": 30.8,
+     "price": 0.32,
+     "amount": 9.86,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514556,
+      "lon": 13.423102
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 305,
+     "time": "17:05",
+     "odometer": 60336,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523436,
+      "lon": 13.451734
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 305,
+     "time": "21:55",
+     "odometer": 60336,
+     "category": "Home wallbox",
+     "quantity": 44.3,
+     "price": 0.32,
+     "amount": 14.18,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514558,
+      "lon": 13.423394
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 303,
+     "time": "09:12",
+     "odometer": 60397,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 23.1,
+     "price": 0.59,
+     "amount": 13.63,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.50025,
+      "lon": 13.372695
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 303,
+     "time": "17:55",
+     "odometer": 60397,
+     "category": "Fast charger A10",
+     "quantity": 50.4,
+     "price": 0.48,
+     "amount": 24.19,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.38624,
+      "lon": 13.520169
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 302,
+     "time": "22:12",
+     "odometer": 60477,
+     "category": "Home wallbox",
+     "quantity": 43.6,
+     "price": 0.32,
+     "amount": 13.95,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514624,
+      "lon": 13.422989
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 300,
+     "time": "16:40",
+     "odometer": 60605,
+     "category": "Wipers",
+     "amount": 29.9,
+     "notes": "Front pair"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 299,
+     "time": "23:12",
+     "odometer": 60705,
+     "category": "Home wallbox",
+     "quantity": 22.5,
+     "price": 0.32,
+     "amount": 7.2,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514373,
+      "lon": 13.422992
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 296,
+     "time": "22:55",
+     "odometer": 60914,
+     "category": "Home wallbox",
+     "quantity": 35.3,
+     "price": 0.32,
+     "amount": 11.3,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514575,
+      "lon": 13.423203
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 295,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 293,
+     "time": "22:48",
+     "odometer": 61052,
+     "category": "Home wallbox",
+     "quantity": 22.9,
+     "price": 0.32,
+     "amount": 7.33,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514508,
+      "lon": 13.423201
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 290,
+     "time": "20:48",
+     "odometer": 61189,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 19.9,
+     "price": 0.59,
+     "amount": 11.74,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.500074,
+      "lon": 13.372357
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 290,
+     "time": "22:41",
+     "odometer": 61189,
+     "category": "Home wallbox",
+     "quantity": 32.9,
+     "price": 0.32,
+     "amount": 10.53,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514509,
+      "lon": 13.423123
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 289,
+     "time": "13:34",
+     "odometer": 61268,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523554,
+      "lon": 13.452467
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 287,
+     "time": "12:20",
+     "odometer": 61339,
+     "category": "Fast charger A10",
+     "quantity": 45.9,
+     "price": 0.52,
+     "amount": 23.87,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385958,
+      "lon": 13.520916
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 287,
+     "time": "21:20",
+     "odometer": 61339,
+     "category": "Home wallbox",
+     "quantity": 37.9,
+     "price": 0.32,
+     "amount": 12.13,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514564,
+      "lon": 13.423355
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 284,
+     "time": "21:34",
+     "odometer": 61466,
+     "category": "Home wallbox",
+     "quantity": 33.1,
+     "price": 0.32,
+     "amount": 10.59,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51437,
+      "lon": 13.423318
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 281,
+     "time": "22:05",
+     "odometer": 61559,
+     "category": "Home wallbox",
+     "quantity": 37.5,
+     "price": 0.32,
+     "amount": 12.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514411,
+      "lon": 13.423405
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 280,
+     "time": "14:48",
+     "odometer": 61587,
+     "category": "Office parking",
+     "quantity": 19.3,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.53089,
+      "lon": 13.38479
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 278,
+     "time": "19:55",
+     "odometer": 61679,
+     "category": "Home wallbox",
+     "quantity": 30.5,
+     "price": 0.32,
+     "amount": 9.76,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514417,
+      "lon": 13.42306
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 277,
+     "time": "09:41",
+     "odometer": 61729,
+     "category": "Office parking",
+     "quantity": 13.7,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530979,
+      "lon": 13.384585
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "income",
+     "days_ago": 275,
+     "time": "10:00",
+     "category": "GHG quota",
+     "amount": 310.0,
+     "notes": "Yearly greenhouse gas quota"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 275,
+     "time": "23:41",
+     "odometer": 61806,
+     "category": "Home wallbox",
+     "quantity": 26.2,
+     "price": 0.32,
+     "amount": 8.38,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514571,
+      "lon": 13.423061
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 273,
+     "time": "21:41",
+     "odometer": 61810,
+     "category": "Home wallbox",
+     "quantity": 27.9,
+     "price": 0.32,
+     "amount": 8.93,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514523,
+      "lon": 13.42337
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 271,
+     "time": "23:05",
+     "odometer": 61898,
+     "category": "Home wallbox",
+     "quantity": 41.9,
+     "price": 0.32,
+     "amount": 13.41,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514389,
+      "lon": 13.42299
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 268,
+     "time": "22:34",
+     "odometer": 61982,
+     "category": "Home wallbox",
+     "quantity": 39.9,
+     "price": 0.32,
+     "amount": 12.77,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514556,
+      "lon": 13.423089
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 265,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 265,
+     "time": "21:34",
+     "odometer": 62150,
+     "category": "Home wallbox",
+     "quantity": 18.8,
+     "price": 0.32,
+     "amount": 6.02,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514479,
+      "lon": 13.423334
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 262,
+     "time": "23:48",
+     "odometer": 62298,
+     "category": "Home wallbox",
+     "quantity": 26.4,
+     "price": 0.32,
+     "amount": 8.45,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514534,
+      "lon": 13.423072
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 260,
+     "time": "20:12",
+     "odometer": 62373,
+     "category": "Home wallbox",
+     "quantity": 39.0,
+     "price": 0.32,
+     "amount": 12.48,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514385,
+      "lon": 13.423145
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 258,
+     "time": "20:41",
+     "odometer": 62485,
+     "category": "Home wallbox",
+     "quantity": 31.6,
+     "price": 0.32,
+     "amount": 10.11,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514613,
+      "lon": 13.423183
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 255,
+     "time": "09:41",
+     "odometer": 62666,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.522891,
+      "lon": 13.451808
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 255,
+     "time": "19:41",
+     "odometer": 62666,
+     "category": "Home wallbox",
+     "quantity": 37.3,
+     "price": 0.32,
+     "amount": 11.94,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514487,
+      "lon": 13.423079
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 252,
+     "time": "20:48",
+     "odometer": 62797,
+     "category": "Home wallbox",
+     "quantity": 22.9,
+     "price": 0.32,
+     "amount": 7.33,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514499,
+      "lon": 13.423026
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 250,
+     "time": "19:48",
+     "odometer": 62924,
+     "category": "Home wallbox",
+     "quantity": 39.1,
+     "price": 0.32,
+     "amount": 12.51,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514517,
+      "lon": 13.423155
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 249,
+     "time": "14:55",
+     "odometer": 62924,
+     "category": "Fast charger A10",
+     "quantity": 41.1,
+     "price": 0.48,
+     "amount": 19.73,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386155,
+      "lon": 13.521023
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 247,
+     "time": "21:34",
+     "odometer": 62982,
+     "category": "Home wallbox",
+     "quantity": 28.5,
+     "price": 0.32,
+     "amount": 9.12,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514468,
+      "lon": 13.423229
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 245,
+     "time": "09:00",
+     "odometer": 63101,
+     "category": "Inspection",
+     "amount": 179.0,
+     "location": {
+      "lat": 52.475357,
+      "lon": 13.440445
+     }
+    },
+    {
+     "kind": "income",
+     "days_ago": 243,
+     "time": "08:34",
+     "category": "Ride share",
+     "amount": 40.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 243,
+     "time": "21:55",
+     "odometer": 63215,
+     "category": "Home wallbox",
+     "quantity": 45.3,
+     "price": 0.32,
+     "amount": 14.5,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514538,
+      "lon": 13.423179
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 240,
+     "time": "12:15",
+     "odometer": 63373,
+     "category": "Cabin filter",
+     "amount": 42.9
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 240,
+     "time": "21:20",
+     "odometer": 63373,
+     "category": "Home wallbox",
+     "quantity": 32.0,
+     "price": 0.32,
+     "amount": 10.24,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514593,
+      "lon": 13.423353
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 239,
+     "time": "11:34",
+     "odometer": 63373,
+     "category": "Fast charger A10",
+     "quantity": 42.5,
+     "price": 0.52,
+     "amount": 22.1,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386431,
+      "lon": 13.520166
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 237,
+     "time": "21:34",
+     "odometer": 63486,
+     "category": "Home wallbox",
+     "quantity": 45.3,
+     "price": 0.32,
+     "amount": 14.5,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514396,
+      "lon": 13.423055
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 235,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 235,
+     "time": "12:05",
+     "odometer": 63610,
+     "category": "Office parking",
+     "quantity": 8.4,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531082,
+      "lon": 13.384462
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 234,
+     "time": "19:41",
+     "odometer": 63678,
+     "category": "Home wallbox",
+     "quantity": 40.9,
+     "price": 0.32,
+     "amount": 13.09,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514455,
+      "lon": 13.423098
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 231,
+     "time": "20:48",
+     "odometer": 63818,
+     "category": "Home wallbox",
+     "quantity": 41.8,
+     "price": 0.32,
+     "amount": 13.38,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514396,
+      "lon": 13.423151
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 230,
+     "time": "15:55",
+     "odometer": 63894,
+     "category": "Office parking",
+     "quantity": 9.3,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530947,
+      "lon": 13.384385
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 228,
+     "time": "20:20",
+     "odometer": 63991,
+     "category": "Home wallbox",
+     "quantity": 44.2,
+     "price": 0.32,
+     "amount": 14.14,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514451,
+      "lon": 13.42324
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 227,
+     "time": "13:05",
+     "odometer": 64084,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.522874,
+      "lon": 13.452493
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 224,
+     "time": "17:55",
+     "odometer": 64186,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 26.6,
+     "price": 0.59,
+     "amount": 15.69,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.500541,
+      "lon": 13.372871
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 224,
+     "time": "23:34",
+     "odometer": 64186,
+     "category": "Home wallbox",
+     "quantity": 19.7,
+     "price": 0.32,
+     "amount": 6.3,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514608,
+      "lon": 13.423358
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 220,
+     "time": "21:55",
+     "odometer": 64331,
+     "category": "Home wallbox",
+     "quantity": 27.0,
+     "price": 0.32,
+     "amount": 8.64,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514559,
+      "lon": 13.423272
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 218,
+     "time": "22:20",
+     "odometer": 64449,
+     "category": "Home wallbox",
+     "quantity": 18.1,
+     "price": 0.32,
+     "amount": 5.79,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514392,
+      "lon": 13.423197
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 215,
+     "time": "20:20",
+     "odometer": 64600,
+     "category": "Home wallbox",
+     "quantity": 36.6,
+     "price": 0.32,
+     "amount": 11.71,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514441,
+      "lon": 13.42298
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 213,
+     "time": "12:05",
+     "odometer": 64755,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523047,
+      "lon": 13.451875
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 211,
+     "time": "23:12",
+     "odometer": 64891,
+     "category": "Home wallbox",
+     "quantity": 18.0,
+     "price": 0.32,
+     "amount": 5.76,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514582,
+      "lon": 13.423078
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 207,
+     "time": "10:05",
+     "odometer": 65077,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.52287,
+      "lon": 13.452579
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 207,
+     "time": "22:20",
+     "odometer": 65077,
+     "category": "Home wallbox",
+     "quantity": 29.4,
+     "price": 0.32,
+     "amount": 9.41,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514557,
+      "lon": 13.423287
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 205,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "expense",
+     "days_ago": 205,
+     "time": "10:05",
+     "odometer": 65175,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.523505,
+      "lon": 13.452432
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 204,
+     "time": "18:48",
+     "odometer": 65235,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523477,
+      "lon": 13.452061
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 204,
+     "time": "23:41",
+     "odometer": 65235,
+     "category": "Home wallbox",
+     "quantity": 18.4,
+     "price": 0.32,
+     "amount": 5.89,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514618,
+      "lon": 13.42312
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 201,
+     "time": "21:12",
+     "odometer": 65317,
+     "category": "Home wallbox",
+     "quantity": 19.6,
+     "price": 0.32,
+     "amount": 6.27,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514381,
+      "lon": 13.423386
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 198,
+     "time": "10:05",
+     "odometer": 65525,
+     "category": "Fast charger A10",
+     "quantity": 42.1,
+     "price": 0.48,
+     "amount": 20.21,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.38613,
+      "lon": 13.520812
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 198,
+     "time": "21:55",
+     "odometer": 65525,
+     "category": "Home wallbox",
+     "quantity": 35.3,
+     "price": 0.32,
+     "amount": 11.3,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514379,
+      "lon": 13.423236
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 194,
+     "time": "20:20",
+     "odometer": 65688,
+     "category": "Home wallbox",
+     "quantity": 45.2,
+     "price": 0.32,
+     "amount": 14.46,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514525,
+      "lon": 13.422999
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 191,
+     "time": "20:20",
+     "odometer": 65878,
+     "category": "Home wallbox",
+     "quantity": 37.7,
+     "price": 0.32,
+     "amount": 12.06,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514467,
+      "lon": 13.423156
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 190,
+     "time": "10:41",
+     "odometer": 65878,
+     "category": "Fast charger A10",
+     "quantity": 40.2,
+     "price": 0.48,
+     "amount": 19.3,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385931,
+      "lon": 13.52013
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 188,
+     "time": "20:48",
+     "odometer": 66000,
+     "category": "Home wallbox",
+     "quantity": 33.5,
+     "price": 0.32,
+     "amount": 10.72,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514576,
+      "lon": 13.423142
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 186,
+     "time": "10:12",
+     "odometer": 66126,
+     "category": "Office parking",
+     "quantity": 16.2,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530859,
+      "lon": 13.3846
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "expense",
+     "days_ago": 186,
+     "time": "17:05",
+     "odometer": 66126,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523209,
+      "lon": 13.452014
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 185,
+     "time": "21:20",
+     "odometer": 66212,
+     "category": "Home wallbox",
+     "quantity": 24.0,
+     "price": 0.32,
+     "amount": 7.68,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514581,
+      "lon": 13.422981
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 182,
+     "time": "20:20",
+     "odometer": 66354,
+     "category": "Home wallbox",
+     "quantity": 45.1,
+     "price": 0.32,
+     "amount": 14.43,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514578,
+      "lon": 13.423167
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 178,
+     "time": "12:12",
+     "odometer": 66538,
+     "category": "Office parking",
+     "quantity": 19.7,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.53086,
+      "lon": 13.384463
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 178,
+     "time": "21:20",
+     "odometer": 66538,
+     "category": "Home wallbox",
+     "quantity": 32.4,
+     "price": 0.32,
+     "amount": 10.37,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514559,
+      "lon": 13.423142
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 176,
+     "time": "22:55",
+     "odometer": 66718,
+     "category": "Home wallbox",
+     "quantity": 24.6,
+     "price": 0.32,
+     "amount": 7.87,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514517,
+      "lon": 13.423341
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 175,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 173,
+     "time": "23:12",
+     "odometer": 66879,
+     "category": "Home wallbox",
+     "quantity": 39.5,
+     "price": 0.32,
+     "amount": 12.64,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514463,
+      "lon": 13.423378
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 170,
+     "time": "23:34",
+     "odometer": 67065,
+     "category": "Home wallbox",
+     "quantity": 27.1,
+     "price": 0.32,
+     "amount": 8.67,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514595,
+      "lon": 13.423044
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 168,
+     "time": "21:12",
+     "odometer": 67228,
+     "category": "Home wallbox",
+     "quantity": 43.8,
+     "price": 0.32,
+     "amount": 14.02,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514489,
+      "lon": 13.423154
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 165,
+     "time": "10:30",
+     "odometer": 67302,
+     "category": "Tyre change",
+     "amount": 60.0,
+     "location": {
+      "lat": 52.475413,
+      "lon": 13.440937
+     },
+     "notes": "Winter"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 165,
+     "time": "21:48",
+     "odometer": 67302,
+     "category": "Home wallbox",
+     "quantity": 21.3,
+     "price": 0.32,
+     "amount": 6.82,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514522,
+      "lon": 13.423104
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 162,
+     "time": "18:41",
+     "odometer": 67458,
+     "category": "Fast charger A10",
+     "quantity": 54.3,
+     "price": 0.52,
+     "amount": 28.24,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385834,
+      "lon": 13.521096
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 162,
+     "time": "20:48",
+     "odometer": 67458,
+     "category": "Home wallbox",
+     "quantity": 21.4,
+     "price": 0.32,
+     "amount": 6.85,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514399,
+      "lon": 13.423351
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 159,
+     "time": "20:12",
+     "odometer": 67746,
+     "category": "Home wallbox",
+     "quantity": 36.1,
+     "price": 0.32,
+     "amount": 11.55,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514368,
+      "lon": 13.423322
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 156,
+     "time": "23:20",
+     "odometer": 67947,
+     "category": "Home wallbox",
+     "quantity": 37.5,
+     "price": 0.32,
+     "amount": 12.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514516,
+      "lon": 13.422989
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 152,
+     "time": "18:20",
+     "odometer": 68024,
+     "category": "Fast charger A10",
+     "quantity": 41.6,
+     "price": 0.48,
+     "amount": 19.97,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386107,
+      "lon": 13.520266
+     },
+     "notes": "Weekend trip"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 152,
+     "time": "20:12",
+     "odometer": 68024,
+     "category": "Home wallbox",
+     "quantity": 35.9,
+     "price": 0.32,
+     "amount": 11.49,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514575,
+      "lon": 13.423404
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 150,
+     "time": "20:55",
+     "odometer": 68114,
+     "category": "Home wallbox",
+     "quantity": 40.1,
+     "price": 0.32,
+     "amount": 12.83,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514402,
+      "lon": 13.42321
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 147,
+     "time": "20:48",
+     "odometer": 68239,
+     "category": "Home wallbox",
+     "quantity": 41.1,
+     "price": 0.32,
+     "amount": 13.15,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514594,
+      "lon": 13.42329
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 145,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 143,
+     "time": "21:12",
+     "odometer": 68466,
+     "category": "Home wallbox",
+     "quantity": 25.9,
+     "price": 0.32,
+     "amount": 8.29,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514377,
+      "lon": 13.423087
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 141,
+     "time": "11:48",
+     "odometer": 68512,
+     "category": "Fast charger A10",
+     "quantity": 55.3,
+     "price": 0.45,
+     "amount": 24.88,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.385796,
+      "lon": 13.520919
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 139,
+     "time": "20:41",
+     "odometer": 68612,
+     "category": "Home wallbox",
+     "quantity": 41.7,
+     "price": 0.32,
+     "amount": 13.34,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514593,
+      "lon": 13.423393
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 135,
+     "time": "22:05",
+     "odometer": 68795,
+     "category": "Home wallbox",
+     "quantity": 45.0,
+     "price": 0.32,
+     "amount": 14.4,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514544,
+      "lon": 13.423205
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 131,
+     "time": "22:34",
+     "odometer": 68889,
+     "category": "Home wallbox",
+     "quantity": 28.5,
+     "price": 0.32,
+     "amount": 9.12,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514375,
+      "lon": 13.423401
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 128,
+     "time": "22:12",
+     "odometer": 69023,
+     "category": "Home wallbox",
+     "quantity": 39.8,
+     "price": 0.32,
+     "amount": 12.74,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514526,
+      "lon": 13.423051
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 125,
+     "time": "20:34",
+     "odometer": 69139,
+     "category": "Home wallbox",
+     "quantity": 44.5,
+     "price": 0.32,
+     "amount": 14.24,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514368,
+      "lon": 13.423356
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 124,
+     "time": "12:48",
+     "odometer": 69162,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.522911,
+      "lon": 13.452038
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 121,
+     "time": "23:41",
+     "odometer": 69320,
+     "category": "Home wallbox",
+     "quantity": 41.2,
+     "price": 0.32,
+     "amount": 13.18,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514371,
+      "lon": 13.423348
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 120,
+     "time": "13:55",
+     "odometer": 69367,
+     "category": "Car wash",
+     "amount": 15.0,
+     "location": {
+      "lat": 52.52299,
+      "lon": 13.451984
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 118,
+     "time": "09:34",
+     "odometer": 69474,
+     "category": "Fast charger A10",
+     "quantity": 59.8,
+     "price": 0.45,
+     "amount": 26.91,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386348,
+      "lon": 13.521076
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 118,
+     "time": "19:55",
+     "odometer": 69474,
+     "category": "Home wallbox",
+     "quantity": 26.9,
+     "price": 0.32,
+     "amount": 8.61,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514592,
+      "lon": 13.42331
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 116,
+     "time": "16:48",
+     "odometer": 69528,
+     "category": "Fast charger A10",
+     "quantity": 41.0,
+     "price": 0.45,
+     "amount": 18.45,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.38614,
+      "lon": 13.520653
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "expense",
+     "days_ago": 115,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 115,
+     "time": "23:48",
+     "odometer": 69586,
+     "category": "Home wallbox",
+     "quantity": 19.8,
+     "price": 0.32,
+     "amount": 6.34,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514508,
+      "lon": 13.423181
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 111,
+     "time": "20:34",
+     "odometer": 69802,
+     "category": "Home wallbox",
+     "quantity": 26.9,
+     "price": 0.32,
+     "amount": 8.61,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514565,
+      "lon": 13.423233
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 108,
+     "time": "15:20",
+     "odometer": 69950,
+     "category": "Office parking",
+     "quantity": 20.1,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530945,
+      "lon": 13.384634
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 108,
+     "time": "21:41",
+     "odometer": 69950,
+     "category": "Home wallbox",
+     "quantity": 42.6,
+     "price": 0.32,
+     "amount": 13.63,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514516,
+      "lon": 13.423103
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 106,
+     "time": "22:12",
+     "odometer": 70128,
+     "category": "Home wallbox",
+     "quantity": 21.4,
+     "price": 0.32,
+     "amount": 6.85,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514631,
+      "lon": 13.423365
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 103,
+     "time": "20:55",
+     "odometer": 70223,
+     "category": "Home wallbox",
+     "quantity": 31.5,
+     "price": 0.32,
+     "amount": 10.08,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514582,
+      "lon": 13.423073
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 100,
+     "time": "21:34",
+     "odometer": 70459,
+     "category": "Home wallbox",
+     "quantity": 39.5,
+     "price": 0.32,
+     "amount": 12.64,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514416,
+      "lon": 13.423374
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 98,
+     "time": "14:55",
+     "odometer": 70558,
+     "category": "Office parking",
+     "quantity": 8.7,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.53093,
+      "lon": 13.384735
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 98,
+     "time": "19:20",
+     "odometer": 70558,
+     "category": "Home wallbox",
+     "quantity": 45.8,
+     "price": 0.32,
+     "amount": 14.66,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514459,
+      "lon": 13.42302
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 96,
+     "time": "11:41",
+     "odometer": 70602,
+     "category": "Office parking",
+     "quantity": 8.6,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531017,
+      "lon": 13.384392
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 95,
+     "time": "19:12",
+     "odometer": 70622,
+     "category": "Home wallbox",
+     "quantity": 32.0,
+     "price": 0.32,
+     "amount": 10.24,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514407,
+      "lon": 13.423343
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 91,
+     "time": "20:55",
+     "odometer": 70883,
+     "category": "Home wallbox",
+     "quantity": 43.3,
+     "price": 0.32,
+     "amount": 13.86,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514433,
+      "lon": 13.423234
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 88,
+     "time": "22:12",
+     "odometer": 71087,
+     "category": "Home wallbox",
+     "quantity": 35.9,
+     "price": 0.32,
+     "amount": 11.49,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514501,
+      "lon": 13.423253
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 85,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 85,
+     "time": "20:34",
+     "odometer": 71196,
+     "category": "Home wallbox",
+     "quantity": 28.6,
+     "price": 0.32,
+     "amount": 9.15,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514599,
+      "lon": 13.423075
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 82,
+     "time": "19:20",
+     "odometer": 71255,
+     "category": "Home wallbox",
+     "quantity": 23.6,
+     "price": 0.32,
+     "amount": 7.55,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514562,
+      "lon": 13.423038
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 78,
+     "time": "20:41",
+     "odometer": 71446,
+     "category": "Home wallbox",
+     "quantity": 41.6,
+     "price": 0.32,
+     "amount": 13.31,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514492,
+      "lon": 13.423042
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 77,
+     "time": "11:34",
+     "odometer": 71494,
+     "category": "Fast charger A10",
+     "quantity": 59.7,
+     "price": 0.52,
+     "amount": 31.04,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386154,
+      "lon": 13.521122
+     },
+     "notes": "Weekend trip"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 76,
+     "time": "10:05",
+     "odometer": 71553,
+     "category": "Office parking",
+     "quantity": 21.9,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530845,
+      "lon": 13.384747
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 74,
+     "time": "19:05",
+     "odometer": 71699,
+     "category": "Home wallbox",
+     "quantity": 27.3,
+     "price": 0.32,
+     "amount": 8.74,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514461,
+      "lon": 13.42336
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 71,
+     "time": "22:05",
+     "odometer": 71791,
+     "category": "Home wallbox",
+     "quantity": 35.6,
+     "price": 0.32,
+     "amount": 11.39,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514614,
+      "lon": 13.423237
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 68,
+     "time": "23:48",
+     "odometer": 71891,
+     "category": "Home wallbox",
+     "quantity": 38.8,
+     "price": 0.32,
+     "amount": 12.42,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.5144,
+      "lon": 13.423328
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 64,
+     "time": "20:41",
+     "odometer": 72034,
+     "category": "Home wallbox",
+     "quantity": 38.0,
+     "price": 0.32,
+     "amount": 12.16,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514406,
+      "lon": 13.42317
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 61,
+     "time": "20:20",
+     "odometer": 72225,
+     "category": "Home wallbox",
+     "quantity": 23.1,
+     "price": 0.32,
+     "amount": 7.39,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514619,
+      "lon": 13.42318
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 59,
+     "time": "12:48",
+     "odometer": 72225,
+     "category": "Office parking",
+     "quantity": 11.5,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531068,
+      "lon": 13.38476
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 59,
+     "time": "20:20",
+     "odometer": 72225,
+     "category": "Home wallbox",
+     "quantity": 45.5,
+     "price": 0.32,
+     "amount": 14.56,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514496,
+      "lon": 13.423108
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 56,
+     "time": "20:12",
+     "odometer": 72433,
+     "category": "Home wallbox",
+     "quantity": 44.5,
+     "price": 0.32,
+     "amount": 14.24,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.51459,
+      "lon": 13.42335
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 55,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 54,
+     "time": "22:20",
+     "odometer": 72561,
+     "category": "Home wallbox",
+     "quantity": 30.3,
+     "price": 0.32,
+     "amount": 9.7,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514427,
+      "lon": 13.423288
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 51,
+     "time": "20:41",
+     "odometer": 72722,
+     "category": "Home wallbox",
+     "quantity": 33.8,
+     "price": 0.32,
+     "amount": 10.82,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514453,
+      "lon": 13.42301
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 50,
+     "time": "18:20",
+     "odometer": 72795,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523187,
+      "lon": 13.451857
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 48,
+     "time": "12:20",
+     "odometer": 72933,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.522961,
+      "lon": 13.451572
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 48,
+     "time": "20:48",
+     "odometer": 72933,
+     "category": "Home wallbox",
+     "quantity": 43.8,
+     "price": 0.32,
+     "amount": 14.02,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514618,
+      "lon": 13.423285
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 45,
+     "time": "22:05",
+     "odometer": 73074,
+     "category": "Home wallbox",
+     "quantity": 27.5,
+     "price": 0.32,
+     "amount": 8.8,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514374,
+      "lon": 13.423148
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 43,
+     "time": "21:05",
+     "odometer": 73207,
+     "category": "Home wallbox",
+     "quantity": 43.7,
+     "price": 0.32,
+     "amount": 13.98,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514619,
+      "lon": 13.422982
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 40,
+     "time": "22:34",
+     "odometer": 73386,
+     "category": "Home wallbox",
+     "quantity": 45.7,
+     "price": 0.32,
+     "amount": 14.62,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514367,
+      "lon": 13.423255
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 37,
+     "time": "23:12",
+     "odometer": 73570,
+     "category": "Home wallbox",
+     "quantity": 39.9,
+     "price": 0.32,
+     "amount": 12.77,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514479,
+      "lon": 13.423105
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 34,
+     "time": "22:55",
+     "odometer": 73649,
+     "category": "Home wallbox",
+     "quantity": 32.9,
+     "price": 0.32,
+     "amount": 10.53,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514596,
+      "lon": 13.423221
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 33,
+     "time": "15:20",
+     "odometer": 73726,
+     "category": "City charger Potsdamer Str.",
+     "quantity": 21.3,
+     "price": 0.59,
+     "amount": 12.57,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.500066,
+      "lon": 13.372534
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 31,
+     "time": "13:48",
+     "odometer": 73840,
+     "category": "Office parking",
+     "quantity": 11.2,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531088,
+      "lon": 13.384648
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 31,
+     "time": "19:48",
+     "odometer": 73840,
+     "category": "Home wallbox",
+     "quantity": 27.8,
+     "price": 0.32,
+     "amount": 8.9,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514565,
+      "lon": 13.423203
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 28,
+     "time": "14:34",
+     "odometer": 73946,
+     "category": "Office parking",
+     "quantity": 21.1,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531035,
+      "lon": 13.384742
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 27,
+     "time": "23:55",
+     "odometer": 73946,
+     "category": "Home wallbox",
+     "quantity": 40.3,
+     "price": 0.32,
+     "amount": 12.9,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514609,
+      "lon": 13.423234
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 25,
+     "time": "07:30",
+     "category": "Parking garage",
+     "amount": 95.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 24,
+     "time": "22:55",
+     "odometer": 74018,
+     "category": "Home wallbox",
+     "quantity": 18.2,
+     "price": 0.32,
+     "amount": 5.82,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514527,
+      "lon": 13.423121
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 21,
+     "time": "19:20",
+     "odometer": 74122,
+     "category": "Home wallbox",
+     "quantity": 20.2,
+     "price": 0.32,
+     "amount": 6.46,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514399,
+      "lon": 13.42301
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 18,
+     "time": "15:12",
+     "odometer": 74265,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523514,
+      "lon": 13.452368
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 18,
+     "time": "23:48",
+     "odometer": 74265,
+     "category": "Home wallbox",
+     "quantity": 41.4,
+     "price": 0.32,
+     "amount": 13.25,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514607,
+      "lon": 13.423001
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 15,
+     "time": "15:34",
+     "odometer": 74457,
+     "category": "Office parking",
+     "quantity": 10.9,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.530988,
+      "lon": 13.384329
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 15,
+     "time": "19:41",
+     "odometer": 74457,
+     "category": "Home wallbox",
+     "quantity": 43.9,
+     "price": 0.32,
+     "amount": 14.05,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514633,
+      "lon": 13.423052
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 13,
+     "time": "10:34",
+     "odometer": 74520,
+     "category": "Office parking",
+     "quantity": 8.9,
+     "price": 0.0,
+     "amount": 0.0,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.531158,
+      "lon": 13.384518
+     },
+     "notes": "Free at work"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 12,
+     "time": "20:20",
+     "odometer": 74550,
+     "category": "Home wallbox",
+     "quantity": 31.9,
+     "price": 0.32,
+     "amount": 10.21,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514445,
+      "lon": 13.423021
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 9,
+     "time": "23:12",
+     "odometer": 74667,
+     "category": "Home wallbox",
+     "quantity": 19.4,
+     "price": 0.32,
+     "amount": 6.21,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514453,
+      "lon": 13.42321
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 6,
+     "time": "19:41",
+     "odometer": 74858,
+     "category": "Home wallbox",
+     "quantity": 31.0,
+     "price": 0.32,
+     "amount": 9.92,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514383,
+      "lon": 13.423372
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 3,
+     "time": "10:48",
+     "odometer": 75040,
+     "category": "Fast charger A10",
+     "quantity": 47.2,
+     "price": 0.45,
+     "amount": 21.24,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.386103,
+      "lon": 13.520904
+     },
+     "notes": "On the way to Dresden"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 2,
+     "time": "20:20",
+     "odometer": 75070,
+     "category": "Home wallbox",
+     "quantity": 19.3,
+     "price": 0.32,
+     "amount": 6.18,
+     "fuel": "electric",
+     "location": {
+      "lat": 52.514451,
+      "lon": 13.423027
+     }
+    }
+   ],
+   "reminders": [
+    {
+     "category": "Inspection",
+     "every": 1,
+     "unit": "year",
+     "km": 20000
+    },
+    {
+     "category": "Tyre change",
+     "every": 6,
+     "unit": "month"
+    },
+    {
+     "category": "Cabin filter",
+     "every": 1,
+     "unit": "year"
+    },
+    {
+     "category": "Brake fluid",
+     "every": 2,
+     "unit": "year"
+    },
+    {
+     "category": "Insurance",
+     "every": 1,
+     "unit": "year",
+     "notes": "Compare offers a month before"
+    },
+    {
+     "category": "Parking garage",
+     "repeat": "monthday",
+     "day": 15
+    },
+    {
+     "category": "Car wash",
+     "repeat": "weekday",
+     "weekdays": [
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "car": {
+    "name": "Touran LPG",
+    "make": "Volkswagen",
+    "model": "Touran 1.4 TSI EcoFuel",
+    "year": 2014,
+    "vin": "WVGZZZ1TZEW000002",
+    "plate": "B-GA 1414",
+    "unit": "L",
+    "currency": "EUR",
+    "notes": "Runs on gas (LPG) and petrol."
+   },
+   "events": [
+    {
+     "kind": "expense",
+     "days_ago": 729,
+     "time": "17:00",
+     "odometer": 128494,
+     "category": "Purchase",
+     "amount": 9800.0,
+     "excluded": true,
+     "notes": "Bought used; left out of the statistics"
+    },
+    {
+     "kind": "expense",
+     "days_ago": 725,
+     "time": "08:00",
+     "category": "Insurance",
+     "amount": 523.2
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 723,
+     "time": "10:20",
+     "odometer": 128667,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 30.36,
+     "price": 0.964,
+     "amount": 29.27,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493104,
+      "lon": 13.329665
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 715,
+     "time": "08:48",
+     "odometer": 128889,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 35.76,
+     "price": 1.106,
+     "amount": 39.55,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.49297,
+      "lon": 13.330645
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 707,
+     "time": "12:48",
+     "odometer": 129194,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 43.12,
+     "price": 1.056,
+     "amount": 45.53,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540412,
+      "lon": 13.412442
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 699,
+     "time": "17:12",
+     "odometer": 129558,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 33.24,
+     "price": 1.013,
+     "amount": 33.67,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540225,
+      "lon": 13.412409
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 691,
+     "time": "20:55",
+     "odometer": 129827,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 36.19,
+     "price": 1.092,
+     "amount": 39.52,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540343,
+      "lon": 13.411861
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 688,
+     "time": "19:55",
+     "odometer": 129938,
+     "category": "Highway station A13",
+     "quantity": 25.84,
+     "price": 1.842,
+     "amount": 47.6,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.297938,
+      "lon": 13.630945
+     },
+     "notes": ""
+    },
+    {
+     "kind": "expense",
+     "days_ago": 685,
+     "time": "08:00",
+     "category": "Vehicle tax",
+     "amount": 176.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 684,
+     "time": "13:55",
+     "odometer": 130053,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 37.39,
+     "price": 1.081,
+     "amount": 40.42,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540253,
+      "lon": 13.41222
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 680,
+     "time": "13:12",
+     "odometer": 130232,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523039,
+      "lon": 13.45254
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 679,
+     "time": "16:55",
+     "odometer": 130257,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 42.75,
+     "price": 1.104,
+     "amount": 47.2,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492917,
+      "lon": 13.330509
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 675,
+     "time": "10:55",
+     "odometer": 130424,
+     "category": "Car wash",
+     "amount": 9.0,
+     "location": {
+      "lat": 52.523368,
+      "lon": 13.451649
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 671,
+     "time": "21:55",
+     "odometer": 130534,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 37.4,
+     "price": 0.985,
+     "amount": 36.84,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493015,
+      "lon": 13.329746
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 670,
+     "time": "08:30",
+     "odometer": 130565,
+     "category": "Oil and filter",
+     "amount": 236.5,
+     "location": {
+      "lat": 52.475302,
+      "lon": 13.441243
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 666,
+     "time": "21:12",
+     "odometer": 130676,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 38.56,
+     "price": 1.107,
+     "amount": 42.69,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492857,
+      "lon": 13.330516
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 661,
+     "time": "15:05",
+     "odometer": 130849,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 43.17,
+     "price": 1.103,
+     "amount": 47.62,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540404,
+      "lon": 13.41152
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 654,
+     "time": "12:41",
+     "odometer": 131149,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 40.57,
+     "price": 1.056,
+     "amount": 42.84,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492824,
+      "lon": 13.329802
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 648,
+     "time": "09:12",
+     "odometer": 131348,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 34.25,
+     "price": 1.028,
+     "amount": 35.21,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493312,
+      "lon": 13.330204
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 645,
+     "time": "10:41",
+     "odometer": 131458,
+     "category": "Car wash",
+     "amount": 9.0,
+     "location": {
+      "lat": 52.522944,
+      "lon": 13.452667
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 643,
+     "time": "08:05",
+     "odometer": 131590,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 39.49,
+     "price": 1.11,
+     "amount": 43.83,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492953,
+      "lon": 13.330627
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 638,
+     "time": "08:12",
+     "odometer": 131757,
+     "category": "Highway station A13",
+     "quantity": 18.63,
+     "price": 1.737,
+     "amount": 32.36,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.298392,
+      "lon": 13.631566
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 635,
+     "time": "13:55",
+     "odometer": 131891,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 41.47,
+     "price": 1.118,
+     "amount": 46.36,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540362,
+      "lon": 13.411528
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 628,
+     "time": "17:55",
+     "odometer": 132078,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 31.42,
+     "price": 0.961,
+     "amount": 30.19,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493273,
+      "lon": 13.32984
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 624,
+     "time": "15:20",
+     "odometer": 132159,
+     "category": "Car wash",
+     "amount": 9.0,
+     "location": {
+      "lat": 52.523319,
+      "lon": 13.451608
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 620,
+     "time": "07:05",
+     "odometer": 132281,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 34.51,
+     "price": 1.03,
+     "amount": 35.55,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540012,
+      "lon": 13.412321
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 616,
+     "time": "11:34",
+     "odometer": 132481,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523138,
+      "lon": 13.451574
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 614,
+     "time": "07:41",
+     "odometer": 132555,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 42.83,
+     "price": 1.008,
+     "amount": 43.17,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492964,
+      "lon": 13.329927
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 606,
+     "time": "17:12",
+     "odometer": 132873,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 34.93,
+     "price": 1.112,
+     "amount": 38.84,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493208,
+      "lon": 13.329601
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 603,
+     "time": "08:55",
+     "odometer": 133026,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 19.6,
+     "price": 1.838,
+     "amount": 36.02,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.539756,
+      "lon": 13.412367
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 600,
+     "time": "07:55",
+     "odometer": 133148,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 30.61,
+     "price": 0.968,
+     "amount": 29.63,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539917,
+      "lon": 13.411731
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 595,
+     "time": "12:20",
+     "odometer": 133255,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 37.8,
+     "price": 1.107,
+     "amount": 41.84,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493315,
+      "lon": 13.33047
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 589,
+     "time": "07:34",
+     "odometer": 133442,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 36.15,
+     "price": 1.0,
+     "amount": 36.15,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539801,
+      "lon": 13.412151
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 588,
+     "time": "11:20",
+     "odometer": 133449,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523403,
+      "lon": 13.452196
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 583,
+     "time": "08:55",
+     "odometer": 133632,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 34.26,
+     "price": 1.07,
+     "amount": 36.66,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493211,
+      "lon": 13.330572
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 580,
+     "time": "13:00",
+     "odometer": 133766,
+     "category": "LPG filter",
+     "amount": 58.0,
+     "location": {
+      "lat": 52.47534,
+      "lon": 13.441391
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 578,
+     "time": "14:48",
+     "odometer": 133791,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 38.0,
+     "price": 1.069,
+     "amount": 40.62,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493359,
+      "lon": 13.330464
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 576,
+     "time": "16:41",
+     "odometer": 133873,
+     "category": "Car wash",
+     "amount": 9.0,
+     "location": {
+      "lat": 52.522891,
+      "lon": 13.451869
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 571,
+     "time": "20:48",
+     "odometer": 134030,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 41.13,
+     "price": 0.975,
+     "amount": 40.1,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540426,
+      "lon": 13.411976
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 565,
+     "time": "17:34",
+     "odometer": 134281,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 34.45,
+     "price": 1.065,
+     "amount": 36.69,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493082,
+      "lon": 13.33058
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 561,
+     "time": "07:05",
+     "odometer": 134427,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 15.01,
+     "price": 1.772,
+     "amount": 26.6,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.539906,
+      "lon": 13.411814
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 558,
+     "time": "18:41",
+     "odometer": 134544,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 30.46,
+     "price": 1.038,
+     "amount": 31.62,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492653,
+      "lon": 13.330365
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 552,
+     "time": "17:55",
+     "odometer": 134708,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 32.07,
+     "price": 1.043,
+     "amount": 33.45,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.54017,
+      "lon": 13.412339
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 546,
+     "time": "08:05",
+     "odometer": 134904,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 43.12,
+     "price": 0.988,
+     "amount": 42.6,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493219,
+      "lon": 13.329523
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 545,
+     "time": "11:05",
+     "odometer": 134949,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523104,
+      "lon": 13.451676
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 541,
+     "time": "18:48",
+     "odometer": 135102,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 32.66,
+     "price": 0.998,
+     "amount": 32.59,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540264,
+      "lon": 13.412532
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 535,
+     "time": "18:05",
+     "odometer": 135282,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 32.34,
+     "price": 1.03,
+     "amount": 33.31,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540119,
+      "lon": 13.411944
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 530,
+     "time": "12:20",
+     "odometer": 135387,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 37.76,
+     "price": 0.955,
+     "amount": 36.06,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540363,
+      "lon": 13.412234
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 524,
+     "time": "15:12",
+     "odometer": 135635,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 31.79,
+     "price": 0.978,
+     "amount": 31.09,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492719,
+      "lon": 13.329915
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 520,
+     "time": "10:15",
+     "odometer": 135671,
+     "category": "Roadworthiness test",
+     "amount": 141.0,
+     "notes": "Passed, next in two years"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 519,
+     "time": "09:48",
+     "odometer": 135675,
+     "category": "Highway station A13",
+     "quantity": 21.29,
+     "price": 1.77,
+     "amount": 37.68,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.298361,
+      "lon": 13.631244
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 518,
+     "time": "11:34",
+     "odometer": 135710,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 38.47,
+     "price": 1.066,
+     "amount": 41.01,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493031,
+      "lon": 13.329595
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 512,
+     "time": "20:34",
+     "odometer": 135871,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 30.9,
+     "price": 1.093,
+     "amount": 33.77,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493263,
+      "lon": 13.330288
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 506,
+     "time": "16:20",
+     "odometer": 136062,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 40.34,
+     "price": 1.044,
+     "amount": 42.11,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539953,
+      "lon": 13.411882
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 500,
+     "time": "16:48",
+     "odometer": 136260,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 37.79,
+     "price": 0.986,
+     "amount": 37.26,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540281,
+      "lon": 13.412427
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 494,
+     "time": "07:41",
+     "odometer": 136486,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 35.76,
+     "price": 1.085,
+     "amount": 38.8,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493053,
+      "lon": 13.330013
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 486,
+     "time": "08:20",
+     "odometer": 136724,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 40.72,
+     "price": 1.035,
+     "amount": 42.15,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540166,
+      "lon": 13.412303
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 484,
+     "time": "18:55",
+     "odometer": 136808,
+     "category": "Highway station A13",
+     "quantity": 22.93,
+     "price": 1.832,
+     "amount": 42.01,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.297755,
+      "lon": 13.630768
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 478,
+     "time": "11:20",
+     "odometer": 136958,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 43.49,
+     "price": 1.076,
+     "amount": 46.8,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539805,
+      "lon": 13.411703
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 471,
+     "time": "10:34",
+     "odometer": 137162,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 39.92,
+     "price": 1.032,
+     "amount": 41.2,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539759,
+      "lon": 13.411972
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 465,
+     "time": "21:20",
+     "odometer": 137382,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 38.98,
+     "price": 1.005,
+     "amount": 39.17,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493151,
+      "lon": 13.330122
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 459,
+     "time": "14:12",
+     "odometer": 137576,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 32.39,
+     "price": 1.064,
+     "amount": 34.46,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492777,
+      "lon": 13.330351
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 452,
+     "time": "20:12",
+     "odometer": 137805,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 30.64,
+     "price": 1.0,
+     "amount": 30.64,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540094,
+      "lon": 13.412354
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 451,
+     "time": "09:55",
+     "odometer": 137825,
+     "category": "Car wash",
+     "amount": 9.0,
+     "location": {
+      "lat": 52.523114,
+      "lon": 13.451834
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 449,
+     "time": "09:55",
+     "odometer": 137891,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 21.8,
+     "price": 1.876,
+     "amount": 40.9,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.540338,
+      "lon": 13.412244
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 447,
+     "time": "18:48",
+     "odometer": 137966,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 31.08,
+     "price": 1.008,
+     "amount": 31.33,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539989,
+      "lon": 13.411798
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 440,
+     "time": "10:41",
+     "odometer": 138277,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 40.12,
+     "price": 1.024,
+     "amount": 41.08,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493008,
+      "lon": 13.330197
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 432,
+     "time": "10:34",
+     "odometer": 138602,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 31.12,
+     "price": 1.024,
+     "amount": 31.87,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539954,
+      "lon": 13.412157
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 425,
+     "time": "13:34",
+     "odometer": 138878,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 39.71,
+     "price": 1.106,
+     "amount": 43.92,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.49283,
+      "lon": 13.330523
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 418,
+     "time": "14:41",
+     "odometer": 139134,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 33.17,
+     "price": 1.073,
+     "amount": 35.59,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539971,
+      "lon": 13.412271
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 412,
+     "time": "13:12",
+     "odometer": 139294,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 39.55,
+     "price": 0.962,
+     "amount": 38.05,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493056,
+      "lon": 13.330446
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 404,
+     "time": "09:55",
+     "odometer": 139632,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 40.84,
+     "price": 1.071,
+     "amount": 43.74,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492822,
+      "lon": 13.330574
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 399,
+     "time": "20:12",
+     "odometer": 139775,
+     "category": "Highway station A13",
+     "quantity": 20.88,
+     "price": 1.733,
+     "amount": 36.19,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.298151,
+      "lon": 13.630814
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 398,
+     "time": "07:34",
+     "odometer": 139836,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 36.25,
+     "price": 1.096,
+     "amount": 39.73,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492893,
+      "lon": 13.329738
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 393,
+     "time": "20:55",
+     "odometer": 140037,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 36.8,
+     "price": 1.056,
+     "amount": 38.86,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540454,
+      "lon": 13.411494
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 385,
+     "time": "16:55",
+     "odometer": 140338,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 30.74,
+     "price": 1.07,
+     "amount": 32.89,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540065,
+      "lon": 13.412301
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 379,
+     "time": "18:34",
+     "odometer": 140495,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.52299,
+      "lon": 13.451641
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 377,
+     "time": "11:55",
+     "odometer": 140523,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 34.89,
+     "price": 1.08,
+     "amount": 37.68,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492707,
+      "lon": 13.330572
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 372,
+     "time": "11:05",
+     "odometer": 140679,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 36.03,
+     "price": 1.05,
+     "amount": 37.83,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493279,
+      "lon": 13.329821
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 366,
+     "time": "14:20",
+     "odometer": 140836,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 38.91,
+     "price": 1.043,
+     "amount": 40.58,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539933,
+      "lon": 13.41175
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 364,
+     "time": "07:12",
+     "odometer": 140901,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 23.14,
+     "price": 1.762,
+     "amount": 40.77,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.54036,
+      "lon": 13.412193
+     },
+     "notes": ""
+    },
+    {
+     "kind": "expense",
+     "days_ago": 360,
+     "time": "08:00",
+     "category": "Insurance",
+     "amount": 523.2
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 358,
+     "time": "13:12",
+     "odometer": 141012,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 40.86,
+     "price": 1.016,
+     "amount": 41.51,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493113,
+      "lon": 13.330503
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 355,
+     "time": "11:05",
+     "odometer": 141124,
+     "category": "Car wash",
+     "amount": 9.0,
+     "location": {
+      "lat": 52.523391,
+      "lon": 13.451925
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 350,
+     "time": "10:20",
+     "odometer": 141332,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 41.93,
+     "price": 0.994,
+     "amount": 41.68,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493356,
+      "lon": 13.329946
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 345,
+     "time": "10:20",
+     "odometer": 141556,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 32.63,
+     "price": 1.052,
+     "amount": 34.33,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540086,
+      "lon": 13.411946
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 339,
+     "time": "07:20",
+     "odometer": 141758,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 30.29,
+     "price": 1.118,
+     "amount": 33.86,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493268,
+      "lon": 13.330368
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 334,
+     "time": "11:48",
+     "odometer": 141843,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 34.16,
+     "price": 1.111,
+     "amount": 37.95,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539825,
+      "lon": 13.412239
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 330,
+     "time": "08:30",
+     "odometer": 141915,
+     "category": "Oil and filter",
+     "amount": 214.0,
+     "location": {
+      "lat": 52.475543,
+      "lon": 13.440812
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 328,
+     "time": "09:48",
+     "odometer": 141988,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 35.5,
+     "price": 1.09,
+     "amount": 38.7,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539792,
+      "lon": 13.412295
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 322,
+     "time": "10:12",
+     "odometer": 142207,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 25.25,
+     "price": 1.779,
+     "amount": 44.92,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.539859,
+      "lon": 13.412468
+     },
+     "notes": ""
+    },
+    {
+     "kind": "expense",
+     "days_ago": 320,
+     "time": "08:00",
+     "category": "Vehicle tax",
+     "amount": 176.0
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 320,
+     "time": "09:20",
+     "odometer": 142246,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 30.34,
+     "price": 0.952,
+     "amount": 28.88,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492733,
+      "lon": 13.330087
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 313,
+     "time": "13:48",
+     "odometer": 142390,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 34.32,
+     "price": 0.983,
+     "amount": 33.74,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539828,
+      "lon": 13.412427
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 307,
+     "time": "18:41",
+     "odometer": 142595,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 39.94,
+     "price": 0.987,
+     "amount": 39.42,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492799,
+      "lon": 13.329855
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 301,
+     "time": "20:12",
+     "odometer": 142788,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 31.94,
+     "price": 1.06,
+     "amount": 33.86,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492874,
+      "lon": 13.329686
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 296,
+     "time": "13:20",
+     "odometer": 142895,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 42.13,
+     "price": 1.012,
+     "amount": 42.64,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492952,
+      "lon": 13.329629
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 290,
+     "time": "07:48",
+     "odometer": 143061,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 42.8,
+     "price": 1.052,
+     "amount": 45.03,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540283,
+      "lon": 13.412385
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 283,
+     "time": "09:34",
+     "odometer": 143442,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 40.18,
+     "price": 1.049,
+     "amount": 42.15,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540115,
+      "lon": 13.412045
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 280,
+     "time": "09:05",
+     "odometer": 143540,
+     "category": "Highway station A13",
+     "quantity": 18.49,
+     "price": 1.738,
+     "amount": 32.14,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.298194,
+      "lon": 13.631221
+     },
+     "notes": "Cold start in winter runs on petrol"
+    },
+    {
+     "kind": "service",
+     "days_ago": 280,
+     "time": "13:00",
+     "odometer": 143540,
+     "category": "LPG filter",
+     "amount": 58.0,
+     "location": {
+      "lat": 52.475264,
+      "lon": 13.441536
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 275,
+     "time": "20:20",
+     "odometer": 143704,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 37.67,
+     "price": 1.083,
+     "amount": 40.8,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539773,
+      "lon": 13.412045
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 267,
+     "time": "14:20",
+     "odometer": 143953,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 41.39,
+     "price": 1.001,
+     "amount": 41.43,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540315,
+      "lon": 13.411451
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 260,
+     "time": "09:45",
+     "odometer": 144184,
+     "category": "Brake pads",
+     "amount": 318.4,
+     "location": {
+      "lat": 52.474895,
+      "lon": 13.440884
+     },
+     "notes": "Front pads and discs"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 259,
+     "time": "07:41",
+     "odometer": 144241,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 34.12,
+     "price": 0.963,
+     "amount": 32.86,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492979,
+      "lon": 13.329937
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 251,
+     "time": "08:12",
+     "odometer": 144545,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 38.82,
+     "price": 1.031,
+     "amount": 40.02,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539936,
+      "lon": 13.412015
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 245,
+     "time": "20:05",
+     "odometer": 144810,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 42.23,
+     "price": 1.062,
+     "amount": 44.85,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539813,
+      "lon": 13.411994
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 238,
+     "time": "19:12",
+     "odometer": 145141,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 31.13,
+     "price": 1.0,
+     "amount": 31.13,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492785,
+      "lon": 13.330093
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 230,
+     "time": "08:20",
+     "odometer": 145343,
+     "category": "Highway station A13",
+     "quantity": 25.63,
+     "price": 1.891,
+     "amount": 48.47,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.298238,
+      "lon": 13.631304
+     },
+     "notes": "Cold start in winter runs on petrol"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 230,
+     "time": "21:48",
+     "odometer": 145343,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 42.5,
+     "price": 1.099,
+     "amount": 46.71,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540254,
+      "lon": 13.411943
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 225,
+     "time": "09:55",
+     "odometer": 145538,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 42.7,
+     "price": 1.056,
+     "amount": 45.09,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.49302,
+      "lon": 13.330636
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 221,
+     "time": "10:34",
+     "odometer": 145712,
+     "category": "Car wash",
+     "amount": 9.0,
+     "location": {
+      "lat": 52.523038,
+      "lon": 13.451564
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 217,
+     "time": "12:20",
+     "odometer": 145800,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 30.96,
+     "price": 0.952,
+     "amount": 29.47,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540017,
+      "lon": 13.411952
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 212,
+     "time": "10:48",
+     "odometer": 145976,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 32.59,
+     "price": 1.104,
+     "amount": 35.98,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540077,
+      "lon": 13.411789
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 207,
+     "time": "12:55",
+     "odometer": 146217,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 43.84,
+     "price": 1.099,
+     "amount": 48.18,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493207,
+      "lon": 13.330193
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 201,
+     "time": "09:55",
+     "odometer": 146452,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 32.11,
+     "price": 1.005,
+     "amount": 32.27,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492958,
+      "lon": 13.330613
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 195,
+     "time": "12:05",
+     "odometer": 146645,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 43.84,
+     "price": 1.035,
+     "amount": 45.37,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539812,
+      "lon": 13.41144
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 189,
+     "time": "16:12",
+     "odometer": 146941,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 37.66,
+     "price": 1.106,
+     "amount": 41.65,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539943,
+      "lon": 13.41226
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 184,
+     "time": "20:05",
+     "odometer": 147122,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 35.79,
+     "price": 1.078,
+     "amount": 38.58,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493255,
+      "lon": 13.32952
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 180,
+     "time": "08:20",
+     "odometer": 147228,
+     "category": "Highway station A13",
+     "quantity": 29.98,
+     "price": 1.832,
+     "amount": 54.92,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.297994,
+      "lon": 13.630894
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 179,
+     "time": "07:55",
+     "odometer": 147257,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 37.25,
+     "price": 0.99,
+     "amount": 36.88,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493192,
+      "lon": 13.33046
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 173,
+     "time": "13:41",
+     "odometer": 147433,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 39.51,
+     "price": 1.091,
+     "amount": 43.11,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493118,
+      "lon": 13.330301
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 166,
+     "time": "13:41",
+     "odometer": 147687,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 39.9,
+     "price": 1.005,
+     "amount": 40.1,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.54003,
+      "lon": 13.41187
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 164,
+     "time": "16:48",
+     "odometer": 147817,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.523182,
+      "lon": 13.451693
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 160,
+     "time": "15:41",
+     "odometer": 147924,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 40.94,
+     "price": 1.052,
+     "amount": 43.07,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540441,
+      "lon": 13.412513
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 154,
+     "time": "14:12",
+     "odometer": 148082,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 36.96,
+     "price": 1.117,
+     "amount": 41.28,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493273,
+      "lon": 13.329529
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 149,
+     "time": "10:12",
+     "odometer": 148230,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 35.72,
+     "price": 1.024,
+     "amount": 36.58,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493245,
+      "lon": 13.32992
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 144,
+     "time": "11:55",
+     "odometer": 148405,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 42.62,
+     "price": 1.082,
+     "amount": 46.11,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539995,
+      "lon": 13.41164
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 138,
+     "time": "14:20",
+     "odometer": 148641,
+     "category": "Highway station A13",
+     "quantity": 15.3,
+     "price": 1.826,
+     "amount": 27.94,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.298154,
+      "lon": 13.631425
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 136,
+     "time": "16:55",
+     "odometer": 148747,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 32.44,
+     "price": 1.11,
+     "amount": 36.01,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539915,
+      "lon": 13.41233
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 131,
+     "time": "09:55",
+     "odometer": 148893,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 40.74,
+     "price": 1.075,
+     "amount": 43.8,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493114,
+      "lon": 13.330606
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 125,
+     "time": "17:12",
+     "odometer": 149196,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 41.67,
+     "price": 1.094,
+     "amount": 45.59,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492876,
+      "lon": 13.330669
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 119,
+     "time": "12:55",
+     "odometer": 149435,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 34.11,
+     "price": 0.958,
+     "amount": 32.68,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540395,
+      "lon": 13.411566
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 112,
+     "time": "17:55",
+     "odometer": 149691,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 32.65,
+     "price": 0.965,
+     "amount": 31.51,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492769,
+      "lon": 13.330577
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 105,
+     "time": "21:34",
+     "odometer": 149933,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 32.03,
+     "price": 0.983,
+     "amount": 31.49,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492932,
+      "lon": 13.330009
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 103,
+     "time": "18:55",
+     "odometer": 149983,
+     "category": "Highway station A13",
+     "quantity": 19.01,
+     "price": 1.804,
+     "amount": 34.29,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.298297,
+      "lon": 13.63079
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 97,
+     "time": "14:55",
+     "odometer": 150187,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 39.54,
+     "price": 1.093,
+     "amount": 43.22,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539745,
+      "lon": 13.412507
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 89,
+     "time": "08:48",
+     "odometer": 150549,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 40.16,
+     "price": 1.035,
+     "amount": 41.57,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540073,
+      "lon": 13.412057
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 81,
+     "time": "19:34",
+     "odometer": 150785,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 39.36,
+     "price": 0.995,
+     "amount": 39.16,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540293,
+      "lon": 13.412071
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 73,
+     "time": "08:48",
+     "odometer": 151121,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 38.88,
+     "price": 1.086,
+     "amount": 42.22,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493163,
+      "lon": 13.329805
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 65,
+     "time": "07:48",
+     "odometer": 151362,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 33.33,
+     "price": 1.025,
+     "amount": 34.16,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493356,
+      "lon": 13.329869
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 61,
+     "time": "12:55",
+     "odometer": 151481,
+     "category": "Highway station A13",
+     "quantity": 27.95,
+     "price": 1.762,
+     "amount": 49.25,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.297752,
+      "lon": 13.630735
+     },
+     "notes": "Cold start in winter runs on petrol"
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 60,
+     "time": "09:05",
+     "odometer": 151527,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 30.38,
+     "price": 0.963,
+     "amount": 29.26,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492792,
+      "lon": 13.330229
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 52,
+     "time": "17:05",
+     "odometer": 151786,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 35.8,
+     "price": 1.109,
+     "amount": 39.7,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540337,
+      "lon": 13.412023
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 45,
+     "time": "07:20",
+     "odometer": 152033,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 35.4,
+     "price": 0.986,
+     "amount": 34.9,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539744,
+      "lon": 13.411599
+     }
+    },
+    {
+     "kind": "service",
+     "days_ago": 40,
+     "time": "13:00",
+     "odometer": 152199,
+     "category": "LPG filter",
+     "amount": 58.0,
+     "location": {
+      "lat": 52.475036,
+      "lon": 13.440518
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 40,
+     "time": "20:41",
+     "odometer": 152199,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 31.43,
+     "price": 1.104,
+     "amount": 34.7,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.54013,
+      "lon": 13.41154
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 32,
+     "time": "10:41",
+     "odometer": 152432,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 32.64,
+     "price": 1.047,
+     "amount": 34.17,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492647,
+      "lon": 13.330315
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 27,
+     "time": "21:34",
+     "odometer": 152652,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 30.34,
+     "price": 1.009,
+     "amount": 30.61,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.493087,
+      "lon": 13.330547
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 26,
+     "time": "14:48",
+     "odometer": 152692,
+     "category": "Highway station A13",
+     "quantity": 30.48,
+     "price": 1.818,
+     "amount": 55.41,
+     "fuel": "petrol",
+     "location": {
+      "lat": 52.29787,
+      "lon": 13.630714
+     },
+     "notes": ""
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 20,
+     "time": "17:41",
+     "odometer": 152935,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 40.0,
+     "price": 1.036,
+     "amount": 41.44,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.539927,
+      "lon": 13.411743
+     }
+    },
+    {
+     "kind": "expense",
+     "days_ago": 15,
+     "time": "16:05",
+     "odometer": 153101,
+     "category": "Car wash",
+     "amount": 12.0,
+     "location": {
+      "lat": 52.52334,
+      "lon": 13.451901
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 13,
+     "time": "11:48",
+     "odometer": 153237,
+     "category": "Gas station Hohenzollerndamm",
+     "quantity": 40.78,
+     "price": 1.029,
+     "amount": 41.96,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.492658,
+      "lon": 13.329608
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 7,
+     "time": "21:55",
+     "odometer": 153500,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 32.22,
+     "price": 0.976,
+     "amount": 31.45,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540136,
+      "lon": 13.412253
+     }
+    },
+    {
+     "kind": "refuel",
+     "days_ago": 1,
+     "time": "11:55",
+     "odometer": 153633,
+     "category": "Gas station Prenzlauer Allee",
+     "quantity": 35.18,
+     "price": 1.002,
+     "amount": 35.25,
+     "fuel": "lpg",
+     "location": {
+      "lat": 52.540414,
+      "lon": 13.412345
+     }
+    }
+   ],
+   "reminders": [
+    {
+     "category": "Oil and filter",
+     "every": 1,
+     "unit": "year",
+     "km": 15000
+    },
+    {
+     "category": "LPG filter",
+     "km": 10000
+    },
+    {
+     "category": "Roadworthiness test",
+     "every": 2,
+     "unit": "year"
+    },
+    {
+     "category": "Insurance",
+     "every": 1,
+     "unit": "year"
+    },
+    {
+     "category": "Vehicle tax",
+     "every": 1,
+     "unit": "year"
+    }
+   ]
+  }
+ ]
+}
