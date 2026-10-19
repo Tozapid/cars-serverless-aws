@@ -7,6 +7,9 @@ locals {
     "i18n.js"     = "text/javascript; charset=utf-8"
     "styles.css"  = "text/css; charset=utf-8"
     "favicon.svg" = "image/svg+xml"
+    # The offline side of the page (sw.js) and what a phone installs it as.
+    "sw.js"         = "text/javascript; charset=utf-8"
+    "manifest.json" = "application/manifest+json"
   }
 }
 

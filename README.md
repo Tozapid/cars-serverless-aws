@@ -29,7 +29,8 @@ The demo is English and made up: a Tesla Model 3, charged at home, at work and o
 - **A map** of the events (Leaflet and OpenStreetMap), with an icon of their kind and the near ones grouped; a table of the places. The place of an event comes from the browser or from a click on a map, and the categories used near it come first.
 - **Reminders** after so many days, weeks, months or years and kilometres from the last event of their category, on a day of every month, or on chosen days of the week, from a start date; "soon" and "overdue" on the page and once a day by mail.
 - **Short forms** of each kind of event under links of their own, with a QR code, for a phone; **drafts** of every form in the browser.
-- **Import** of a backup of the Android app Car Expenses, and **export** of a car to a JSON file with its receipts and photos, which imports again as a new car or into one, also into another account; the list of events as CSV.
+- **Import and export** from two menus next to "Add a car": import of a backup of the Android app Car Expenses or of a JSON file, as new cars or into a chosen one; export of a car to a JSON file with its receipts and photos, which imports again, also into another account, or of its events to CSV.
+- **Without a network**: the page installs on a phone (PWA), opens with the data last loaded, and keeps new events with their files in a queue of the browser until the network is back.
 - **API keys** for programs, read or read and write, and **share links** that open the cars, or one car, read only without a sign-in, for a time or for good; each tells where and when it was made and last used.
 - **Administrators** invite and manage the users, and may look at their cars, read only.
 - **Version**: Settings → Version shows the version of the site and the releases of this repository that came after it.
@@ -80,7 +81,15 @@ A reminder names a category of events, such as "Inspection" or "Insurance", and 
 - **Car Expenses** (Android): a backup has the text of every table and the photos of the expenses in base64, tens of megabytes. The page cuts the photos out, sends the text (about 100 KB) to the API, and uploads the photos of the events that are new itself. Refuels keep their fuel type as the station; a record with only the odometer is an event "Пробег" left out of the statistics; an expense of several patterns is an event per pattern; the patterns with a period become reminders; the car gets its make, model, VIN, year, photo, purchase and sale. Leva can be converted to euro.
 - **JSON** (`format: "cars-serverless-aws"`): a car, its events and reminders as the API gives them, and its receipts and photos in base64 if asked; an import keeps the ids of the events, so importing a file twice adds nothing twice, and uploads the files anew under the importing user.
 
+- **CSV**: every event of a car, a column per field, dates as written, a point in the numbers; export only.
+
 Both imports find an event by its fields, so an import adds only what is new and leaves events changed on the page as they are.
+
+### Without a network
+
+A service worker (`web/sw.js`) keeps the page and the sign-in libraries (cache `cars-shell-v<N>`, raised when the list changes) and the last answers of the API to reads (`cars-data-v1`). A request goes to the network first; without one the saved answer comes back marked `x-offline`, and the page tells the time of its data. Writes are never cached.
+
+A new event saved without a network waits in IndexedDB (`cars-offline`, `outbox`) with its receipts and photos, marked ⏳ in the list. The page names the event itself (16 hex characters), and `POST /api/cars/<id>/events` with a known id answers with the event already saved, so sending it again does not make it twice. The queue goes when the network is back, when the tab is shown again and every 30 seconds: the files first, then the event. With an expired session the reads come from the cache and the queue waits for the next sign-in. Signing out clears the queue and the cached data, asking first if events wait; changing or deleting older events needs a network.
 
 ### Without a sign-in
 
@@ -213,7 +222,7 @@ The tests use no network: DynamoDB, S3, SES, SSM and Cognito are faked (`lambda/
 | `lambda/files.py`, `lambda/common.py` | Uploads and signed cookies; the table, the AWS clients |
 | `apigateway.tf`, `cognito.tf` | The API and the users |
 | `dynamodb.tf`, `s3.tf` | The table, the page and file buckets |
-| `cloudfront.tf`, `cloudfront/`, `dns.tf`, `frontend.tf`, `web/` | The distribution, the domain, the page, its statistics (`stats.js`), charts (`charts.js`) and translations (`i18n.js`) |
+| `cloudfront.tf`, `cloudfront/`, `dns.tf`, `frontend.tf`, `web/` | The distribution, the domain, the page, its statistics (`stats.js`), charts (`charts.js`), translations (`i18n.js`) and offline side (`sw.js`, `manifest.json`) |
 | `ses.tf` | The SES identity of `domain_name` for the reminders (production with `sender_address`) |
 | `reset.tf`, `lambda/reset.py`, `seed/seed.json` | The hourly reset of the demo and its examples |
 | `examples/production.tfvars` | A starting point for production |

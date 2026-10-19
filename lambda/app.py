@@ -549,15 +549,27 @@ def event_fields(owner, payload):
     return item
 
 
+# The page may name a new event itself (16 hex digits): an event saved
+# without a network waits on the phone and is sent again until it gets
+# through, and the second time it is already there and stays as it is.
 def create_event(owner, car, payload):
+    fields = event_fields(owner, payload)
+    wanted = str(payload.get("id") or "")
+    if wanted and not re.fullmatch(r"[0-9a-f]{16}", wanted):
+        raise ApiError(400, "bad_field", "id")
+    if wanted:
+        known = common.get(pk(owner), f"EVENT#{car['id']}#{wanted}")
+        if known:
+            return public(known)
     events = car_events(owner, car["id"])
     if len(events) >= EVENTS_MAX:
         raise ApiError(400, "too_many_events")
-    event_id = new_id()
+    event_id = wanted or new_id()
     now = common.now_iso()
     item = compact({"pk": pk(owner), "sk": f"EVENT#{car['id']}#{event_id}", "id": event_id, "car": car["id"],
-                    **event_fields(owner, payload), "created": now, "modified": now, "by": owner})
-    common.put(item)
+                    **fields, "created": now, "modified": now, "by": owner})
+    if not common.put_new(item):
+        return public(common.get(pk(owner), item["sk"]))
     count_events(owner, car["id"], events + [item])
     return public(item)
 

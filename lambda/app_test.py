@@ -228,6 +228,18 @@ class EventsTest(Base):
         self.assertEqual([carexpenses.fuel_of(name, tank) for name, tank in (("Бутан", "2"), ("АИ-95", "1"), ("95 V-Power", "1"), ("Газ", "1"), ("Газпром", "1"), ("Autogas", "1"), ("ДТ", "1"), ("X", "2"))],
                          ["lpg", "petrol", "petrol", "lpg", "petrol", "lpg", "diesel", "lpg"])
 
+    def test_event_named_by_the_page_goes_in_once(self):
+        car = self.car()
+        body = {"kind": "expense", "date": "2026-10-01T10:00", "amount": 5, "id": "0123456789abcdef"}
+        status, first = self.call("POST", f"/api/cars/{car['id']}/events", body)
+        self.assertEqual((status, first["id"]), (201, "0123456789abcdef"))
+        status, again = self.call("POST", f"/api/cars/{car['id']}/events", {**body, "amount": 7})
+        self.assertEqual((again["id"], again["amount"]), ("0123456789abcdef", 5))
+        self.assertEqual(len(self.call("GET", f"/api/cars/{car['id']}/events")[1]["items"]), 1)
+        self.assertEqual(self.call("GET", "/api/cars")[1]["items"][0]["event_count"], 1)
+        status, error = self.call("POST", f"/api/cars/{car['id']}/events", {**body, "id": "../x"})
+        self.assertEqual((status, error["detail"]), (400, "id"))
+
     def test_other_kinds_have_no_quantity(self):
         car = self.car()
         item = self.add(car, kind="service", quantity=5, amount=10)

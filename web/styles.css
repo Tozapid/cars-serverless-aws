@@ -483,6 +483,12 @@ dialog.modal.lightbox { width: min(1400px, 100%); }
 .combo-list li { padding: 6px 10px; border-radius: calc(var(--radius) - 2px); cursor: pointer; font-size: 14px; color: var(--ink); font-weight: 400; }
 .combo-list li:hover, .combo-list li.active { background: var(--surface-2); }
 .combo-list li.current { font-weight: 600; }
+.menu { position: relative; }
+.menu-list { position: absolute; z-index: 6; left: 0; top: calc(100% + 4px); min-width: 220px; margin: 0; padding: 4px; list-style: none;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+.menu-list button { display: block; width: 100%; padding: 8px 10px; border: 0; border-radius: calc(var(--radius) - 2px); background: transparent;
+  color: var(--ink); font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+.menu-list button:hover, .menu-list button:focus-visible { background: var(--surface-2); }
 .owner-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 16px; padding: 10px 14px;
   border-radius: var(--radius); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); font-size: 14px; }
 .owner-select { max-width: 220px; }
@@ -491,7 +497,9 @@ dialog.modal.lightbox { width: min(1400px, 100%); }
 .near:empty { display: none; }
 .chip { padding: 3px 10px; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--surface); color: var(--ink); font-size: 13px; }
 .chip.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
-.map { height: min(60vh, 520px); border-radius: var(--radius); overflow: hidden; background: var(--surface-2); }
+/* Leaflet's panes have z-indexes up to 1000: kept inside the map, so that
+   the sticky header stays above it. */
+.map { position: relative; z-index: 0; isolation: isolate; height: min(60vh, 520px); border-radius: var(--radius); overflow: hidden; background: var(--surface-2); }
 /* Markers of the map (Leaflet divIcon): a sign of the kind on its colour;
    a group of near ones shows their number and their kinds. Leaflet's
    stylesheet comes later, hence .leaflet-marker-icon in the selectors. */
@@ -542,6 +550,9 @@ button.link { padding: 0; border: 0; background: none; color: var(--accent); tex
 .days { display: flex; flex-wrap: wrap; gap: 4px; }
 .day { border: 1px solid var(--line-strong); border-radius: 999px; background: var(--surface); color: var(--ink); padding: 3px 10px; font-size: 13px; }
 .day.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.offline-note { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 0 0 16px; padding: 10px 14px; border-radius: var(--radius);
+  background: color-mix(in srgb, #f59e0b 16%, var(--surface)); font-size: 14px; }
+.pending { cursor: help; }
 .period { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
 .draft-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin: 0; padding: 8px 12px;
   border-radius: var(--radius); background: var(--surface-2); font-size: 13px; }

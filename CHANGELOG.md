@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.0
+
+### Added
+
+- Work without a network: the page installs on a phone as an app (PWA) and opens with the data last loaded; new events, with their receipts and photos, wait in a queue of the browser and go by themselves when the network is back, and sending one again does not make it twice.
+
+### Changed
+
+- Import and export on the Cars page are two menu buttons next to "Add a car": Import (Car Expenses backup, JSON file) and Export (JSON file, events to CSV), with the car chosen in the window. The buttons on the cards of the cars and "Export CSV" in the list of events are gone.
+
+### Fixed
+
+- The map no longer slides over the top menu when the page scrolls: the layers of Leaflet stay inside a stacking context of their own.
+
 ## v0.1.0
 
 ### Added
