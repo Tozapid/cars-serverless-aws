@@ -132,7 +132,7 @@ Steps to production:
 
 1. An S3 bucket for Terraform state (the S3 backend with the native lockfile, Terraform 1.10+).
 2. The GitHub OIDC provider in the AWS account and a role for this repository that trusts only jobs of the GitHub environment `demo`. Its permissions: everything named with the `name` prefix (`s3:*` on `arn:aws:s3:::cars-serverless-*`, the table, functions, roles with `iam:PassRole`, log groups, SSM parameters, EventBridge rules), API Gateway, Cognito and CloudFront (their ids are generated), log delivery for API access logs, and the state objects under the state key prefix. The demo needs no SES, ACM or Route 53; production adds them.
-3. In the GitHub repository: the environment `demo`, and the variables `AWS_ROLE_ARN` (the role) and `TF_STATE_BUCKET` (the state bucket). There are no secrets.
+3. In the GitHub repository: the environment `demo`, and the variables `AWS_ROLE_ARN` (the role) and `TF_STATE_BUCKET` (the state bucket). There are no secrets. Optionally `ACCESS_LOGS_BUCKET`: the CI passes it as `access_logs_bucket`, and the CloudFront access logs of the site go there (see [Access logs](#access-logs)); the role then also needs log delivery in `us-east-1` (`logs:PutDeliverySource`, `PutDeliveryDestination`, `CreateDelivery` and their `Get`/`Delete`/`Describe` on names with the prefix) and `s3:GetBucketPolicy` on that bucket.
 
 ### GitHub Actions
 
@@ -180,6 +180,12 @@ curl -X POST -H "Authorization: Bearer cars_…" -H "Content-Type: application/j
   -d '{"kind":"refuel","date":"2026-10-19T08:30","quantity":30,"price":0.35,"fuel":"electric"}' \
   https://<site>/api/v1/cars/<car>/events
 ```
+
+## Access logs
+
+Off by default. With `access_logs_bucket` set (the repository variable `ACCESS_LOGS_BUCKET` in CI), `access-logs.tf` turns on the standard logs (v2) of CloudFront: CloudWatch delivers a gzipped JSON line per request from `us-east-1` to `cloudfront/<name>/<yyyy>/<MM>/<dd>/` of that bucket, at no charge for the delivery to S3. A line holds the date and time, the address and country of the viewer, the method, path, status, bytes, time taken, referrer, user agent, cache result and host. The files bucket also writes S3 server access logs there, under `s3/` partitioned by the date of the request.
+
+The bucket is yours, in the same account: its policy has to let `delivery.logs.amazonaws.com` put objects under `cloudfront/` (and read the bucket ACL) and `logging.s3.amazonaws.com` under `s3/`, conditioned on the account. [account-serverless-aws](https://github.com/Tozapid/account-serverless-aws) reads such a bucket and shows the traffic of each site.
 
 ## Access and security
 

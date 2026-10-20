@@ -98,6 +98,12 @@ variable "releases_repository" {
   description = "GitHub repository (owner/name) whose releases the settings compare the version of the site with. Empty turns the check off."
 }
 
+variable "access_logs_bucket" {
+  type        = string
+  default     = ""
+  description = "Bucket that the access logs of this site go to, such as the logs_bucket of an overview of the account (Tozapid/account-serverless-aws): the standard logs (v2) of the distribution under cloudfront/<name>/, and the S3 server access logs of the files bucket under s3/. Its policy has to let delivery.logs.amazonaws.com and logging.s3.amazonaws.com write there. Empty: no access logs."
+}
+
 variable "tags" {
   type = map(string)
   default = {

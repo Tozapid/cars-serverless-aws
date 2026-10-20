@@ -79,7 +79,7 @@ resource "aws_s3_bucket" "files" {
   #checkov:skip=CKV_AWS_145:SSE-S3 is enough for private receipts. A customer managed key would add a monthly charge.
   #checkov:skip=CKV_AWS_144:Files are write-once objects with versioning. Cross-region replication is not needed.
   #checkov:skip=CKV2_AWS_62:Files are referenced from the events. Bucket notifications are not needed.
-  #checkov:skip=CKV_AWS_18:The bucket is private. Reads need a signed cookie issued by the API, which logs the caller.
+  #checkov:skip=CKV_AWS_18:Server access logs are optional (access_logs_bucket, aws_s3_bucket_logging below).
   bucket = local.files_bucket
   # The files of the demo's visitors go with the stack; production keeps them.
   force_destroy = var.demo
@@ -172,6 +172,22 @@ resource "aws_s3_bucket_lifecycle_configuration" "files" {
 
     expiration {
       expired_object_delete_marker = true
+    }
+  }
+}
+
+# Who reads and writes the bucket, when access_logs_bucket is set: S3 server
+# access logs under s3/<account>/<region>/<bucket>/<yyyy>/<MM>/<dd>/ there.
+resource "aws_s3_bucket_logging" "files" {
+  count = var.access_logs_bucket != "" ? 1 : 0
+
+  bucket        = aws_s3_bucket.files.id
+  target_bucket = var.access_logs_bucket
+  target_prefix = "s3/"
+
+  target_object_key_format {
+    partitioned_prefix {
+      partition_date_source = "EventTime"
     }
   }
 }
