@@ -13,6 +13,7 @@
 ### Fixed
 
 - The map no longer slides over the top menu when the page scrolls: the layers of Leaflet stay inside a stacking context of their own.
+- Dialogs on a phone: the title with × and the buttons hid under the bars of the browser. A dialog is now as high as the visible screen (`100dvh`), with the title and the buttons held in place while the form scrolls between them.
 
 ## v0.1.0
 

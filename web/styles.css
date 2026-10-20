@@ -733,7 +733,13 @@ th button.sort:hover, th button.sort.active { color: var(--ink); }
 
 /* Dialogs: an event, a reminder, a car, the import */
 
-dialog.modal { width: min(640px, 100%); }
+/* 100vh is the height of the screen without the bars of a phone's browser;
+   100dvh is what is seen. The title and the buttons stay in view while the
+   form scrolls between them, over the padding of the dialog. */
+dialog.modal { width: min(640px, 100%); max-height: calc(100dvh - 32px); }
+dialog.modal .modal-head { position: sticky; top: -20px; z-index: 2; margin: -20px -24px 12px; padding: 20px 24px 8px; background: var(--surface); }
+dialog.modal .dialog-actions { position: sticky; bottom: -24px; z-index: 2; margin: 0 -24px; padding: 12px 24px; background: var(--surface);
+  border-top: 1px solid var(--line); }
 .modal-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
 .modal-head h2 { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
 .modal-body { display: grid; gap: 12px; }
