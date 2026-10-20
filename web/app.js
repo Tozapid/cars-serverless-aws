@@ -39,6 +39,12 @@
     // The token of a share link (#s/<token>/<view>/<car>): the page shows
     // what it opens, read only, without a sign-in.
     share: null,
+    // Without a network: true while the API answers from the cache of the
+    // service worker (sw.js), and when that answer was fetched.
+    offline: false,
+    offlineSince: null,
+    // New events saved without a network that wait in the outbox.
+    pending: 0,
   };
   const ISSUER = "Cars demo";
   // The open source project of this page, linked from the sign-in page.
@@ -541,7 +547,17 @@
     code.focus();
   }
 
-  function signOut() {
+  // forget: signed out by hand. The cache of what the page read and the
+  // events that wait go too; an ended session keeps them for the next
+  // sign-in.
+  async function signOut(forget) {
+    if (forget === true) {
+      if (state.pending && !window.confirm(t("offline.signOutConfirm", { count: state.pending }))) return;
+      await outboxClear();
+      state.pending = 0;
+      if (window.caches) await caches.delete("cars-data-v1").catch(() => {});
+      navigator.serviceWorker?.controller?.postMessage("forget");
+    }
     const user = pool && pool.getCurrentUser();
     if (user) user.signOut();
     document.querySelectorAll("dialog.modal").forEach((node) => node.close());
@@ -566,21 +582,174 @@
   async function api(path, options) {
     if (state.share) return shareApi(path);
     if (state.owner && !(options && options.own) && /^\/cars(\/|$)/.test(path)) path += (path.includes("?") ? "&" : "?") + "owner=" + encodeURIComponent(state.owner);
-    const session = await currentSession().catch(() => null);
-    if (!session) {
-      showLogin(t("sessionEnded"));
-      throw new Error(t("sessionEnded"));
+    const method = (options && options.method) || "GET";
+    let session = null;
+    try {
+      session = await currentSession();
+    } catch (error) {
+      // Without a network an expired token cannot be renewed: the page still
+      // reads what the service worker kept, and queues new events.
+      if (!looksOffline(error)) {
+        showLogin(t("sessionEnded"));
+        throw new Error(t("sessionEnded"));
+      }
+      if (method !== "GET") throw offlineError();
     }
-    const response = await fetch(config.apiBase + path, {
-      method: (options && options.method) || "GET",
-      headers: {
-        Authorization: "Bearer " + session.getIdToken().getJwtToken(),
-        ...(options && options.body ? { "Content-Type": "application/json" } : {}),
-      },
-      body: options && options.body ? JSON.stringify(options.body) : undefined,
-    });
+    let response;
+    try {
+      response = await fetch(config.apiBase + path, {
+        method,
+        headers: {
+          ...(session ? { Authorization: "Bearer " + session.getIdToken().getJwtToken() } : {}),
+          ...(options && options.body ? { "Content-Type": "application/json" } : {}),
+        },
+        body: options && options.body ? JSON.stringify(options.body) : undefined,
+      });
+    } catch (error) {
+      setOffline(true);
+      throw offlineError();
+    }
+    if (response.headers.get("x-offline")) setOffline(true, response.headers.get("x-fetched"));
+    else if (response.status !== 503) setOffline(false);
     return answer(response);
   }
+
+  // Offline -----------------------------------------------------------------
+
+  function offlineError() {
+    return Object.assign(new Error(t("api.offline")), { offline: true });
+  }
+
+  function looksOffline(error) {
+    return navigator.onLine === false || /network|fetch|offline/i.test(String((error && (error.code || error.name || error.message)) || ""));
+  }
+
+  function setOffline(offline, since) {
+    const changed = state.offline !== offline;
+    state.offline = offline;
+    if (offline && since) state.offlineSince = since;
+    if (!offline) state.offlineSince = null;
+    if (changed) drawNetwork();
+    if (!offline && changed) flushOutbox();
+  }
+
+  // The line under the header that tells of a missing network and of the
+  // events that wait to be sent.
+  function networkNote() {
+    if (!state.offline && !state.pending) return null;
+    return el("p", { class: "offline-note", role: "status" }, [
+      state.offline ? (state.offlineSince ? t("offline.since", { date: when(state.offlineSince) }) : t("offline.now")) : null,
+      state.pending ? el("span", {}, t("offline.pending", { count: state.pending })) : null,
+    ]);
+  }
+
+  function drawNetwork() {
+    const note = document.querySelector(".offline-note");
+    const fresh = networkNote();
+    if (note && fresh) note.replaceWith(fresh);
+    else if (note) note.remove();
+    else if (fresh) document.querySelector("main.content")?.prepend(fresh);
+  }
+
+  // The outbox: new events saved without a network, in IndexedDB with the
+  // files picked for them, until the API has them. Each event has its id
+  // from the page, so one sent twice goes in once.
+  const OUTBOX = "outbox";
+  let database = null;
+
+  function outboxDb() {
+    if (!database) {
+      database = new Promise((resolve, reject) => {
+        const opening = indexedDB.open("cars-offline", 1);
+        opening.onupgradeneeded = () => opening.result.createObjectStore(OUTBOX, { keyPath: "id" });
+        opening.onsuccess = () => resolve(opening.result);
+        opening.onerror = () => reject(opening.error);
+      });
+    }
+    return database;
+  }
+
+  async function outbox(mode, work) {
+    const db = await outboxDb();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(OUTBOX, mode);
+      const request = work(transaction.objectStore(OUTBOX));
+      transaction.oncomplete = () => resolve(request && request.result);
+      transaction.onerror = () => reject(transaction.error);
+    });
+  }
+
+  const outboxAll = () => outbox("readonly", (store) => store.getAll()).catch(() => []);
+  const outboxPut = (item) => outbox("readwrite", (store) => store.put(item));
+  const outboxDelete = (id) => outbox("readwrite", (store) => store.delete(id));
+  const outboxClear = () => outbox("readwrite", (store) => store.clear()).catch(() => {});
+
+  async function mine() {
+    return (await outboxAll()).filter((item) => state.me && item.owner === state.me.email);
+  }
+
+  async function countPending() {
+    state.pending = (await mine()).length;
+    drawNetwork();
+  }
+
+  function newEventId() {
+    return [...crypto.getRandomValues(new Uint8Array(8))].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  }
+
+  // An event of the outbox as the page shows it until it is sent.
+  function pendingEvent(item) {
+    return { ...item.body, id: item.id, car: item.car, files: [], pending: true, error: item.error || "" };
+  }
+
+  async function queueEvent(car, body, files) {
+    const item = { id: body.id, car, owner: state.me.email, body, files, created: new Date().toISOString() };
+    await outboxPut(item);
+    await countPending();
+    return pendingEvent(item);
+  }
+
+  // Sends what waits, oldest first, while the network lasts: its files
+  // first, then the event. An event the API refuses stays, with the error.
+  let flushing = false;
+
+  async function flushOutbox() {
+    if (flushing || state.share || !state.me || navigator.onLine === false) return;
+    flushing = true;
+    let sent = 0;
+    try {
+      const items = (await mine()).sort((a, b) => a.created.localeCompare(b.created));
+      for (const item of items) {
+        try {
+          const uploaded = [];
+          for (const file of item.files || []) uploaded.push(await uploadFile(new File([file.blob], file.name, { type: file.type })));
+          const saved = await api(`/cars/${item.car}/events`, { method: "POST", body: { ...item.body, files: [...(item.body.files || []), ...uploaded] } });
+          await outboxDelete(item.id);
+          sent += 1;
+          if (state.car && state.car.id === item.car && state.events) {
+            state.events = state.events.filter((event) => event.id !== saved.id).concat([saved]);
+          }
+        } catch (failure) {
+          if (failure.offline) break;
+          await outboxPut({ ...item, error: failure.message });
+        }
+      }
+    } finally {
+      flushing = false;
+      await countPending();
+    }
+    if (sent) {
+      toast(t("offline.sent", { count: sent }));
+      if (state.car) await reloadReminders();
+      await loadCars().catch(() => {});
+      render();
+    }
+  }
+
+  // Asks again whenever the network may be back.
+  window.addEventListener("online", () => flushOutbox());
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") flushOutbox(); });
+  setInterval(() => { if (state.pending) flushOutbox(); }, 30000);
 
   // A share link reads without a sign-in, through /api/share/<token>.
   async function shareApi(path) {
@@ -602,6 +771,7 @@
       signOut();
       throw new Error(t("sessionEnded"));
     }
+    if (response.status === 503 && data.code === "offline") throw offlineError();
     if (!response.ok) {
       // The API names the error with a code; its own text is the English one.
       const translated = data.code && i18n.strings[i18n.fallback]["api." + data.code];
@@ -700,7 +870,8 @@
     try {
       const [events, reminders] = await Promise.all([api(`/cars/${id}/events`), api(`/cars/${id}/reminders`)]);
       if (!state.car || state.car.id !== id) return;
-      state.events = events.items || [];
+      const waiting = (await mine()).filter((item) => item.car === id).map(pendingEvent);
+      state.events = (events.items || []).filter((event) => !waiting.some((item) => item.id === event.id)).concat(waiting);
       state.reminders = reminders.items || [];
     } catch (error) {
       state.events = state.events || [];
@@ -734,7 +905,7 @@
             state.car ? el("span", {}, state.car.name) : null]),
           el("a", { class: "ghost", href: "#overview" + (state.car ? "/" + state.car.id : "") }, t("quick.journal")),
         ]),
-        el("main", { class: "content" }, !state.car ? welcomeView() : state.events === null ? loading() : quickView()),
+        el("main", { class: "content" }, [networkNote(), !state.car ? welcomeView() : state.events === null ? loading() : quickView()]),
       ]));
       return;
     }
@@ -777,10 +948,11 @@
         })) : el("div", { class: "who" }, [
           el("span", { class: "who-email", title: state.me.email }, state.me.email),
           el("button", { type: "button", class: "icon-button", onclick: () => showAccount() }, t("menu.account")),
-          el("button", { type: "button", class: "icon-button", onclick: signOut }, t("menu.signOut")),
+          el("button", { type: "button", class: "icon-button", onclick: () => signOut(true) }, t("menu.signOut")),
         ]),
       ]),
       el("main", { class: "content" }, [
+        networkNote(),
         state.share ? el("p", { class: "owner-note" }, [
           state.me.share.name ? t("share.viewingNamed", { name: state.me.share.name }) : t("share.viewing"),
           state.me.share.expires ? el("span", { class: "muted small" }, t("share.until", { date: when(state.me.share.expires) })) : null,
@@ -1150,6 +1322,17 @@
     }, [label, active ? (state.sort.desc ? " ↓" : " ↑") : ""]));
   }
 
+  // An event that waits in the outbox is not on the server yet: it can only
+  // be taken out of the queue.
+  async function openEvent(event) {
+    if (!event.pending) return editEvent(event);
+    if (!window.confirm((event.error ? t("offline.failed", { error: event.error }) + "\n\n" : "") + t("offline.discard"))) return;
+    await outboxDelete(event.id);
+    state.events = state.events.filter((item) => item.id !== event.id);
+    await countPending();
+    render();
+  }
+
   function eventTable(events, sortable) {
     const head = sortable
       ? [sortHeader("date", t("event.date")), el("th", {}, t("event.kind")), sortHeader("category", t("event.category")),
@@ -1162,10 +1345,10 @@
       el("tbody", {}, events.map((event) => el("tr", {
         tabindex: "0",
         class: event.excluded ? "excluded" : "",
-        onclick: () => editEvent(event),
-        onkeydown: (key) => key.key === "Enter" && editEvent(event),
+        onclick: () => openEvent(event),
+        onkeydown: (key) => key.key === "Enter" && openEvent(event),
       }, [
-        el("td", { class: "nowrap" }, dateText(event.date)),
+        el("td", { class: "nowrap" }, [dateText(event.date), event.pending ? el("span", { class: "pending", title: event.error || t("offline.waits") }, " ⏳") : null]),
         el("td", {}, kindBadge(event.kind)),
         el("td", { class: "name" }, [event.category || el("span", { class: "muted" }, "—"),
           event.excluded ? el("span", { class: "muted small", title: t("event.excludedHint") }, " · " + t("event.excludedShort")) : null]),
@@ -1246,12 +1429,10 @@
             render();
           },
         }, t("events.more", { count: found.length - shown }))) : null,
-      ], el("button", { type: "button", class: "ghost", onclick: () => exportCsv(found) }, t("events.export"))),
+      ]),
     ];
   }
 
-  // The events in view as a CSV file: a column per field, the dates as
-  // written, a point in the numbers.
   // A file of the browser, saved under name.
   function download(blob, name) {
     const link = el("a", { href: URL.createObjectURL(blob), download: name });
@@ -1310,7 +1491,7 @@
   }
 
   function showExport(car) {
-    const box = dialog(t("export.title", { name: car.name }));
+    const box = dialog(t("export.title"));
     const withFiles = el("input", { type: "checkbox", checked: true });
     const result = el("div");
     const button = el("button", { type: "submit", class: "primary" }, t("export.start"));
@@ -1336,6 +1517,7 @@
         button.disabled = false;
       },
     }, [
+      carChoice(car, null, (next) => { box.close(); showExport(next); }),
       el("p", {}, t("export.intro")),
       el("label", { class: "check" }, [withFiles, t("export.withFiles")]),
       el("p", { class: "hint" }, t("export.hint")),
@@ -1344,7 +1526,9 @@
     ]));
   }
 
-  function exportCsv(events) {
+  // The events of a car as a CSV file: a column per field, the dates as
+  // written, a point in the numbers.
+  function exportCsv(car, events) {
     const columns = ["date", "kind", "category", "odometer", "quantity", "price", "amount", "excluded", "notes", "link", "lat", "lon"];
     const cell = (value) => {
       const text = value == null ? "" : String(value);
@@ -1352,7 +1536,90 @@
     };
     const lines = [columns.join(",")].concat(sortedEvents(events).map((event) => columns.map((key) => cell(key === "excluded" ? (event.excluded ? "yes" : "")
       : key === "lat" || key === "lon" ? (event.location || {})[key] : event[key])).join(",")));
-    download(new Blob(["﻿" + lines.join("\n") + "\n"], { type: "text/csv;charset=utf-8" }), fileName(state.car.name) + ".csv");
+    download(new Blob(["﻿" + lines.join("\n") + "\n"], { type: "text/csv;charset=utf-8" }), fileName(car.name) + ".csv");
+  }
+
+  // The events of the car open on the page as they are; of another car, from the API.
+  function carEvents(car) {
+    return state.car && state.car.id === car.id && state.events ? Promise.resolve(state.events)
+      : api(`/cars/${car.id}/events`).then((data) => data.items || []);
+  }
+
+  // The car a dialog of import or export works on, changed by reopening the
+  // dialog for the chosen one; newKey: the choice of a new car (null: none).
+  function carChoice(car, newKey, reopen) {
+    const select = el("select", { onchange: () => reopen(state.cars.find((known) => known.id === select.value) || null) }, [
+      newKey ? el("option", { value: "" }, t(newKey)) : null,
+      ...state.cars.map((known) => el("option", { value: known.id }, known.name)),
+    ]);
+    select.value = car ? car.id : "";
+    return el("label", {}, [t(newKey ? "io.into" : "io.car"), select]);
+  }
+
+  // The car the dialogs of export open on: the one open on the page, or the first.
+  function defaultCar() {
+    return (state.car && state.cars.find((known) => known.id === state.car.id)) || state.cars[0] || null;
+  }
+
+  function showCsv(car) {
+    const box = dialog(t("csv.title"));
+    const result = el("div");
+    const button = el("button", { type: "submit", class: "primary" }, t("export.start"));
+    box.fill(el("form", {
+      class: "fields",
+      onsubmit: async (event) => {
+        event.preventDefault();
+        button.disabled = true;
+        try {
+          const events = await carEvents(car);
+          exportCsv(car, events);
+          fill(result, el("p", { class: "muted" }, t("csv.done", { count: events.length })));
+        } catch (failure) {
+          fill(result, el("p", { class: "error" }, failure.message));
+        }
+        button.disabled = false;
+      },
+    }, [
+      carChoice(car, null, (next) => { box.close(); showCsv(next); }),
+      el("p", {}, t("csv.intro")),
+      el("div", { class: "dialog-actions" }, [el("button", { type: "button", class: "ghost", onclick: () => box.close() }, t("close")), button]),
+      result,
+    ]));
+  }
+
+  // A button that opens a list of choices under it; items: [label, action].
+  function menuButton(label, items) {
+    const list = el("ul", { class: "menu-list hidden", role: "menu" });
+    const button = el("button", { type: "button", class: "ghost", "aria-haspopup": "menu", "aria-expanded": "false" }, label + " ▾");
+    const close = () => {
+      list.classList.add("hidden");
+      button.setAttribute("aria-expanded", "false");
+      document.removeEventListener("click", outside, true);
+      document.removeEventListener("keydown", onKey);
+    };
+    const outside = (event) => {
+      if (!wrap.contains(event.target)) close();
+    };
+    const onKey = (event) => {
+      if (event.key === "Escape") close();
+    };
+    fill(list, items.map(([text, action]) => el("li", { role: "none" }, el("button", {
+      type: "button",
+      role: "menuitem",
+      onclick: () => {
+        close();
+        action();
+      },
+    }, text))));
+    button.addEventListener("click", () => {
+      if (!list.classList.contains("hidden")) return close();
+      list.classList.remove("hidden");
+      button.setAttribute("aria-expanded", "true");
+      document.addEventListener("click", outside, true);
+      document.addEventListener("keydown", onKey);
+    });
+    const wrap = el("div", { class: "menu" }, [button, list]);
+    return wrap;
   }
 
   // The form of an event: a new one has only its kind. A charge or a refuel
@@ -1365,6 +1632,9 @@
   function editEvent(event, host) {
     const isNew = !event.id;
     const draftKey = `cars-draft:${state.car.id}:${event.id || "new-" + event.kind}`;
+    // The id of a new event, made here: sent again after a lost network, it
+    // still goes in once.
+    const draftId = event.id || newEventId();
     const draft = {
       kind: event.kind,
       date: event.date || nowLocal(),
@@ -1393,7 +1663,8 @@
       kept = null;
     }
     if (kept && kept.draft) Object.assign(draft, kept.draft, { kind: draft.kind });
-    const keep = () => { if (!readOnly()) store(draftKey, JSON.stringify({ at: nowLocal(), draft })); };
+    // A file that waits for the network lives in this form only.
+    const keep = () => { if (!readOnly()) store(draftKey, JSON.stringify({ at: nowLocal(), draft: { ...draft, files: draft.files.filter((file) => !file.waiting) } })); };
     const forget = () => unstore(draftKey);
     const box = host || dialog(tu((isNew ? "event.new." : "event.edit.") + draft.kind), () => pasteInto(null));
     // The title of a new event's dialog links to its short form
@@ -1595,7 +1866,14 @@
           drawFiles();
           keep();
         } catch (failure) {
-          toast(failure.message);
+          if (!failure.offline) {
+            toast(failure.message);
+            continue;
+          }
+          // Without a network the file waits with the event, in the outbox.
+          draft.files.push({ name: file.name.slice(0, 200), type: file.type, size: file.size, blob: file, path: URL.createObjectURL(file), waiting: true });
+          drawFiles();
+          toast(t("offline.fileWaits"));
         }
       }
     };
@@ -1619,19 +1897,33 @@
           excluded: draft.excluded,
           notes: draft.notes,
           link: draft.link.trim(),
-          files: draft.files,
+          files: draft.files.filter((file) => !file.waiting),
           location: draft.location,
         };
+        const waiting = draft.files.filter((file) => file.waiting).map(({ name, type, blob }) => ({ name, type, blob }));
+        if (isNew) body.id = draftId;
         if (refuel) Object.assign(body, { quantity: numberOf(draft.quantity), price: numberOf(draft.price), fuel: draft.fuel || null });
         save.disabled = true;
         try {
-          const saved = isNew
-            ? await api(`/cars/${state.car.id}/events`, { method: "POST", body })
-            : await api(`/cars/${state.car.id}/events/${event.id}`, { method: "PUT", body });
+          let saved;
+          let queued = false;
+          if (isNew) {
+            try {
+              // Files picked while there was no network go up first.
+              for (const file of waiting) body.files.push(await uploadFile(new File([file.blob], file.name, { type: file.type })));
+              saved = await api(`/cars/${state.car.id}/events`, { method: "POST", body });
+            } catch (failure) {
+              if (!failure.offline) throw failure;
+              saved = await queueEvent(state.car.id, body, waiting.filter((file) => !body.files.some((done) => done.name === file.name)));
+              queued = true;
+            }
+          } else {
+            saved = await api(`/cars/${state.car.id}/events/${event.id}`, { method: "PUT", body });
+          }
           state.events = state.events.filter((item) => item.id !== saved.id).concat([saved]);
           forget();
           box.close(saved);
-          toast(t("event.saved"));
+          toast(t(queued ? "offline.saved" : "event.saved"));
           await reloadReminders();
           render();
         } catch (failure) {
@@ -2387,8 +2679,8 @@
     return [
       readOnly() ? null : el("div", { class: "toolbar" }, [
         el("button", { type: "button", class: "primary", onclick: () => editCar(null) }, t("cars.add")),
-        el("button", { type: "button", class: "ghost", onclick: () => importCarExpenses(null) }, t("ce.buttonNew")),
-        el("button", { type: "button", class: "ghost", onclick: () => importJson(null) }, t("json.button")),
+        menuButton(t("io.import"), [[t("io.carExpenses"), () => importCarExpenses(null)], [t("io.json"), () => importJson(null)]]),
+        state.cars.length ? menuButton(t("io.export"), [[t("io.json"), () => showExport(defaultCar())], [t("io.csv"), () => showCsv(defaultCar())]]) : null,
       ]),
       state.cars.length ? el("div", { class: "car-cards" }, state.cars.map((car) => el("section", { class: "panel car-card" + (car.sold ? " sold" : "") }, [
         el("div", { class: "panel-head" }, [
@@ -2408,9 +2700,6 @@
         car.notes ? el("p", { class: "muted small pre" }, car.notes) : null,
         readOnly() ? null : el("div", { class: "actions" }, [
           el("button", { type: "button", class: "ghost", onclick: () => editCar(car) }, t("edit")),
-          el("button", { type: "button", class: "ghost", onclick: () => importCarExpenses(car) }, t("ce.button")),
-          el("button", { type: "button", class: "ghost", onclick: () => importJson(car) }, t("json.button")),
-          el("button", { type: "button", class: "ghost", onclick: () => showExport(car) }, t("export.button")),
         ]),
         readOnly() ? null : quickLinks(car),
       ]))) : welcomeView(),
@@ -2721,6 +3010,7 @@
         button.disabled = false;
       },
     }, [
+      state.cars.length ? carChoice(car, "io.newCar", (next) => { box.close(); importJson(next); }) : null,
       el("p", {}, t(car ? "json.intro" : "json.introNew")),
       el("ul", { class: "hint-list" }, ["json.ruleEvents", "json.ruleFiles", "json.ruleAgain"].map((key) => el("li", { class: "hint" }, t(key)))),
       el("label", {}, [t("json.file"), picker]),
@@ -2833,6 +3123,7 @@
         button.disabled = false;
       },
     }, [
+      state.cars.length ? carChoice(car, "io.newCars", (next) => { box.close(); importCarExpenses(next); }) : null,
       el("p", {}, t(car ? "ce.intro" : "ce.introNew")),
       el("ul", { class: "hint-list" }, ["ce.ruleFile", "ce.ruleRecords", "ce.ruleExpenses", "ce.rulePatterns", "ce.rulePictures", "import.ruleAgain"]
         .map((key) => el("li", { class: "hint" }, t(key)))),
@@ -3375,7 +3666,9 @@
       return;
     }
     try {
-      await currentSession();
+      await currentSession().catch((error) => {
+        if (!looksOffline(error)) throw error;
+      });
       await loadLanguage();
       state.me = await api("/me");
       if (state.me.admin) {
@@ -3395,6 +3688,13 @@
     if (!listening) window.addEventListener("hashchange", show);
     listening = true;
     show();
+    countPending().then(() => flushOutbox());
+  }
+
+  // The service worker keeps the page and what it read for the times without
+  // a network (sw.js).
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
   }
 
   setLanguage(known(stored(LANGUAGE_KEY)) ? stored(LANGUAGE_KEY) : browserLanguage());
