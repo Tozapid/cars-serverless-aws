@@ -140,6 +140,7 @@ Steps to production:
 
 - every push and pull request: `terraform fmt` and `terraform validate`; the Lambda tests; the page's syntax check;
 - pull requests from this repository: `terraform plan` in the environment `demo`;
+- a preview of a pull request, by hand: Run workflow with `preview` = its number deploys its last push once more as `cars-serverless-pr<number>`, with its own state, and comments the address on it; it is destroyed when the pull request is merged or closed, by hand (`destroy`), or by the daily sweep, which also takes those not deployed for a week;
 - a push to `main` or a manual run: plan and apply in the environment `demo`. The job stops if the plan would destroy or replace a bucket, the table or the user pool. A manual run from another branch deploys that branch over the same site until `main` is deployed again;
 - after `main` is deployed: the GitHub release of the newest `CHANGELOG.md` entry, once.
 
