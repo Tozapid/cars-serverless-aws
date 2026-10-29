@@ -144,6 +144,13 @@ class CarsTest(Base):
         self.assertEqual(found["items"], [{"email": other, "cars": 0}, {"email": OWNER, "cars": 1}])
 
 
+class LogTest(unittest.TestCase):
+    def test_the_log_names_the_route_not_the_request(self):
+        self.assertEqual(app.route_label("/api/share/s3cr3t-token/cars/abc123/events"), "/api/share/*/cars/*/events")
+        self.assertEqual(app.route_label("/api/cars/abc123/import/carexpenses"), "/api/cars/*/import/carexpenses")
+        self.assertEqual(app.route_label("/"), "/")
+
+
 class AccessTest(Base):
     def anonymous(self, method, path, headers=None, body=None):
         event = {"rawPath": path, "requestContext": {"http": {"method": method, "sourceIp": "130.176.0.1"}},

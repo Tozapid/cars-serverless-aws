@@ -556,10 +556,6 @@ button.link { padding: 0; border: 0; background: none; color: var(--accent); tex
 .period { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
 .draft-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin: 0; padding: 8px 12px;
   border-radius: var(--radius); background: var(--surface-2); font-size: 13px; }
-.quick-links summary { cursor: pointer; font-size: 14px; font-weight: 500; }
-.quick-links ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
-.quick-links li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 8px; }
-.quick-links li .ghost { padding: 4px 10px; font-size: 13px; }
 .quick-app .content { max-width: 560px; }
 .quick h1 { margin: 0; font-size: 20px; }
 .quick > .muted { margin: 2px 0 12px; }
@@ -569,7 +565,7 @@ button.link { padding: 0; border: 0; background: none; color: var(--accent); tex
 .modal-head h2 .quick-icon { margin-left: 6px; vertical-align: middle; }
 .quick-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 32px; border-radius: var(--radius); color: var(--muted); }
 .quick-icon:hover { color: var(--ink); background: var(--surface-2); }
-.quick-icon svg, .quick-links svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -3px; }
+.quick-icon svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -3px; }
 
 /* Stat tiles */
 

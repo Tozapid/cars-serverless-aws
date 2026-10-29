@@ -895,9 +895,29 @@
 
   // Page -------------------------------------------------------------------
 
+  // A short form links a manifest of its own (cloudfront/manifest.js) whose
+  // start_url is the form: a phone that adds it to the home screen opens the
+  // form, not the start page. Every other page links /manifest.json.
+  function linkManifest() {
+    const link = document.querySelector("link[rel=manifest]");
+    const title = document.querySelector("meta[name=apple-mobile-web-app-title]");
+    if (!link) return;
+    if (!state.quick || !state.car) {
+      link.setAttribute("href", "/manifest.json");
+      if (title) title.setAttribute("content", t("brand"));
+      return;
+    }
+    const kind = state.quick;
+    const label = t("add." + kind + "." + (kind === "refuel" ? (state.car.unit === "L" ? "L" : "kWh") : "any")).replace(/^\+\s*/, "");
+    const name = label + " · " + state.car.name;
+    link.setAttribute("href", "/manifest/add/" + kind + "/" + state.car.id + ".json?name=" + encodeURIComponent(name));
+    if (title) title.setAttribute("content", label);
+  }
+
   function render() {
     // The form that takes a paste registers itself again.
     pasteInto(null);
+    linkManifest();
     if (state.quick) {
       root.replaceChildren(el("div", { class: "app quick-app" }, [
         el("header", { class: "top" }, [
@@ -989,44 +1009,6 @@
 
   function quickLink(kind, car) {
     return location.origin + "/#add/" + kind + "/" + car.id;
-  }
-
-  // The addresses of the short forms of a car, to copy or to scan.
-  function quickLinks(car) {
-    return el("details", { class: "quick-links" }, [
-      el("summary", {}, t("quick.links")),
-      el("p", { class: "hint" }, t("quick.linksHint")),
-      el("ul", {}, KINDS.map((kind) => {
-        const link = quickLink(kind, car);
-        const label = t("add." + kind + "." + (kind === "refuel" ? (car.unit === "L" ? "L" : "kWh") : "any"));
-        return el("li", {}, [
-          el("a", { href: link }, [linkIcon(), " ", label]),
-          el("button", {
-            type: "button",
-            class: "ghost",
-            onclick: async () => {
-              try {
-                await navigator.clipboard.writeText(link);
-                toast(t("quick.copied"));
-              } catch (error) {
-                window.prompt(t("quick.copy"), link);
-              }
-            },
-          }, t("quick.copy")),
-          el("button", {
-            type: "button",
-            class: "ghost",
-            onclick: () => {
-              const qr = window.qrcode(0, "M");
-              qr.addData(link);
-              qr.make();
-              const box = dialog(label + " · " + car.name);
-              box.fill([el("img", { class: "qr", src: qr.createDataURL(6, 2), alt: link }), el("p", { class: "mono small" }, link)]);
-            },
-          }, t("quick.qr")),
-        ]);
-      })),
-    ]);
   }
 
   function loading() {
@@ -2701,7 +2683,6 @@
         readOnly() ? null : el("div", { class: "actions" }, [
           el("button", { type: "button", class: "ghost", onclick: () => editCar(car) }, t("edit")),
         ]),
-        readOnly() ? null : quickLinks(car),
       ]))) : welcomeView(),
     ];
   }

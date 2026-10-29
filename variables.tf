@@ -104,6 +104,12 @@ variable "access_logs_bucket" {
   description = "Bucket that the access logs of this site go to, such as the logs_bucket of an overview of the account (Tozapid/account-serverless-aws): the standard logs (v2) of the distribution under cloudfront/<name>/, and the S3 server access logs of the files bucket under s3/. Its policy has to let delivery.logs.amazonaws.com and logging.s3.amazonaws.com write there. Empty: no access logs."
 }
 
+variable "files_key_from" {
+  type        = string
+  default     = null
+  description = "Name of a deployed stack of this project whose CloudFront key signs the file cookies, instead of a key of its own; \"\" for its own. Unset: a preview (<name>-pr<N>) uses <name>'s, any other stack its own. The account allows ten CloudFront public keys."
+}
+
 variable "tags" {
   type = map(string)
   default = {

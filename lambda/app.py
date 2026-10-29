@@ -160,8 +160,21 @@ def api(event):
         result = response(500, {"error": ERRORS["internal"], "code": "internal"})
     if 200 <= result["statusCode"] < 300 and owner:
         files.attach_cookies(result, event, owner)
-    common.logger.info("%s %s -> %s", method, event.get("rawPath"), result["statusCode"])
+    common.logger.info("%s %s -> %s", method, route_label(event.get("rawPath") or "/"), result["statusCode"])
     return result
+
+
+# The log names the route, not the request: the token of a share link, car,
+# event and reminder ids and whatever else a caller puts in the path stay out
+# of it. Each word comes from this table, never from the request.
+ROUTE_WORDS = {word: word for word in (
+    "api", "v1", "share", "me", "prefs", "version", "keys", "shares", "files", "admin", "users", "owners",
+    "cars", "events", "reminders", "import", "json", "carexpenses",
+)}
+
+
+def route_label(path):
+    return "/" + "/".join(ROUTE_WORDS.get(part, "*") for part in path.split("/") if part)
 
 
 # /api/v1/…: the cars of the key's user; a read key only reads.

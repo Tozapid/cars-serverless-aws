@@ -28,7 +28,7 @@ The demo is English and made up: a Tesla Model 3, charged at home, at work and o
 - **Charts** of costs, kilometres, the odometer, consumption and the price of a kilometre by day, week, month or year, with a crosshair shared across them (as in Grafana), zoom by selecting a stretch, a large view, and series hidden or shown alone from the legend.
 - **A map** of the events (Leaflet and OpenStreetMap), with an icon of their kind and the near ones grouped; a table of the places. The place of an event comes from the browser or from a click on a map, and the categories used near it come first.
 - **Reminders** after so many days, weeks, months or years and kilometres from the last event of their category, on a day of every month, or on chosen days of the week, from a start date; "soon" and "overdue" on the page and once a day by mail.
-- **Short forms** of each kind of event under links of their own, with a QR code, for a phone; **drafts** of every form in the browser.
+- **Short forms** of each kind of event under links of their own, for a phone: the link icon in the title of a new event's form; added to the home screen, a short form opens itself (it links a manifest of its own, made by `cloudfront/manifest.js`); **drafts** of every form in the browser.
 - **Import and export** from two menus next to "Add a car": import of a backup of the Android app Car Expenses or of a JSON file, as new cars or into a chosen one; export of a car to a JSON file with its receipts and photos, which imports again, also into another account, or of its events to CSV.
 - **Without a network**: the page installs on a phone (PWA), opens with the data last loaded, and keeps new events with their files in a queue of the browser until the network is back.
 - **API keys** for programs, read or read and write, and **share links** that open the cars, or one car, read only without a sign-in, for a time or for good; each tells where and when it was made and last used.
@@ -140,7 +140,7 @@ Steps to production:
 
 - every push and pull request: `terraform fmt` and `terraform validate`; the Lambda tests; the page's syntax check;
 - pull requests from this repository: `terraform plan` in the environment `demo`;
-- a preview of a pull request, by hand: Run workflow with `preview` = its number deploys its last push once more as `cars-serverless-pr<number>`, with its own state, and comments the address on it; it is destroyed when the pull request is merged or closed, by hand (`destroy`), or by the daily sweep, which also takes those not deployed for a week;
+- a preview of a pull request, by hand: Run workflow with `preview` = its number deploys its last push once more as `cars-serverless-pr<number>`, with its own state, and comments the address on it. A preview signs file cookies with the CloudFront key of the main site (read from the SSM parameter `/cars-serverless/cloudfront-key-ids`), because an account holds at most ten CloudFront public keys; the main site has to be deployed first. The variable `files_key_from` changes where the key comes from. It is destroyed when the pull request is merged or closed, by hand (`destroy`), or by the daily sweep, which also takes those not deployed for a week;
 - a push to `main` or a manual run: plan and apply in the environment `demo`. The job stops if the plan would destroy or replace a bucket, the table or the user pool. A manual run from another branch deploys that branch over the same site until `main` is deployed again;
 - after `main` is deployed: the GitHub release of the newest `CHANGELOG.md` entry, once.
 

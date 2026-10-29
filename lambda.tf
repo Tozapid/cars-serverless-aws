@@ -53,8 +53,8 @@ resource "aws_lambda_function" "app" {
       RELEASES_REPOSITORY      = var.releases_repository
       FILES_BUCKET             = aws_s3_bucket.files.id
       FILE_MAX_BYTES           = tostring(var.file_max_bytes)
-      CLOUDFRONT_KEY_PAIR_ID   = aws_cloudfront_public_key.files.id
-      FILES_KEY_PARAMETER_NAME = aws_ssm_parameter.files_signing_key.name
+      CLOUDFRONT_KEY_PAIR_ID   = local.files_key.public_key_id
+      FILES_KEY_PARAMETER_NAME = local.files_key.private_key_parameter
       REMINDER_LEAD_DAYS       = tostring(var.reminder_lead_days)
       REMINDER_LEAD_KM         = tostring(var.reminder_lead_km)
     }
