@@ -991,44 +991,6 @@
     return location.origin + "/#add/" + kind + "/" + car.id;
   }
 
-  // The addresses of the short forms of a car, to copy or to scan.
-  function quickLinks(car) {
-    return el("details", { class: "quick-links" }, [
-      el("summary", {}, t("quick.links")),
-      el("p", { class: "hint" }, t("quick.linksHint")),
-      el("ul", {}, KINDS.map((kind) => {
-        const link = quickLink(kind, car);
-        const label = t("add." + kind + "." + (kind === "refuel" ? (car.unit === "L" ? "L" : "kWh") : "any"));
-        return el("li", {}, [
-          el("a", { href: link }, [linkIcon(), " ", label]),
-          el("button", {
-            type: "button",
-            class: "ghost",
-            onclick: async () => {
-              try {
-                await navigator.clipboard.writeText(link);
-                toast(t("quick.copied"));
-              } catch (error) {
-                window.prompt(t("quick.copy"), link);
-              }
-            },
-          }, t("quick.copy")),
-          el("button", {
-            type: "button",
-            class: "ghost",
-            onclick: () => {
-              const qr = window.qrcode(0, "M");
-              qr.addData(link);
-              qr.make();
-              const box = dialog(label + " · " + car.name);
-              box.fill([el("img", { class: "qr", src: qr.createDataURL(6, 2), alt: link }), el("p", { class: "mono small" }, link)]);
-            },
-          }, t("quick.qr")),
-        ]);
-      })),
-    ]);
-  }
-
   function loading() {
     return el("p", { class: "muted" }, t("loading"));
   }
@@ -2701,7 +2663,6 @@
         readOnly() ? null : el("div", { class: "actions" }, [
           el("button", { type: "button", class: "ghost", onclick: () => editCar(car) }, t("edit")),
         ]),
-        readOnly() ? null : quickLinks(car),
       ]))) : welcomeView(),
     ];
   }

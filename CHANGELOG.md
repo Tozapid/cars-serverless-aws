@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.1
+
+### Changed
+
+- The car card no longer has the "Links for the phone" block (the links of the short forms with Copy and QR code). The link of a short form stays in the title of the form of a new event.
+
 ## v0.3.0
 
 ### Added
