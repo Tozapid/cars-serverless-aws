@@ -7,6 +7,11 @@ locals {
     "i18n.js"     = "text/javascript; charset=utf-8"
     "styles.css"  = "text/css; charset=utf-8"
     "favicon.svg" = "image/svg+xml"
+    # iOS puts a PNG on the home screen, never the SVG; the manifest offers
+    # the PNGs to Android.
+    "apple-touch-icon.png" = "image/png"
+    "icon-192.png"         = "image/png"
+    "icon-512.png"         = "image/png"
     # The offline side of the page (sw.js) and what a phone installs it as.
     "sw.js"         = "text/javascript; charset=utf-8"
     "manifest.json" = "application/manifest+json"
@@ -21,7 +26,7 @@ resource "aws_s3_object" "web" {
   source        = "${path.module}/web/${each.key}"
   etag          = filemd5("${path.module}/web/${each.key}")
   content_type  = each.value
-  cache_control = each.key == "favicon.svg" ? "public, max-age=86400" : "no-cache"
+  cache_control = contains(["favicon.svg", "apple-touch-icon.png", "icon-192.png", "icon-512.png"], each.key) ? "public, max-age=86400" : "no-cache"
 }
 
 resource "aws_s3_object" "config" {

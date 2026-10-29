@@ -229,7 +229,7 @@ The tests use no network: DynamoDB, S3, SES, SSM and Cognito are faked (`lambda/
 | `lambda/files.py`, `lambda/common.py` | Uploads and signed cookies; the table, the AWS clients |
 | `apigateway.tf`, `cognito.tf` | The API and the users |
 | `dynamodb.tf`, `s3.tf` | The table, the page and file buckets |
-| `cloudfront.tf`, `cloudfront/`, `dns.tf`, `frontend.tf`, `web/` | The distribution, the domain, the page, its statistics (`stats.js`), charts (`charts.js`), translations (`i18n.js`) and offline side (`sw.js`, `manifest.json`) |
+| `cloudfront.tf`, `cloudfront/`, `dns.tf`, `frontend.tf`, `web/` | The distribution, the domain, the page, its statistics (`stats.js`), charts (`charts.js`), translations (`i18n.js`) and offline side (`sw.js`, `manifest.json`), icons (`favicon.svg`, and the PNGs of phones: `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`) |
 | `ses.tf` | The SES identity of `domain_name` for the reminders (production with `sender_address`) |
 | `reset.tf`, `lambda/reset.py`, `seed/seed.json` | The hourly reset of the demo and its examples |
 | `examples/production.tfvars` | A starting point for production |

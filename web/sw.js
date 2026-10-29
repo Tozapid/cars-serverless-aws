@@ -5,9 +5,9 @@
 // everything is fetched as before and the cache only follows. Files, map
 // tiles and every write go past the cache; the page queues the new events
 // itself (app.js, the outbox).
-const SHELL = "cars-shell-v3";
+const SHELL = "cars-shell-v4";
 const DATA = "cars-data-v1";
-const PAGE = ["/", "/index.html", "/app.js", "/stats.js", "/charts.js", "/i18n.js", "/styles.css", "/favicon.svg", "/config.js", "/manifest.json"];
+const PAGE = ["/", "/index.html", "/app.js", "/stats.js", "/charts.js", "/i18n.js", "/styles.css", "/favicon.svg", "/apple-touch-icon.png", "/icon-192.png", "/icon-512.png", "/config.js", "/manifest.json"];
 // Versioned and with subresource integrity: kept once fetched. The two the
 // page needs to sign in come with the page; Leaflet when the map opens.
 const LIBRARIES = ["https://cdn.jsdelivr.net/npm/", "https://cdnjs.cloudflare.com/ajax/libs/"];
