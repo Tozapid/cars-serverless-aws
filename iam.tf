@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "lambda" {
   statement {
     sid       = "ReadFilesSigningKey"
     actions   = ["ssm:GetParameter"]
-    resources = [aws_ssm_parameter.files_signing_key.arn]
+    resources = ["arn:aws:ssm:${var.region}:${local.account_id}:parameter${local.files_key.private_key_parameter}"]
   }
 
   # The page uploads a file through a presigned POST; an event or a car that

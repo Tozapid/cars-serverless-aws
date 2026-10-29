@@ -3,6 +3,20 @@ locals {
   account_id   = data.aws_caller_identity.current.account_id
   web_bucket   = "${local.name}-web-${local.account_id}"
   files_bucket = "${local.name}-files-${local.account_id}"
+  # A preview signs file cookies with the key of the site it previews.
+  files_key_from = var.files_key_from != null ? var.files_key_from : try(regex("^(.+)-pr[0-9]+$", var.name)[0], "")
+  own_files_key  = local.files_key_from == ""
+  # Exactly one of the lists has an element. A conditional would not do:
+  # both of its sides are evaluated, and the one left out is empty.
+  files_key = one(concat(
+    [for index, group in aws_cloudfront_key_group.files : {
+      key_group_id          = group.id
+      public_key_id         = aws_cloudfront_public_key.files[index].id
+      private_key_parameter = aws_ssm_parameter.files_signing_key[index].name
+    }],
+    # Ids and a parameter name; the data source marks every value sensitive.
+    [for parameter in data.aws_ssm_parameter.shared_files_key : jsondecode(nonsensitive(parameter.value))],
+  ))
 
   # The page on its own domain, or on the CloudFront address without one.
   custom_domain = var.domain_name != ""

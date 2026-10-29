@@ -9,6 +9,7 @@
 ### Fixed
 
 - A short form (`/#add/<kind>/<car>`) added to the home screen of an iPhone opened the start page: the page linked one manifest for every address, with `start_url` `/`, and Safari takes the address to open from it. A short form now links a manifest of its own, `/manifest/add/<kind>/<car>.json`, made by the CloudFront function `cloudfront/manifest.js` on the default behaviour, whose `start_url` is the form and whose name is the kind and the car. A home screen icon added before this still opens the start page; add it again.
+- A preview could not be deployed once the account held ten CloudFront public keys (`TooManyPublicKeys`), a limit that is not raised. A preview (`<name>-pr<N>`) now signs file cookies with the key of the main site, which publishes its ids in the SSM parameter `/<name>/cloudfront-key-ids`; only the main site makes a key. `files_key_from` names another stack to borrow from, or `""` for a key of its own. The main site has to be deployed with this version before the first such preview.
 
 ## v0.3.0
 
