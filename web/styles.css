@@ -559,6 +559,8 @@ button.link { padding: 0; border: 0; background: none; color: var(--accent); tex
 .quick-app .content { max-width: 560px; }
 .quick h1 { margin: 0; font-size: 20px; }
 .quick > .muted { margin: 2px 0 12px; }
+.quick .home-button { margin: 0 0 12px; }
+.home-steps { margin: 0 0 8px; padding-left: 20px; display: grid; gap: 6px; }
 .quick-app .top { flex-wrap: nowrap; }
 .car-head p { margin: 2px 0 0; font-size: 14px; }
 .add-buttons { display: flex; flex-wrap: wrap; gap: 8px; }

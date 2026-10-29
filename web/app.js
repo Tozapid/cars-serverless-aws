@@ -786,7 +786,13 @@
   // The address keeps the view and the car: #events/<car>.
 
   // The parts of the address after the share link's #s/<token>/, if any.
+  // A short form also has an address of its own, /add/<kind>/<car>/, for the
+  // home screen of a phone; the hash, when there is one, goes first.
+  const FORM_PATH = /^\/add\/([a-z]+)\/([0-9a-z]+)\/?$/;
+
   function hashParts() {
+    const form = !location.hash.replace(/^#/, "") && FORM_PATH.exec(location.pathname);
+    if (form) return ["add", form[1], form[2]];
     const parts = location.hash.replace(/^#/, "").split("/");
     return parts[0] === "s" ? parts.slice(2) : parts;
   }
@@ -895,35 +901,26 @@
 
   // Page -------------------------------------------------------------------
 
-  // A short form links a manifest of its own (cloudfront/manifest.js) whose
-  // start_url is the form: a phone that adds it to the home screen opens the
-  // form, not the start page. Every other page links /manifest.json.
-  function linkManifest() {
-    const link = document.querySelector("link[rel=manifest]");
+  // The name a phone offers for the icon of a short form.
+  function homeTitle() {
     const title = document.querySelector("meta[name=apple-mobile-web-app-title]");
-    if (!link) return;
-    if (!state.quick || !state.car) {
-      link.setAttribute("href", "/manifest.json");
-      if (title) title.setAttribute("content", t("brand"));
-      return;
-    }
+    if (!title) return;
     const kind = state.quick;
-    const label = t("add." + kind + "." + (kind === "refuel" ? (state.car.unit === "L" ? "L" : "kWh") : "any")).replace(/^\+\s*/, "");
-    const name = label + " · " + state.car.name;
-    link.setAttribute("href", "/manifest/add/" + kind + "/" + state.car.id + ".json?name=" + encodeURIComponent(name));
-    if (title) title.setAttribute("content", label);
+    title.setAttribute("content", kind && state.car
+      ? t("add." + kind + "." + (kind === "refuel" ? (state.car.unit === "L" ? "L" : "kWh") : "any")).replace(/^\+\s*/, "")
+      : t("brand"));
   }
 
   function render() {
     // The form that takes a paste registers itself again.
     pasteInto(null);
-    linkManifest();
+    homeTitle();
     if (state.quick) {
       root.replaceChildren(el("div", { class: "app quick-app" }, [
         el("header", { class: "top" }, [
           el("div", { class: "brand" }, [el("img", { class: "brand-mark", src: "/favicon.svg", alt: "" }), el("strong", {}, t("brand")),
             state.car ? el("span", {}, state.car.name) : null]),
-          el("a", { class: "ghost", href: "#overview" + (state.car ? "/" + state.car.id : "") }, t("quick.journal")),
+          el("a", { class: "ghost", href: "/#overview" + (state.car ? "/" + state.car.id : "") }, t("quick.journal")),
         ]),
         el("main", { class: "content" }, [networkNote(), !state.car ? welcomeView() : state.events === null ? loading() : quickView()]),
       ]));
@@ -997,18 +994,52 @@
         el("p", {}, [kindBadge(item.kind), " ", [dateText(item.date, true), item.category, item.amount != null ? money(item.amount) : null].filter(Boolean).join(" · ")]),
         el("div", { class: "actions" }, [
           el("button", { type: "button", class: "primary", onclick: () => { state.quickDone = null; render(); } }, t("quick.another")),
-          el("a", { class: "ghost", href: "#overview/" + state.car.id }, t("quick.journal")),
+          el("a", { class: "ghost", href: "/#overview/" + state.car.id }, t("quick.journal")),
         ]),
       ]);
     }
     const body = el("div", { class: "modal-body" });
     const host = { node: body, fill: (children) => fill(body, children), close: (saved) => { state.quickDone = saved || null; }, title: () => {} };
     editEvent({ kind }, host);
-    return el("section", { class: "panel quick" }, [el("h1", {}, tu("event.new." + kind)), el("p", { class: "muted" }, state.car.name), body]);
+    return el("section", { class: "panel quick" }, [el("h1", {}, tu("event.new." + kind)), el("p", { class: "muted" }, state.car.name), homeButton(), body]);
   }
 
   function quickLink(kind, car) {
-    return location.origin + "/#add/" + kind + "/" + car.id;
+    return location.origin + "/add/" + kind + "/" + car.id + "/";
+  }
+
+  // A page cannot put itself on the home screen of an iPhone: the button
+  // says how, from the address of the form. Chrome on Android offers its own
+  // install prompt, which the button opens.
+  let installPrompt = null;
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    installPrompt = event;
+  });
+
+  function homeButton() {
+    const standalone = navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+    if (standalone) return null;
+    return el("button", {
+      type: "button",
+      class: "ghost home-button",
+      onclick: async () => {
+        if (installPrompt) {
+          const prompt = installPrompt;
+          installPrompt = null;
+          await prompt.prompt();
+          return;
+        }
+        const box = dialog(t("quick.home"));
+        box.fill([
+          el("ol", { class: "home-steps" }, [
+            el("li", {}, t("quick.homeShare")),
+            el("li", {}, t("quick.homeAdd")),
+          ]),
+          el("p", { class: "muted small" }, t("quick.homeNote")),
+        ]);
+      },
+    }, t("quick.home"));
   }
 
   function loading() {
@@ -3640,6 +3671,13 @@
   }
 
   async function boot() {
+    // An old link of a short form, /#add/<kind>/<car>, goes to the address of
+    // its own, which the home screen keeps.
+    const oldForm = location.pathname === "/" && location.hash.match(/^#add\/([a-z]+)\/([0-9a-z]+)$/);
+    if (oldForm && KINDS.includes(oldForm[1])) {
+      location.replace("/add/" + oldForm[1] + "/" + oldForm[2] + "/");
+      return;
+    }
     const shared = location.hash.match(/^#s\/([^/]+)/);
     if (shared) return bootShare(decodeURIComponent(shared[1]));
     if (!window.AmazonCognitoIdentity || !config.userPoolId || !config.clientId) {

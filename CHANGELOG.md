@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.3.2
+
+### Added
+
+- An "Add to Home Screen" button on a short form, outside the installed app. A page cannot put itself on the home screen of an iPhone, so on an iPhone the button shows the two steps in Safari; where the browser offers an install prompt (Chrome on Android), the button opens it.
+
+### Fixed
+
+- A short form added to the home screen of an iPhone still opened the start page after v0.3.1: Safari read the manifest of the page before the page swapped it, and the form was in the `#fragment` of the address. A short form now has an address of its own, `/add/<kind>/<car>/`: the CloudFront function `cloudfront/manifest.js` serves the page there and `/add/<kind>/<car>/manifest.json` beside it, with the form as its `start_url`, and the page links its manifest relatively, so Safari finds the form's at once. Links of the form `/#add/<kind>/<car>` go to the new address. An icon added before this opens the start page; add it again from the form.
+
 ## v0.3.1
 
 ### Changed
