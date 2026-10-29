@@ -895,9 +895,29 @@
 
   // Page -------------------------------------------------------------------
 
+  // A short form links a manifest of its own (cloudfront/manifest.js) whose
+  // start_url is the form: a phone that adds it to the home screen opens the
+  // form, not the start page. Every other page links /manifest.json.
+  function linkManifest() {
+    const link = document.querySelector("link[rel=manifest]");
+    const title = document.querySelector("meta[name=apple-mobile-web-app-title]");
+    if (!link) return;
+    if (!state.quick || !state.car) {
+      link.setAttribute("href", "/manifest.json");
+      if (title) title.setAttribute("content", t("brand"));
+      return;
+    }
+    const kind = state.quick;
+    const label = t("add." + kind + "." + (kind === "refuel" ? (state.car.unit === "L" ? "L" : "kWh") : "any")).replace(/^\+\s*/, "");
+    const name = label + " · " + state.car.name;
+    link.setAttribute("href", "/manifest/add/" + kind + "/" + state.car.id + ".json?name=" + encodeURIComponent(name));
+    if (title) title.setAttribute("content", label);
+  }
+
   function render() {
     // The form that takes a paste registers itself again.
     pasteInto(null);
+    linkManifest();
     if (state.quick) {
       root.replaceChildren(el("div", { class: "app quick-app" }, [
         el("header", { class: "top" }, [

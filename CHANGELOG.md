@@ -6,6 +6,10 @@
 
 - The car card no longer has the "Links for the phone" block (the links of the short forms with Copy and QR code). The link of a short form stays in the title of the form of a new event.
 
+### Fixed
+
+- A short form (`/#add/<kind>/<car>`) added to the home screen of an iPhone opened the start page: the page linked one manifest for every address, with `start_url` `/`, and Safari takes the address to open from it. A short form now links a manifest of its own, `/manifest/add/<kind>/<car>.json`, made by the CloudFront function `cloudfront/manifest.js` on the default behaviour, whose `start_url` is the form and whose name is the kind and the car. A home screen icon added before this still opens the start page; add it again.
+
 ## v0.3.0
 
 ### Added

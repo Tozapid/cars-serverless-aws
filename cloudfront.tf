@@ -32,6 +32,15 @@ resource "aws_cloudfront_function" "api_host" {
   code     = file("${path.module}/cloudfront/api_host.js")
 }
 
+resource "aws_cloudfront_function" "manifest" {
+  provider = aws.global
+  name     = "${local.name}-manifest"
+  runtime  = "cloudfront-js-2.0"
+  publish  = true
+  comment  = "The manifest of a short form, so that the home screen opens the form."
+  code     = file("${path.module}/cloudfront/manifest.js")
+}
+
 resource "aws_cloudfront_cache_policy" "files" {
   provider    = aws.global
   name        = "${local.name}-files"
@@ -228,6 +237,11 @@ resource "aws_cloudfront_distribution" "web" {
 
     cache_policy_id            = aws_cloudfront_cache_policy.web.id
     response_headers_policy_id = aws_cloudfront_response_headers_policy.web.id
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.manifest.arn
+    }
   }
 
   ordered_cache_behavior {
