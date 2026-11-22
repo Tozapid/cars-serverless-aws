@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.4
+
+### Removed
+
+- `demo/moved.tf`: the state of the demo already keeps its resources under `module.cars`. A site that still has the resources at the top of its state moves them in its own root module before taking this version.
+
 ## v0.3.3
 
 ### Added
