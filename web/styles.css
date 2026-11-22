@@ -782,3 +782,29 @@ ul.plain { list-style: none; margin: 0; padding: 0; overflow-wrap: anywhere; }
   .facts { grid-template-columns: 1fr; }
   .facts dd { margin-bottom: 6px; }
 }
+
+/* Access to a car for other users (settings) and the cars shared with me */
+
+.access-list .grant-list { display: grid; gap: 6px; }
+.access-list .grant-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 0; border: 0; border-radius: 0; }
+.grant-email { flex: 1 1 200px; min-width: 0; overflow-wrap: anywhere; }
+.grant-row select { width: auto; }
+.section-title { margin: 8px 0 0; font-size: 17px; }
+
+/* iPhone: Safari zooms into a field whose text is smaller than 16px when it
+   takes the focus, and does not zoom back. The fields of a touch screen get
+   16px; text size stays as set when the phone turns. */
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (pointer: coarse) {
+  input:not([type=checkbox], [type=radio], [type=file], [type=range]), textarea, select { font-size: 16px !important; }
+}
+
+/* Nothing may make the page wider than the screen: Safari would show it
+   smaller to fit. */
+body { overflow-x: clip; }
+.menu-list { max-width: calc(100vw - 32px); }
+@media (max-width: 720px) {
+  .owner-select { max-width: 45%; order: 3; }
+  .menu:last-child .menu-list { left: auto; right: 0; }
+}

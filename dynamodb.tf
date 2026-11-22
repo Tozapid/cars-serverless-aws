@@ -1,8 +1,11 @@
 # One table, a partition per user: pk = USER#<email>. sk = CAR#<car> is a car;
 # sk = EVENT#<car>#<id> an event of it (a charge or a refuel, a service, an
 # expense, an income); sk = REMINDER#<car>#<id> what is due after so many days
-# or kilometres or on a day of the calendar; sk = PREFS which mails the user
-# wants; sk = APIKEY#<id> and SHARE#<id> the API keys and the share links. The page reads a car
+# or kilometres or on a day of the calendar; sk = DRAFT#<car>#<key> the draft
+# of an event form; sk = GRANT#<car>#<email> access to a car given to another
+# user and sk = SHARED#<owner>#<car> its pointer in their partition; sk = PREFS
+# which mails the user wants; sk = APIKEY#<id> and SHARE#<id> the API keys and
+# the share links. The page reads a car
 # with two queries of the partition and counts the statistics itself.
 # pk = MARK holds the markers that keep a reminder from being mailed twice.
 resource "aws_dynamodb_table" "main" {
@@ -23,8 +26,8 @@ resource "aws_dynamodb_table" "main" {
     type = "S"
   }
 
-  # The markers of the mailed reminders go when "expires" (epoch seconds) has
-  # passed.
+  # The markers of the mailed reminders and old drafts go when "expires"
+  # (epoch seconds) has passed.
   ttl {
     attribute_name = "expires"
     enabled        = true

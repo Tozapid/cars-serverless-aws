@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.3.3
+
+### Added
+
+- Access to a car for another user: Settings → Access — the user's email, the car and "View" or "View and change". They find the car on the Cars tab ("Cars shared with me") and in "Whose cars"; with change they add and edit its events, reminders and drafts, while its settings, imports and deletion stay with the owner. Deleting a car or a user drops their grants.
+
+### Changed
+
+- The repository is a Terraform module: the root makes no providers and no backend (the caller passes `aws` and `aws.global`), and a site is a module call pinned to a release tag, `git::https://github.com/Tozapid/cars-serverless-aws.git?ref=vX.Y.Z`; a newer version of a site is a newer `ref`. The public demo is a call of the module in `demo/`, which the CI deploys (`working_directory: demo`); `demo/moved.tf` moves its resources under `module.cars` in the state. The defaults are those of a production site (`demo = false`, no reset); `name` and `admin_email` have none. New inputs: `ses_identity` (false when the caller manages the SES identity of the domain) and `totp_issuer` (the name in an authenticator app, "Cars demo" in the demo). The region comes from the provider, the tags from its `default_tags`; the zips of the functions are built in `.build/` of the root module. `examples/production.tfvars` became `examples/production/main.tf`.
+- The drafts of an event form are kept with the car in the table rather than in the browser: they open in any browser and for everyone with write access to the car (with a note of whose draft it is). Offline a draft waits in the browser and goes later; saving the event deletes it in the table too, also from the offline queue. Old drafts of the browser move to the table when the car opens.
+- On an iPhone the page no longer zooms in on a tap into a field: fields on touch screens are 16px (Safari zooms into smaller text), the text size does not change on rotation, and the Export menu and the owner picker stay inside the screen.
+
+### Fixed
+
+- A new form wrote a draft without a single edit — from the place found by geolocation and the category filled in — and after "Discard the draft" it came back. A draft is now written only after an edit by hand.
+
 ## v0.3.2
 
 ### Added

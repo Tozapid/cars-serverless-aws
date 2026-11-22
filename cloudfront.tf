@@ -54,27 +54,6 @@ data "aws_ssm_parameter" "shared_files_key" {
   name  = "/${local.files_key_from}/cloudfront-key-ids"
 }
 
-# The key existed before it became optional.
-moved {
-  from = tls_private_key.files
-  to   = tls_private_key.files[0]
-}
-
-moved {
-  from = aws_cloudfront_public_key.files
-  to   = aws_cloudfront_public_key.files[0]
-}
-
-moved {
-  from = aws_cloudfront_key_group.files
-  to   = aws_cloudfront_key_group.files[0]
-}
-
-moved {
-  from = aws_ssm_parameter.files_signing_key
-  to   = aws_ssm_parameter.files_signing_key[0]
-}
-
 resource "aws_cloudfront_function" "api_host" {
   provider = aws.global
   name     = "${local.name}-api-host"
@@ -267,7 +246,7 @@ resource "aws_cloudfront_distribution" "web" {
   }
 
   origin {
-    domain_name = "${aws_apigatewayv2_api.http.id}.execute-api.${var.region}.amazonaws.com"
+    domain_name = "${aws_apigatewayv2_api.http.id}.execute-api.${local.region}.amazonaws.com"
     origin_id   = "api"
 
     custom_origin_config {

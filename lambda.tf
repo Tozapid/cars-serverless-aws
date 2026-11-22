@@ -5,18 +5,20 @@ resource "aws_cloudwatch_log_group" "lambda" {
   retention_in_days = 30
 }
 
-# The code without the tests and the reset. Git ignores .build/.
+# The code without the tests and the reset, in .build/ of the root module:
+# a CI that carries what a plan makes to its apply leaves .terraform/, and a
+# module fetched from git with it, behind. Git ignores .build/.
 data "archive_file" "app" {
   type = "zip"
   dynamic "source" {
-    for_each = toset(["app.py", "common.py", "files.py", "reminders.py", "mail.py", "access.py", "carexpenses.py"])
+    for_each = toset(["app.py", "common.py", "files.py", "reminders.py", "mail.py", "access.py", "carexpenses.py", "grants.py"])
 
     content {
       content  = file("${path.module}/lambda/${source.value}")
       filename = source.value
     }
   }
-  output_path      = "${path.module}/.build/cars.zip"
+  output_path      = "${path.root}/.build/${local.name}.zip"
   output_file_mode = "0644"
 }
 
@@ -67,6 +69,12 @@ resource "aws_lambda_function" "app" {
 
   depends_on = [aws_iam_role_policy.lambda]
 
+  lifecycle {
+    precondition {
+      condition     = !local.mail || (local.custom_domain && endswith(var.sender_address, "@${var.domain_name}"))
+      error_message = "sender_address needs domain_name and has to be on it: the domain is the SES identity the mails come from."
+    }
+  }
 }
 
 # Not retried: a second run would be a second mail (the markers also guard

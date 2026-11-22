@@ -1,18 +1,11 @@
-variable "region" {
-  type        = string
-  default     = "eu-central-1"
-  description = "Region of every resource but CloudFront: the API, the data, the files and the sign-in."
-}
-
 variable "name" {
   type        = string
-  default     = "cars-serverless"
-  description = "Prefix of every resource name; bucket names add the account id. The deploy role of the demo is limited to it."
+  description = "Prefix of every resource name, such as cars; bucket names add the account id."
 }
 
 variable "demo" {
   type        = bool
-  default     = true
+  default     = false
   description = "Public demo: the sign-in screen shows and fills in the demo sign-in, the settings hide the password and two-factor authentication, and administrators may look at the users but not change them."
 }
 
@@ -30,21 +23,20 @@ variable "route53_zone_name" {
 
 variable "admin_email" {
   type        = string
-  default     = "demo@example.com"
   description = "Sign-in of the first user, an administrator. Self sign-up is off; administrators invite the others on the page."
 }
 
 variable "admin_password" {
   type        = string
-  default     = "Demo-Password-1"
+  default     = ""
   sensitive   = true
-  description = "Permanent password of the first user, published in the demo and put back by the reset. Empty: Cognito mails admin_email a temporary password instead."
+  description = "Permanent password of the first user; the demo publishes it and the reset puts it back. Empty: Cognito mails admin_email a temporary password instead."
 }
 
 variable "reset_schedule" {
   type        = string
-  default     = "rate(1 hour)"
-  description = "When the demo goes back to its initial state: the table and the files are wiped, the examples of seed/seed.json written again, the first user gets admin_password back and other users go. An empty string turns the reset off."
+  default     = ""
+  description = "When the demo goes back to its initial state: the table and the files are wiped, the examples of seed/seed.json written again, the first user gets admin_password back and other users go. An empty string, the default, turns the reset off."
 }
 
 variable "file_max_bytes" {
@@ -56,7 +48,7 @@ variable "file_max_bytes" {
 variable "sender_address" {
   type        = string
   default     = ""
-  description = "From address of the reminders, such as alert@cars.example.com, on domain_name, which the stack makes an SES identity (ses.tf). Empty, or the demo: no SES identity and no mails."
+  description = "From address of the reminders, such as alert@cars.example.com, on domain_name, which the module makes an SES identity (ses.tf) unless ses_identity is false. Empty, or the demo: no mails."
 
   validation {
     condition     = var.sender_address == "" || can(regex("^[^@\\s]+@[^@\\s]+$", var.sender_address))
@@ -110,11 +102,14 @@ variable "files_key_from" {
   description = "Name of a deployed stack of this project whose CloudFront key signs the file cookies, instead of a key of its own; \"\" for its own. Unset: a preview (<name>-pr<N>) uses <name>'s, any other stack its own. The account allows ten CloudFront public keys."
 }
 
-variable "tags" {
-  type = map(string)
-  default = {
-    Managed = "IAC"
-    Project = "cars-serverless-aws"
-  }
-  description = "Tags applied to supported resources."
+variable "ses_identity" {
+  type        = bool
+  default     = true
+  description = "Whether the module makes domain_name the SES identity of sender_address, with its DKIM, MAIL FROM and DMARC records (ses.tf). False when the caller manages that identity itself."
+}
+
+variable "totp_issuer" {
+  type        = string
+  default     = "Cars"
+  description = "Name of the site in an authenticator app, for two-factor authentication."
 }
