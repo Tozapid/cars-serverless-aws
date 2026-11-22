@@ -142,7 +142,7 @@ With a domain and `sender_address`, the module makes `domain_name` an SES identi
 
 ### The demo
 
-[`demo/`](demo) is the root module of the public demo: the module from `../` with `demo = true`, the published sign-in, the hourly reset and no domain, so it answers at its CloudFront address and touches no DNS; point-in-time recovery is off, and the buckets go with their content on `terraform destroy`. Its state kept the resources at the top until v0.3.3; [`demo/moved.tf`](demo/moved.tf) moves them under `module.cars`.
+[`demo/`](demo) is the root module of the public demo: the module from `../` with `demo = true`, the published sign-in, the hourly reset and no domain, so it answers at its CloudFront address and touches no DNS; point-in-time recovery is off, and the buckets go with their content on `terraform destroy`.
 
 ## Deploy
 
