@@ -2,7 +2,7 @@
 
 A log of your cars, running serverless on AWS: every charge and refuel, service, expense and income of each car, with its receipts, photos and place, the statistics of what a car costs and burns, a map of where it all happened, and reminders of what is due — on the page and by mail.
 
-Everything is Terraform and AWS managed services: no servers, nothing running between page views and the daily look at the reminders, so an installation costs cents a month (see [Cost](#cost)).
+The repository is a Terraform module: a site is a module call pinned to a release tag (see [Use the module](#use-the-module)), and the public demo is one more, in [`demo/`](demo). Everything is AWS managed services: no servers, nothing running between page views and the daily look at the reminders, so an installation costs cents a month (see [Cost](#cost)).
 
 ## Why
 
@@ -98,34 +98,51 @@ A new event saved without a network waits in IndexedDB (`cars-offline`, `outbox`
 - A **share link** (`/#s/<token>/…`) opens the cars of its user, or one car, read only, with every tab of the page, through `GET /api/share/<token>/…`; it may expire, and deleting it closes it at once.
 - Both remember where and when they were made and last used (the address of the visitor in front of CloudFront, the browser or program) and how often.
 
-## Test environment and production
+## Use the module
 
-The defaults deploy the **test environment**, the public demo above. It is the same code with mail turned off:
+The root of this repository is the module. It makes no providers: the caller passes `aws` (the region of everything but CloudFront) and `aws.global` (`us-east-1`, CloudFront and its certificate). Every release of [`CHANGELOG.md`](CHANGELOG.md) is a tag `vX.Y.Z`; a site takes a newer version by a newer `ref`, and Settings → Version shows the version of the module and the releases after it.
 
-- no domain: the page answers at its `*.cloudfront.net` address with CloudFront's certificate, and no DNS is touched;
-- no SES identity and no mails;
-- the sign-in is published and filled in (`demo = true`), password change and two-factor authentication are hidden, and the administration is read-only;
-- the hourly reset (`reset_schedule`) rebuilds everything from `seed/seed.json`;
-- point-in-time recovery is off, and the buckets are deleted with their content on `terraform destroy`.
+```hcl
+module "cars" {
+  source = "git::https://github.com/Tozapid/cars-serverless-aws.git?ref=v0.3.3"
 
-**Production** turns mail on with a domain and a sender address. Start from [`examples/production.tfvars`](examples/production.tfvars):
+  providers = {
+    aws        = aws
+    aws.global = aws.global
+  }
 
-| Variable | Test environment (default) | Production |
+  name              = "cars"
+  domain_name       = "cars.example.com"
+  route53_zone_name = "example.com"
+  admin_email       = "you@example.com"
+  sender_address    = "alert@cars.example.com"
+}
+```
+
+[`examples/production/main.tf`](examples/production/main.tf) is that with its providers and backend. The inputs:
+
+| Variable | Default | What it is |
 | --- | --- | --- |
-| `name` | `cars-serverless` | `cars` — the prefix of every resource |
-| `demo` | `true` | `false` |
-| `domain_name`, `route53_zone_name` | `""` — the CloudFront address | `cars.example.com`, `example.com` |
-| `sender_address` | `""` — no SES, no mails | `alert@cars.example.com` — mails the reminders |
-| `admin_email` | `demo@example.com` | your address |
-| `admin_password` | `Demo-Password-1` | `""` — Cognito mails a temporary password |
-| `reset_schedule` | `rate(1 hour)` | `""` — no reset, no examples |
+| `name` | — | Prefix of every resource name; bucket names add the account id |
+| `admin_email` | — | The first user, an administrator |
+| `admin_password` | `""` | Its permanent password; empty: Cognito mails a temporary one |
+| `domain_name`, `route53_zone_name` | `""` | The page's name and its public Route 53 zone; empty: the `*.cloudfront.net` address |
+| `sender_address` | `""` | From address of the reminders, on `domain_name`; empty: no mails |
+| `ses_identity` | `true` | The module makes `domain_name` the SES identity (`ses.tf`); `false` when the caller manages it |
+| `totp_issuer` | `Cars` | Name of the site in an authenticator app |
+| `demo` | `false` | Public demo: the sign-in published and filled in, no password change or two-factor authentication, read-only administration, no mails |
+| `reset_schedule` | `""` | The hourly reset of the demo (`rate(1 hour)` there) |
+| `access_logs_bucket` | `""` | Bucket of the access logs (see [Access logs](#access-logs)) |
+| `files_key_from` | preview: its site | Stack whose CloudFront key signs the file cookies |
+| `file_max_bytes`, `reminder_schedule`, `reminder_lead_days`, `reminder_lead_km`, `releases_repository` | see `variables.tf` | Limits and the reminders |
 
-Steps to production:
+The zips of the functions are built at plan time in `.build/` of the root module, not of the module: a CI that carries what a plan makes to its apply leaves `.terraform/`, where a module fetched from git lives, behind.
 
-1. Pick a fresh `name` (and state key): production is a separate deployment, not a change of the demo.
-2. The domain needs a public Route 53 zone in the same account (`route53_zone_name`): the stack validates the certificate there and writes the alias records.
-3. With `sender_address` the stack makes `domain_name` an SES identity (`ses.tf`): Easy DKIM, a MAIL FROM domain `mail.<domain_name>` and DMARC, in the same zone. SES verifies it a few minutes after the apply. While the SES account of the region is in the sandbox, mails reach only verified addresses; request production access in the SES console to lift it.
-4. Sign in with the temporary password Cognito mails to `admin_email`. Invite the others in Settings → Users.
+With a domain and `sender_address`, the module makes `domain_name` an SES identity: Easy DKIM, a MAIL FROM domain `mail.<domain_name>` and DMARC, in the same zone. SES verifies it a few minutes after the apply. While the SES account of the region is in the sandbox, mails reach only verified addresses; request production access in the SES console to lift it. Sign in with the temporary password Cognito mails to `admin_email` and invite the others in Settings → Users.
+
+### The demo
+
+[`demo/`](demo) is the root module of the public demo: the module from `../` with `demo = true`, the published sign-in, the hourly reset and no domain, so it answers at its CloudFront address and touches no DNS; point-in-time recovery is off, and the buckets go with their content on `terraform destroy`. Its state kept the resources at the top until v0.3.3; [`demo/moved.tf`](demo/moved.tf) moves them under `module.cars`.
 
 ## Deploy
 
@@ -137,29 +154,29 @@ Steps to production:
 
 ### GitHub Actions
 
-[`.github/workflows/terraform.yml`](.github/workflows/terraform.yml) only calls the shared workflow of [Tozapid/demo-ci-cd-skeleton](https://github.com/Tozapid/demo-ci-cd-skeleton):
+[`.github/workflows/terraform.yml`](.github/workflows/terraform.yml) only calls the shared workflow of [Tozapid/demo-ci-cd-skeleton](https://github.com/Tozapid/demo-ci-cd-skeleton), with `working_directory: demo`:
 
-- every push and pull request: `terraform fmt` and `terraform validate`; the Lambda tests; the page's syntax check;
+- every push and pull request: `terraform fmt` and `terraform validate` of `demo/`, and with it of the module; the Lambda tests; the page's syntax check;
 - pull requests from this repository: `terraform plan` in the environment `demo`;
 - a preview of a pull request, by hand: Run workflow with `preview` = its number deploys its last push once more as `cars-serverless-pr<number>`, with its own state, and comments the address on it. A preview signs file cookies with the CloudFront key of the main site (read from the SSM parameter `/cars-serverless/cloudfront-key-ids`), because an account holds at most ten CloudFront public keys; the main site has to be deployed first. The variable `files_key_from` changes where the key comes from. It is destroyed when the pull request is merged or closed, by hand (`destroy`), or by the daily sweep, which also takes those not deployed for a week;
 - a push to `main` or a manual run: plan and apply in the environment `demo`. The job stops if the plan would destroy or replace a bucket, the table or the user pool. A manual run from another branch deploys that branch over the same site until `main` is deployed again;
-- after `main` is deployed: the GitHub release of the newest `CHANGELOG.md` entry, once.
+- after `main` is deployed: the tag and the GitHub release of the newest `CHANGELOG.md` entry, once. Every version is a tag the sites pin the module to.
 
 The jobs get AWS credentials from GitHub's OIDC token: no AWS key is stored anywhere.
 
 ### Versions and releases
 
-Every entry of [`CHANGELOG.md`](CHANGELOG.md) starts with its version, optionally followed by a date or a title (`## v0.2.0`, `## v0.2.0 — 2026-11-01`), with the changes under `### Added`, `### Changed`, `### Fixed` and `### Security`, newest first. The site takes its version from the newest entry when Terraform deploys it, and the release job makes it a tag and a GitHub release. Settings → Version reads the releases of `releases_repository` from the Atom feed of the GitHub releases and keeps them an hour.
+Every entry of [`CHANGELOG.md`](CHANGELOG.md) starts with its version, optionally followed by a date or a title (`## v0.2.0`, `## v0.2.0 — 2026-11-01`), with the changes under `### Added`, `### Changed`, `### Fixed` and `### Security`, newest first. A site takes its version from the newest entry of the module it runs, and the release job makes it a tag and a GitHub release. A change that a site has to take over is a new entry, and so a new tag. Settings → Version reads the releases of `releases_repository` from the Atom feed of the GitHub releases and keeps them an hour.
 
 ### From a workstation
 
 ```bash
+cd demo
 terraform init \
   -backend-config="bucket=<state bucket>" \
   -backend-config="key=cars-serverless-aws/terraform.tfstate" \
   -backend-config="region=eu-central-1"
-terraform apply                                   # the test environment
-terraform apply -var-file=terraform.tfvars        # production, see above
+terraform apply
 ```
 
 ## API
@@ -236,7 +253,9 @@ The tests use no network: DynamoDB, S3, SES, SSM and Cognito are faked (`lambda/
 | `cloudfront.tf`, `cloudfront/`, `dns.tf`, `frontend.tf`, `web/` | The distribution, the domain, the page, its statistics (`stats.js`), charts (`charts.js`), translations (`i18n.js`) and offline side (`sw.js`, `manifest.json`), icons (`favicon.svg`, and the PNGs of phones: `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`) |
 | `ses.tf` | The SES identity of `domain_name` for the reminders (production with `sender_address`) |
 | `reset.tf`, `lambda/reset.py`, `seed/seed.json` | The hourly reset of the demo and its examples |
-| `examples/production.tfvars` | A starting point for production |
+| `main.tf`, `terraform.tf`, `variables.tf`, `outputs.tf` | The module: its providers (`aws`, `aws.global`), inputs and outputs |
+| `demo/` | The public demo, a call of the module, and the moves of its state |
+| `examples/production/` | A starting point for production |
 
 ## Limitations
 

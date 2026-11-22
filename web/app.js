@@ -52,7 +52,8 @@
     // New events saved without a network that wait in the outbox.
     pending: 0,
   };
-  const ISSUER = "Cars demo";
+  // The name of the site in an authenticator app (totp_issuer).
+  const ISSUER = config.issuer || "Cars";
   // The open source project of this page, linked from the sign-in page.
   const REPOSITORY = "https://github.com/Tozapid/cars-serverless-aws";
   // The language is the Cognito attribute "locale" of the user; the browser

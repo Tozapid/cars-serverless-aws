@@ -1,6 +1,7 @@
 locals {
   name         = var.name
   account_id   = data.aws_caller_identity.current.account_id
+  region       = data.aws_region.current.region
   web_bucket   = "${local.name}-web-${local.account_id}"
   files_bucket = "${local.name}-files-${local.account_id}"
   # A preview signs file cookies with the key of the site it previews.
@@ -27,6 +28,8 @@ locals {
   # The reminders by mail (ses.tf), from sender_address on domain_name. The
   # demo sends nothing.
   mail = !var.demo && var.sender_address != ""
+  # The SES identity of domain_name, unless the caller makes it itself.
+  ses_identity = local.mail && var.ses_identity
 
   # The version of this deployment: the newest entry of CHANGELOG.md.
   version = regex("(?m)^## (v[0-9]+\\.[0-9]+\\.[0-9]+)(?:\\s|$)", file("${path.module}/CHANGELOG.md"))[0]
@@ -42,7 +45,7 @@ locals {
     # Receipts go straight to the files bucket through a presigned POST. The
     # service worker (web/sw.js) fetches and keeps the libraries itself, and
     # a worker's fetch counts as connect-src.
-    "connect-src 'self' https://cognito-idp.${var.region}.amazonaws.com https://*.s3.${var.region}.amazonaws.com https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.15/ https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/ https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/ https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/",
+    "connect-src 'self' https://cognito-idp.${local.region}.amazonaws.com https://*.s3.${local.region}.amazonaws.com https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.15/ https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/ https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/ https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

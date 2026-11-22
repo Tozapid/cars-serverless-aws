@@ -21,7 +21,7 @@ resource "aws_ssm_parameter" "admin_password" {
 # The reset writes the examples through the code of the API.
 data "archive_file" "reset" {
   type             = "zip"
-  output_path      = "${path.module}/.build/reset.zip"
+  output_path      = "${path.root}/.build/${local.name}-reset.zip"
   output_file_mode = "0644"
 
   dynamic "source" {

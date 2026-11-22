@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "lambda" {
   statement {
     sid       = "ReadFilesSigningKey"
     actions   = ["ssm:GetParameter"]
-    resources = ["arn:aws:ssm:${var.region}:${local.account_id}:parameter${local.files_key.private_key_parameter}"]
+    resources = ["arn:aws:ssm:${local.region}:${local.account_id}:parameter${local.files_key.private_key_parameter}"]
   }
 
   # The page uploads a file through a presigned POST; an event or a car that
@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "lambda" {
     content {
       sid       = "SendMail"
       actions   = ["ses:SendEmail"]
-      resources = ["arn:aws:ses:${var.region}:${local.account_id}:identity/*"]
+      resources = ["arn:aws:ses:${local.region}:${local.account_id}:identity/*"]
 
       condition {
         test     = "StringEquals"
