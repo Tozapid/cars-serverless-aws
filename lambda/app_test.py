@@ -576,5 +576,110 @@ class AccountTest(Base):
         self.assertEqual((status, info["version"], info["repository"]), (200, "v0.1.0", ""))
 
 
+class DraftsTest(Base):
+    def test_draft_kept_for_the_car_and_dropped_by_the_save(self):
+        car = self.car()
+        status, saved = self.call("PUT", f"/api/cars/{car['id']}/drafts/new-refuel",
+                                  {"at": "2026-11-20T10:00", "event": "0123456789abcdef", "draft": {"category": "Ionity", "amount": "12.5"}})
+        self.assertEqual((status, saved["draft"]["category"], saved["by"]), (200, "Ionity", OWNER))
+        status, listed = self.call("GET", f"/api/cars/{car['id']}/drafts")
+        self.assertEqual([item["key"] for item in listed["items"]], ["new-refuel"])
+        # Another event of the same kind leaves the draft of the one begun.
+        self.add(car, kind="refuel")
+        self.assertEqual(len(self.call("GET", f"/api/cars/{car['id']}/drafts")[1]["items"]), 1)
+        self.add(car, kind="refuel", id="0123456789abcdef")
+        self.assertEqual(self.call("GET", f"/api/cars/{car['id']}/drafts")[1]["items"], [])
+
+    def test_draft_of_a_saved_event_and_bad_keys(self):
+        car = self.car()
+        event = self.add(car)
+        path = f"/api/cars/{car['id']}/drafts/{event['id']}"
+        self.assertEqual(self.call("PUT", path, {"draft": {"notes": "x"}})[0], 200)
+        status, _ = self.call("PUT", f"/api/cars/{car['id']}/events/{event['id']}", {"kind": "expense", "date": "2026-10-02T10:00"})
+        self.assertEqual(status, 200)
+        self.assertEqual(self.call("GET", f"/api/cars/{car['id']}/drafts")[1]["items"], [])
+        self.assertEqual(self.call("PUT", f"/api/cars/{car['id']}/drafts/new-other", {"draft": {}})[0], 404)
+        self.assertEqual(self.call("PUT", path, {"draft": "x"})[0], 400)
+        self.assertEqual(self.call("PUT", path, {"draft": {"notes": "x" * 60_000}})[0], 413)
+        self.call("PUT", path, {"draft": {"notes": "y"}})
+        self.assertEqual(self.call("DELETE", path)[0], 200)
+        self.assertEqual(self.call("GET", f"/api/cars/{car['id']}/drafts")[1]["items"], [])
+
+
+class GrantsTest(Base):
+    FRIEND = "friend@example.com"
+
+    def setUp(self):
+        super().setUp()
+        self.fakes["cognito-idp"].add(self.FRIEND)
+
+    def as_friend(self, method, path, body=None, params=None):
+        return self.call(method, path, body, {"owner": OWNER, **(params or {})}, email=self.FRIEND)
+
+    def test_read_access(self):
+        car, other = self.car(), self.car(name="Other")
+        self.add(car)
+        self.assertEqual(self.as_friend("GET", f"/api/cars/{car['id']}/events")[0], 404)
+        self.assertEqual(self.as_friend("GET", "/api/cars")[0], 403)
+        status, _ = self.call("POST", "/api/grants", {"car": car["id"], "email": "Friend@Example.com", "role": "read"})
+        self.assertEqual(status, 201)
+        status, listed = self.as_friend("GET", "/api/cars")
+        self.assertEqual([(item["id"], item["access"]) for item in listed["items"]], [(car["id"], "read")])
+        self.assertEqual(len(self.as_friend("GET", f"/api/cars/{car['id']}/events")[1]["items"]), 1)
+        self.assertEqual(self.as_friend("GET", f"/api/cars/{other['id']}/events")[0], 404)
+        self.assertEqual(self.as_friend("POST", f"/api/cars/{car['id']}/events", {"kind": "expense", "date": "2026-10-01T10:00"})[0], 403)
+        status, shared = self.call("GET", "/api/shared", email=self.FRIEND)
+        self.assertEqual([(item["id"], item["owner"], item["access"]) for item in shared["items"]], [(car["id"], OWNER, "read")])
+
+    def test_write_access_and_its_end(self):
+        car = self.car()
+        self.call("POST", "/api/grants", {"car": car["id"], "email": self.FRIEND, "role": "write"})
+        status, item = self.as_friend("POST", f"/api/cars/{car['id']}/events", {"kind": "expense", "date": "2026-10-01T10:00"})
+        self.assertEqual((status, item["by"]), (201, self.FRIEND))
+        status, target = self.as_friend("POST", f"/api/cars/{car['id']}/files", {"content_type": "image/jpeg", "size": 100})
+        self.assertEqual(status, 200)
+        self.assertTrue(files.owns(OWNER, target["path"]))
+        status, draft = self.as_friend("PUT", f"/api/cars/{car['id']}/drafts/new-service", {"draft": {"notes": "oil"}})
+        self.assertEqual((status, draft["by"]), (200, self.FRIEND))
+        self.assertEqual(self.call("GET", f"/api/cars/{car['id']}/drafts")[1]["items"][0]["by"], self.FRIEND)
+        # The car itself stays with its owner.
+        self.assertEqual(self.as_friend("PUT", f"/api/cars/{car['id']}", {"name": "Mine"})[0], 403)
+        self.assertEqual(self.as_friend("DELETE", f"/api/cars/{car['id']}")[0], 403)
+        self.assertEqual(self.as_friend("POST", "/api/cars", {"name": "Mine"})[0], 403)
+        self.assertEqual(self.call("DELETE", "/api/grants", params={"car": car["id"], "email": self.FRIEND})[0], 200)
+        self.assertEqual(self.as_friend("GET", f"/api/cars/{car['id']}/events")[0], 404)
+        self.assertEqual(self.call("GET", "/api/shared", email=self.FRIEND)[1]["items"], [])
+
+    def test_grant_checks_and_cleanup(self):
+        car = self.car()
+        self.assertEqual(self.call("POST", "/api/grants", {"car": car["id"], "email": OWNER})[0], 400)
+        self.assertEqual(self.call("POST", "/api/grants", {"car": car["id"], "email": "nobody@example.com"})[0], 404)
+        self.assertEqual(self.call("POST", "/api/grants", {"car": car["id"], "email": self.FRIEND, "role": "admin"})[0], 400)
+        self.assertEqual(self.call("POST", "/api/grants", {"car": "zzzzzz", "email": self.FRIEND})[0], 404)
+        self.call("POST", "/api/grants", {"car": car["id"], "email": self.FRIEND, "role": "read"})
+        self.call("POST", "/api/grants", {"car": car["id"], "email": self.FRIEND, "role": "write"})
+        self.assertEqual([item["role"] for item in self.call("GET", "/api/grants")[1]["items"]], ["write"])
+        self.call("DELETE", f"/api/cars/{car['id']}")
+        self.assertEqual(self.call("GET", "/api/grants")[1]["items"], [])
+        self.assertEqual(self.call("GET", "/api/shared", email=self.FRIEND)[1]["items"], [])
+
+    def test_deleted_user_takes_their_grants(self):
+        car = self.car()
+        self.call("POST", "/api/grants", {"car": car["id"], "email": self.FRIEND})
+        self.assertEqual(self.call("DELETE", "/api/admin/users", params={"email": self.FRIEND}, admin=True)[0], 200)
+        self.assertEqual(self.call("GET", "/api/grants")[1]["items"], [])
+
+    def test_admin_reads_and_a_grant_lets_them_write(self):
+        car = self.car()
+        admin = "admin@example.com"
+        self.fakes["cognito-idp"].add(admin)
+        status, listed = self.call("GET", "/api/cars", params={"owner": OWNER}, admin=True, email=admin)
+        self.assertEqual((status, listed["items"][0]["access"]), (200, "read"))
+        body = {"kind": "expense", "date": "2026-10-01T10:00"}
+        self.assertEqual(self.call("POST", f"/api/cars/{car['id']}/events", body, {"owner": OWNER}, admin=True, email=admin)[0], 403)
+        self.call("POST", "/api/grants", {"car": car["id"], "email": admin, "role": "write"})
+        self.assertEqual(self.call("POST", f"/api/cars/{car['id']}/events", body, {"owner": OWNER}, admin=True, email=admin)[0], 201)
+
+
 if __name__ == "__main__":
     unittest.main()

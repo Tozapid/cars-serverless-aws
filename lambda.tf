@@ -9,7 +9,7 @@ resource "aws_cloudwatch_log_group" "lambda" {
 data "archive_file" "app" {
   type = "zip"
   dynamic "source" {
-    for_each = toset(["app.py", "common.py", "files.py", "reminders.py", "mail.py", "access.py", "carexpenses.py"])
+    for_each = toset(["app.py", "common.py", "files.py", "reminders.py", "mail.py", "access.py", "carexpenses.py", "grants.py"])
 
     content {
       content  = file("${path.module}/lambda/${source.value}")

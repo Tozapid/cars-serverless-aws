@@ -30,12 +30,18 @@
     // open on a phone; quickDone is the event it has just saved.
     quick: null,
     quickDone: null,
-    // The user whose cars an administrator is viewing (#<view>/<car>/<email>),
-    // null for one's own; another user's cars are read only. owners: the
-    // users an administrator can pick, with their number of cars.
+    // The user whose cars are open (#<view>/<car>/<email>), null for one's
+    // own: an administrator views anyone's, read only; another user opens the
+    // cars shared with them, each with its "access", read or write. owners:
+    // the users that can be picked, with their number of cars; shared: the
+    // cars of others shared with this user (/api/shared).
     owner: null,
     ownerLoaded: null,
     owners: [],
+    shared: [],
+    // The drafts of the open car's event forms, by key: new-<kind> or the
+    // id of the event (/api/cars/<car>/drafts).
+    drafts: {},
     // The token of a share link (#s/<token>/<view>/<car>): the page shows
     // what it opens, read only, without a sign-in.
     share: null,
@@ -565,8 +571,15 @@
     showLogin();
   }
 
-  // Another user's cars, or the cars of a share link: read only.
+  // The cars of a share link, or another user's car unless it was shared
+  // with the right to change it: read only.
   function readOnly() {
+    return Boolean(state.share || (state.owner && !(state.car && state.car.access === "write")));
+  }
+
+  // Another user's cars: their settings, imports and new cars stay with the
+  // owner even when the events may be changed.
+  function foreign() {
     return Boolean(state.owner || state.share);
   }
 
@@ -702,8 +715,9 @@
     return { ...item.body, id: item.id, car: item.car, files: [], pending: true, error: item.error || "" };
   }
 
+  // carOwner: the owner of a car shared with the user, null for one's own.
   async function queueEvent(car, body, files) {
-    const item = { id: body.id, car, owner: state.me.email, body, files, created: new Date().toISOString() };
+    const item = { id: body.id, car, carOwner: state.owner || null, owner: state.me.email, body, files, created: new Date().toISOString() };
     await outboxPut(item);
     await countPending();
     return pendingEvent(item);
@@ -722,11 +736,11 @@
       for (const item of items) {
         try {
           const uploaded = [];
-          for (const file of item.files || []) uploaded.push(await uploadFile(new File([file.blob], file.name, { type: file.type })));
-          const saved = await api(`/cars/${item.car}/events`, { method: "POST", body: { ...item.body, files: [...(item.body.files || []), ...uploaded] } });
+          for (const file of item.files || []) uploaded.push(await uploadFile(new File([file.blob], file.name, { type: file.type }), item.car, item.carOwner));
+          const saved = await api(`/cars/${item.car}/events` + ownerQuery(item.carOwner), { method: "POST", own: true, body: { ...item.body, files: [...(item.body.files || []), ...uploaded] } });
           await outboxDelete(item.id);
           sent += 1;
-          if (state.car && state.car.id === item.car && state.events) {
+          if (state.car && state.car.id === item.car && state.owner === (item.carOwner || null) && state.events) {
             state.events = state.events.filter((event) => event.id !== saved.id).concat([saved]);
           }
         } catch (failure) {
@@ -801,12 +815,19 @@
     return state.share ? "s/" + state.share + "/" : "";
   }
 
-  // The user of #<view>/<car>/<email>, for an administrator only.
+  // ?owner=<email> of the API, for a path that names it itself.
+  function ownerQuery(owner) {
+    return owner ? "?owner=" + encodeURIComponent(owner) : "";
+  }
+
+  // The user of #<view>/<car>/<email>: anyone for an administrator, else one
+  // who shared a car with this user.
   function hashOwner() {
     const parts = hashParts();
-    if (parts[0] === "add" || !parts[2] || !state.me.admin || state.share) return null;
+    if (parts[0] === "add" || !parts[2] || state.share) return null;
     const email = decodeURIComponent(parts[2]).toLowerCase();
-    return email === state.me.email ? null : email;
+    if (email === state.me.email) return null;
+    return state.me.admin || state.owners.some((item) => item.email === email) ? email : null;
   }
 
   function readHash() {
@@ -862,6 +883,7 @@
       state.car = car;
       state.events = null;
       state.reminders = [];
+      state.drafts = {};
       state.filter = { kind: "", category: "", year: "", text: "" };
       shown = EVENTS_PAGE;
       if (!state.owner) store(CAR_KEY, car.id);
@@ -874,11 +896,14 @@
   async function loadCar() {
     const id = state.car.id;
     try {
-      const [events, reminders] = await Promise.all([api(`/cars/${id}/events`), api(`/cars/${id}/reminders`)]);
+      const [events, reminders, drafts] = await Promise.all([api(`/cars/${id}/events`), api(`/cars/${id}/reminders`),
+        readOnly() ? { items: [] } : api(`/cars/${id}/drafts`).catch(() => ({ items: [] }))]);
       if (!state.car || state.car.id !== id) return;
-      const waiting = (await mine()).filter((item) => item.car === id).map(pendingEvent);
+      const waiting = (await mine()).filter((item) => item.car === id && (item.carOwner || null) === state.owner).map(pendingEvent);
       state.events = (events.items || []).filter((event) => !waiting.some((item) => item.id === event.id)).concat(waiting);
       state.reminders = reminders.items || [];
+      state.drafts = Object.fromEntries((drafts.items || []).map((item) => [item.key, item]));
+      if (!readOnly()) sendDrafts(id);
     } catch (error) {
       state.events = state.events || [];
       toast(error.message);
@@ -897,6 +922,54 @@
   async function loadCars() {
     state.cars = (await api("/cars")).items || [];
     if (state.car) state.car = state.cars.find((item) => item.id === state.car.id) || null;
+  }
+
+  // The cars of others shared with the user, and the users to pick: an
+  // administrator's list of all users, else oneself and who shared a car.
+  async function loadShared() {
+    try {
+      state.shared = (await api("/shared", { own: true })).items || [];
+    } catch (error) {
+      state.shared = [];
+    }
+    if (state.me.admin) return;
+    const counts = {};
+    state.shared.forEach((car) => { counts[car.owner] = (counts[car.owner] || 0) + 1; });
+    state.owners = Object.keys(counts).length ? [{ email: state.me.email, cars: null }, ...Object.entries(counts).map(([email, cars]) => ({ email, cars }))] : [];
+  }
+
+  // Drafts --------------------------------------------------------------------
+  // The draft of an event form lives in the table, for the car (app.py): any
+  // browser of the user, and anyone who may change the car, finds it. The
+  // browser keeps a copy only until the API has it, without a network too.
+
+  function draftStore(carId, name, owner) {
+    return "cars-draft:" + (owner ? owner + ":" : "") + carId + ":" + name;
+  }
+
+  async function sendDraft(carId, name, owner) {
+    const key = draftStore(carId, name, owner);
+    const raw = stored(key);
+    if (!raw) return;
+    try {
+      const saved = await api(`/cars/${carId}/drafts/${name}` + ownerQuery(owner), { method: "PUT", own: true, body: JSON.parse(raw) });
+      if (stored(key) === raw) unstore(key);
+      if (state.car && state.car.id === carId && state.owner === (owner || null)) state.drafts[name] = saved;
+    } catch (error) {
+      // It stays in the browser and goes with the next change or visit.
+    }
+  }
+
+  // The copies an earlier visit could not send.
+  function sendDrafts(carId) {
+    const prefix = draftStore(carId, "", state.owner);
+    let keys = [];
+    try {
+      keys = Object.keys(localStorage).filter((key) => key.startsWith(prefix));
+    } catch (error) {
+      keys = [];
+    }
+    keys.forEach((key) => sendDraft(carId, key.slice(prefix.length), state.owner));
   }
 
   // Page -------------------------------------------------------------------
@@ -937,12 +1010,12 @@
       "aria-label": t("cars.pick"),
       onchange: (event) => go(state.view, event.target.value),
     }, state.cars.map((car) => el("option", { value: car.id, selected: state.car && car.id === state.car.id }, car.name + (car.sold ? " · " + t("car.soldShort") : "")))) : null;
-    const ownerPicker = state.me.admin && state.owners.length > 1 ? el("select", {
+    const ownerPicker = !state.share && state.owners.length > 1 ? el("select", {
       class: "owner-select",
       "aria-label": t("owner.pick"),
       onchange: (event) => viewOwner(event.target.value),
     }, state.owners.slice().sort((a, b) => (b.email === state.me.email) - (a.email === state.me.email)).map((item) => el("option", { value: item.email, selected: item.email === (state.owner || state.me.email) },
-      (item.email === state.me.email ? t("owner.mine") : item.email) + " (" + item.cars + ")"))) : null;
+      (item.email === state.me.email ? t("owner.mine") : item.email) + (item.cars != null ? " (" + item.cars + ")" : "")))) : null;
     let body;
     if (state.view === "cars") body = carsView();
     else if (!state.car) body = welcomeView();
@@ -974,7 +1047,7 @@
           state.me.share.name ? t("share.viewingNamed", { name: state.me.share.name }) : t("share.viewing"),
           state.me.share.expires ? el("span", { class: "muted small" }, t("share.until", { date: when(state.me.share.expires) })) : null,
         ]) : state.owner ? el("p", { class: "owner-note" }, [
-          t("owner.viewing", { email: state.owner }),
+          t(readOnly() ? "owner.viewing" : "owner.writing", { email: state.owner }),
           el("button", { type: "button", class: "ghost", onclick: () => viewOwner(null) }, t("owner.back")),
         ]) : null,
         ...[].concat(body),
@@ -1146,7 +1219,7 @@
   // Welcome: no car yet --------------------------------------------------------
 
   function welcomeView() {
-    if (readOnly()) return section(t("owner.noCars"), el("p", { class: "muted" }, t("owner.noCarsText", { email: state.owner })));
+    if (foreign()) return section(t("owner.noCars"), el("p", { class: "muted" }, t("owner.noCarsText", { email: state.owner })));
     return section(t("welcome.title"), [
       el("p", {}, t("welcome.text")),
       el("div", { class: "actions" }, [
@@ -1639,15 +1712,17 @@
   // counts the third of quantity, price and amount from the other two, and
   // its station's last price is filled in for a new one.
   // event: the saved one or {kind} for a new one; host: where the form goes
-  // instead of a dialog (the short form). Every change keeps a draft in the
-  // browser until the event is saved, deleted or the form is cancelled, so
-  // that a closed page or an ended session loses nothing.
+  // instead of a dialog (the short form). A change by hand keeps a draft of
+  // the form for the car until the event is saved, deleted or the form is
+  // cancelled, so that a closed page, an ended session or another browser
+  // loses nothing; what the form fills in itself (the place, the category
+  // near it, the price) makes no draft.
   function editEvent(event, host) {
     const isNew = !event.id;
-    const draftKey = `cars-draft:${state.car.id}:${event.id || "new-" + event.kind}`;
-    // The id of a new event, made here: sent again after a lost network, it
-    // still goes in once.
-    const draftId = event.id || newEventId();
+    const carId = state.car.id;
+    const carOwner = state.owner;
+    const draftName = event.id || "new-" + event.kind;
+    const draftKey = draftStore(carId, draftName, carOwner);
     const draft = {
       kind: event.kind,
       date: event.date || nowLocal(),
@@ -1669,20 +1744,64 @@
       const last = stats.latest(state.events, "refuel", draft.category);
       if (last && last.price != null) draft.price = last.price;
     }
+    // The copy of the browser that the API has not got yet goes first, then
+    // the draft of the table.
     let kept = null;
     try {
-      kept = readOnly() ? null : JSON.parse(stored(draftKey));
+      kept = readOnly() ? null : JSON.parse(stored(draftKey)) || state.drafts[draftName] || null;
     } catch (error) {
-      kept = null;
+      kept = state.drafts[draftName] || null;
     }
-    if (kept && kept.draft) Object.assign(draft, kept.draft, { kind: draft.kind });
+    if (kept && !kept.draft) kept = null;
+    if (kept) Object.assign(draft, kept.draft, { kind: draft.kind });
+    // The id of a new event, made here and kept with its draft: sent again
+    // after a lost network, it still goes in once, and its save removes the
+    // draft.
+    const draftId = event.id || (kept && /^[0-9a-f]{16}$/.test(kept.event || "") ? kept.event : newEventId());
+    // Whether the form was changed by hand; a restored draft counts.
+    let touched = Boolean(kept);
+    let sendTimer = null;
+    // The requests of this draft, one after another: a removal never
+    // overtakes a send.
+    let sending = Promise.resolve();
+    const send = () => {
+      clearTimeout(sendTimer);
+      sendTimer = null;
+      sending = sending.then(() => sendDraft(carId, draftName, carOwner));
+    };
     // A file that waits for the network lives in this form only.
-    const keep = () => { if (!readOnly()) store(draftKey, JSON.stringify({ at: nowLocal(), draft: { ...draft, files: draft.files.filter((file) => !file.waiting) } })); };
-    const forget = () => unstore(draftKey);
-    const box = host || dialog(tu((isNew ? "event.new." : "event.edit.") + draft.kind), () => pasteInto(null));
+    const keep = () => {
+      if (readOnly() || !touched) return;
+      store(draftKey, JSON.stringify({ at: nowLocal(), event: isNew ? draftId : "", draft: { ...draft, files: draft.files.filter((file) => !file.waiting) } }));
+      clearTimeout(sendTimer);
+      sendTimer = setTimeout(send, 1500);
+    };
+    // A change by hand: user input, a file, a place picked or removed.
+    const changed = () => {
+      touched = true;
+      keep();
+    };
+    const forget = () => {
+      clearTimeout(sendTimer);
+      sendTimer = null;
+      const had = touched || Boolean(state.drafts[draftName]);
+      touched = false;
+      unstore(draftKey);
+      const drafts = state.drafts;
+      delete drafts[draftName];
+      if (!had || readOnly()) return;
+      sending = sending
+        .then(() => api(`/cars/${carId}/drafts/${draftName}` + ownerQuery(carOwner), { method: "DELETE", own: true }).catch(() => {}))
+        .then(() => { delete drafts[draftName]; });
+    };
+    // A dialog closed with × or Esc keeps its draft: it goes to the API now.
+    const box = host || dialog(tu((isNew ? "event.new." : "event.edit.") + draft.kind), () => {
+      pasteInto(null);
+      if (sendTimer) send();
+    });
     // The title of a new event's dialog links to its short form
     // (#add/<kind>/<car>), to open on a phone or to copy.
-    if (!host && isNew && !readOnly()) {
+    if (!host && isNew && !foreign()) {
       box.node.querySelector(".modal-head h2").append(el("a", {
         class: "quick-icon",
         href: quickLink(draft.kind, state.car),
@@ -1775,7 +1894,9 @@
           lon: Math.round(position.coords.longitude * 1e6) / 1e6,
           accuracy: Math.round(position.coords.accuracy),
         };
-        keep();
+        // The place found by itself for a new event is no change by hand.
+        if (quiet) keep();
+        else changed();
         drawPlace();
         suggest();
       }, (failure) => {
@@ -1790,7 +1911,7 @@
         const picked = await pickPlace(draft.location, draft.kind);
         if (!picked) return;
         draft.location = picked;
-        keep();
+        changed();
         drawPlace();
         suggest();
       },
@@ -1800,7 +1921,7 @@
         `📍 ${draft.location.lat.toFixed(5)}, ${draft.location.lon.toFixed(5)}` + (draft.location.accuracy != null ? ` ±${metres(draft.location.accuracy)}` : "")),
       el("button", { type: "button", class: "ghost", onclick: () => locate(false) }, t("location.again")),
       onMap,
-      el("button", { type: "button", class: "ghost", onclick: () => { draft.location = null; keep(); drawPlace(); suggest(); } }, t("location.remove")),
+      el("button", { type: "button", class: "ghost", onclick: () => { draft.location = null; changed(); drawPlace(); suggest(); } }, t("location.remove")),
     ] : [el("button", { type: "button", class: "ghost", onclick: () => locate(false) }, "📍 " + t("location.add")), onMap]);
     drawPlace();
     suggest();
@@ -1855,7 +1976,7 @@
         onclick: () => {
           draft.files.splice(index, 1);
           drawFiles();
-          keep();
+          changed();
         },
       }, "×"),
     ])));
@@ -1877,7 +1998,7 @@
           toast(t("event.uploading", { name: file.name }));
           draft.files.push(await uploadFile(file));
           drawFiles();
-          keep();
+          changed();
         } catch (failure) {
           if (!failure.offline) {
             toast(failure.message);
@@ -1893,10 +2014,16 @@
     if (!readOnly()) pasteInto(addFiles);
     const save = el("button", { type: "submit", class: "primary" }, t("save"));
     const refuel = draft.kind === "refuel";
+    // Only what the user does counts: the input events the form sends
+    // itself (dispatchEvent) are not trusted.
+    const onEdit = (editEvent) => {
+      if (editEvent.isTrusted) changed();
+      else keep();
+    };
     box.fill(el("form", {
       class: "fields",
-      oninput: keep,
-      onchange: keep,
+      oninput: onEdit,
+      onchange: onEdit,
       onsubmit: async (submitEvent) => {
         submitEvent.preventDefault();
         error.textContent = "";
@@ -1946,7 +2073,7 @@
       },
     }, [
       kept ? el("p", { class: "draft-note" }, [
-        t("draft.restored", { date: dateText(kept.at, true) }),
+        kept.by && kept.by !== state.me.email ? t("draft.restoredBy", { date: dateText(kept.at, true), email: kept.by }) : t("draft.restored", { date: dateText(kept.at, true) }),
         el("button", {
           type: "button",
           class: "ghost",
@@ -2061,7 +2188,9 @@
   // A photo, shrunk to PHOTO_SIZE pixels on its longer side as JPEG, or a PDF
   // as it is, goes straight to S3 through a presigned POST; the event keeps
   // its path.
-  async function uploadFile(file) {
+  // carId, owner: the car of the file, for one shared by its owner; its
+  // files go to the owner's folder.
+  async function uploadFile(file, carId, owner) {
     let blob = file;
     if (file.type !== "application/pdf") {
       try {
@@ -2077,7 +2206,11 @@
       }
     }
     if (!blob || blob.size > state.me.file_max_bytes) throw new Error(t("api.bad_file"));
-    const target = await api("/files", { method: "POST", body: { content_type: blob.type, size: blob.size } });
+    const carOwner = carId === undefined ? state.owner : owner;
+    const car = carId === undefined ? state.car && state.car.id : carId;
+    const target = carOwner && car
+      ? await api(`/cars/${car}/files` + ownerQuery(carOwner), { method: "POST", own: true, body: { content_type: blob.type, size: blob.size } })
+      : await api("/files", { method: "POST", own: true, body: { content_type: blob.type, size: blob.size } });
     const form = new FormData();
     Object.entries(target.post.fields).forEach(([key, value]) => form.append(key, value));
     form.append("file", blob);
@@ -2689,8 +2822,9 @@
   }
 
   function carsView() {
+    const others = foreign() ? [] : state.shared;
     return [
-      readOnly() ? null : el("div", { class: "toolbar" }, [
+      foreign() ? null : el("div", { class: "toolbar" }, [
         el("button", { type: "button", class: "primary", onclick: () => editCar(null) }, t("cars.add")),
         menuButton(t("io.import"), [[t("io.carExpenses"), () => importCarExpenses(null)], [t("io.json"), () => importJson(null)]]),
         state.cars.length ? menuButton(t("io.export"), [[t("io.json"), () => showExport(defaultCar())], [t("io.csv"), () => showCsv(defaultCar())]]) : null,
@@ -2711,10 +2845,23 @@
           [t("car.lastEvent"), lastEventText(car)],
         ]),
         car.notes ? el("p", { class: "muted small pre" }, car.notes) : null,
-        readOnly() ? null : el("div", { class: "actions" }, [
+        foreign() ? null : el("div", { class: "actions" }, [
           el("button", { type: "button", class: "ghost", onclick: () => editCar(car) }, t("edit")),
         ]),
       ]))) : welcomeView(),
+      others.length ? el("h2", { class: "section-title" }, t("grants.sharedTitle")) : null,
+      others.length ? el("div", { class: "car-cards" }, others.map((car) => el("section", { class: "panel car-card" + (car.sold ? " sold" : "") }, [
+        el("div", { class: "panel-head" }, [
+          el("h2", {}, [car.name, el("span", { class: "badge" }, t("grants.role." + car.access))]),
+          el("button", { type: "button", class: "ghost", onclick: () => { location.hash = "#overview/" + car.id + "/" + encodeURIComponent(car.owner); } }, t("cars.open")),
+        ]),
+        facts([
+          [t("grants.owner"), car.owner],
+          [t("car.makeModel"), [car.make, car.model].filter(Boolean).join(" ")],
+          [t("car.plate"), car.plate],
+          [t("car.lastEvent"), lastEventText(car)],
+        ]),
+      ]))) : null,
     ];
   }
 
@@ -3155,7 +3302,7 @@
     // Visitors of the demo share one account: none may change its password or
     // turn on two-factor authentication for the others.
     const sections = [...(config.demo ? [] : [["password", t("password.title")], ["mfa", t("mfa.title")]]),
-      ["language", t("language.title")], ["mail", t("mail.title")], ["api", t("keys.title")], ["share", t("shares.title")]];
+      ["language", t("language.title")], ["mail", t("mail.title")], ["api", t("keys.title")], ["share", t("shares.title")], ["access", t("grants.title")]];
     if (state.me.admin) sections.push(["users", t("users.title")]);
     sections.push(["version", t("version.title")]);
     let current = sections.some(([key]) => key === section) ? section : sections[0][0];
@@ -3195,6 +3342,7 @@
       else if (current === "mail") showMail(body);
       else if (current === "api") showKeys(body);
       else if (current === "share") showShares(body);
+      else if (current === "access") showGrants(body);
       else if (current === "users") showUsers(body);
       else if (current === "version") showVersion(body);
       else {
@@ -3375,6 +3523,66 @@
           usage(item),
         ]);
       })) : el("p", { class: "muted" }, t("shares.none")),
+    ]);
+  }
+
+  // The users who may open a car of this user, each with what they may do
+  // (grants.py): view it, or also add and change its events and reminders.
+  async function showGrants(part) {
+    part.replaceChildren(loading());
+    let items;
+    let cars;
+    try {
+      [items, cars] = await Promise.all([api("/grants").then((data) => data.items || []), api("/cars", { own: true }).then((data) => data.items || [])]);
+    } catch (error) {
+      part.replaceChildren(el("p", { class: "error" }, error.message));
+      return;
+    }
+    const carName = (id) => (cars.find((car) => car.id === id) || {}).name || id;
+    const roleSelect = (selected, onchange) => el("select", { onchange }, ["read", "write"].map((role) => el("option", { value: role, selected: role === selected }, t("grants.role." + role))));
+    const give = async (body) => {
+      try {
+        await api("/grants", { method: "POST", body });
+        toast(t("grants.saved"));
+        showGrants(part);
+      } catch (error) {
+        toast(error.message);
+      }
+    };
+    const email = el("input", { type: "email", required: true, maxlength: "254", autocomplete: "off", placeholder: "name@example.com" });
+    const car = el("select", { required: true }, cars.map((item) => el("option", { value: item.id }, item.name)));
+    const role = roleSelect("read");
+    const byCar = cars.map((item) => [item, items.filter((grant) => grant.car === item.id)]).filter(([, list]) => list.length);
+    fill(part, [
+      el("p", { class: "muted small" }, t("grants.hint")),
+      cars.length ? el("form", {
+        class: "inline-form",
+        onsubmit: (event) => {
+          event.preventDefault();
+          give({ car: car.value, email: email.value.trim(), role: role.value });
+        },
+      }, [el("label", {}, [t("grants.email"), email]), el("label", {}, [t("grants.car"), car]), el("label", {}, [t("grants.access"), role]),
+        el("button", { type: "submit", class: "primary" }, t("grants.give"))]) : el("p", { class: "muted" }, t("grants.noCars")),
+      byCar.length ? el("ul", { class: "access-list" }, byCar.map(([item, list]) => el("li", {}, [
+        el("div", { class: "access-head" }, [el("strong", {}, item.name)]),
+        el("ul", { class: "plain grant-list" }, list.map((grant) => el("li", { class: "grant-row" }, [
+          el("span", { class: "grant-email" }, grant.email),
+          roleSelect(grant.role, (event) => give({ car: grant.car, email: grant.email, role: event.target.value })),
+          el("button", {
+            type: "button",
+            class: "danger",
+            onclick: async () => {
+              if (!window.confirm(t("grants.deleteConfirm", { email: grant.email, car: carName(grant.car) }))) return;
+              try {
+                await api("/grants?car=" + encodeURIComponent(grant.car) + "&email=" + encodeURIComponent(grant.email), { method: "DELETE" });
+                showGrants(part);
+              } catch (error) {
+                toast(error.message);
+              }
+            },
+          }, t("grants.remove")),
+        ]))),
+      ]))) : el("p", { class: "muted" }, t("grants.none")),
     ]);
   }
 
@@ -3697,6 +3905,7 @@
           state.owners = [];
         }
       }
+      await loadShared();
       state.owner = hashOwner();
       state.ownerLoaded = state.owner;
       await loadCars();

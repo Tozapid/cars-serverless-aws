@@ -17,13 +17,22 @@ sk = EVENT#<car>#<id>         an event: kind (refuel, service, expense,
                               of the statistics), notes, files;
 sk = REMINDER#<car>#<id>      a reminder: category, every and unit, km, mail
                               (reminders.py);
+sk = DRAFT#<car>#<key>        the draft of an event form not saved yet,
+                              of a new event (key new-<kind>) or of a saved
+                              one (key = its id), shared by everyone who may
+                              change the car; expires after DRAFT_DAYS;
+sk = GRANT#<car>#<email>      access to a car given to another user, and
+sk = SHARED#<owner>#<car>     its pointer in their partition (grants.py);
 sk = PREFS                    which mails the user wants.
 
 The page reads all events of a car and counts the statistics itself; the
 reminders come with their state (reminders.status).
 
 API: /me, /me/prefs; /cars, /cars/<car>; /cars/<car>/events[/<id>];
-/cars/<car>/reminders[/<id>];
+/cars/<car>/reminders[/<id>]; /cars/<car>/drafts[/<key>];
+/cars/<car>/files (a file of a car shared with the user); /grants (the
+access the user gives to their cars), /shared (the cars of others they may
+open, with ?owner=<email>);
 /files (a presigned POST for a file of an event, files.py); /version.
 Administrators, the members of the Cognito group ADMIN_GROUP, also manage
 the accounts at /admin/users.
@@ -46,6 +55,7 @@ import common
 import files
 import access
 import carexpenses
+import grants
 import mail
 import reminders
 
@@ -68,6 +78,9 @@ CARS_MAX = 50
 EVENTS_MAX = 20_000
 REMINDERS_MAX = 200
 FILES_MAX = 20
+DRAFT_DAYS = 90
+DRAFT_BYTES = 50_000
+DRAFT_KEY_RE = re.compile(r"^(?:[0-9a-f]{16}|new-(?:refuel|service|expense|income))$")
 AMOUNT_MAX = 100_000_000
 ODOMETER_MAX = 10_000_000
 
@@ -77,6 +90,8 @@ ERRORS = {
     "admin_only": "Administrators only",
     "demo_readonly": "Not available in the demo",
     "read_only": "The cars of another user can only be viewed",
+    "too_many_grants": "Too many users have access to your cars",
+    "draft_not_found": "No such draft",
     "bad_key": "Missing or unknown API key",
     "key_read_only": "This API key may only read",
     "share_not_found": "This link does not exist or has expired",
@@ -141,16 +156,16 @@ def api(event):
             owner, result = shared(method, parts[2:], event)
         else:
             owner = actor(event)
-            # An administrator reads the cars of another user with ?owner=<email>.
+            guest = None
+            # The cars of another user, with ?owner=<email>: those they gave
+            # this user access to (grants.py), or all of them, read only, for
+            # an administrator.
             if parts[1:2] == ["cars"] and query_param(event, "owner"):
                 viewed = clean_email(query_param(event, "owner"))
                 if viewed != owner:
-                    if not is_admin(event):
-                        raise ApiError(403, "admin_only")
-                    if method != "GET":
-                        raise ApiError(403, "read_only")
+                    guest = visit(method, parts[1:], event, owner, viewed)
                     owner = viewed
-            result = route(method, parts[1:], event, owner)
+            result = route(method, parts[1:], event, owner, guest)
     except ApiError as exc:
         result = response(exc.status, {"error": exc.message, "code": exc.code, **({"detail": exc.detail} if exc.detail else {})})
     except json.JSONDecodeError:
@@ -169,8 +184,36 @@ def api(event):
 # of it. Each word comes from this table, never from the request.
 ROUTE_WORDS = {word: word for word in (
     "api", "v1", "share", "me", "prefs", "version", "keys", "shares", "files", "admin", "users", "owners",
-    "cars", "events", "reminders", "import", "json", "carexpenses",
+    "cars", "events", "reminders", "import", "json", "carexpenses", "drafts", "grants", "shared",
 )}
+
+
+def visit(method, parts, event, me, viewed):
+    """What me may do with the cars of viewed: {"actor", "admin", "roles"},
+    roles = {car: "read" or "write"}. An error when the request goes past it."""
+    admin = is_admin(event)
+    roles = grants.roles(viewed, me)
+    guest = {"actor": me, "admin": admin, "roles": roles}
+    if parts == ["cars"]:
+        if method != "GET":
+            raise ApiError(403, "read_only")
+        if not admin and not roles:
+            raise ApiError(403, "admin_only")
+        return guest
+    role = role_of(guest, parts[1] if len(parts) > 1 else "")
+    if not role:
+        raise ApiError(404, "car_not_found")
+    # A user with "write" changes the events, reminders and drafts of the
+    # car; the car itself stays with its owner.
+    if method != "GET" and (role != "write" or parts[2:3] not in (["events"], ["reminders"], ["drafts"], ["files"])):
+        raise ApiError(403, "read_only")
+    return guest
+
+
+def role_of(guest, car_id):
+    if guest is None:
+        return "owner"
+    return guest["roles"].get(car_id) or ("read" if guest["admin"] else None)
 
 
 def route_label(path):
@@ -215,7 +258,7 @@ def shared(method, parts, event):
     return owner, route(method, rest, event, owner)
 
 
-def route(method, parts, event, owner):
+def route(method, parts, event, owner, guest=None):
     if parts == ["me"] and method == "GET":
         lead_days, lead_km = reminders.lead()
         return response(200, {"email": owner, "admin": is_admin(event), "demo": demo(), "prefs": mail.prefs(owner), "mail": bool(os.environ.get("SENDER")),
@@ -228,6 +271,10 @@ def route(method, parts, event, owner):
         return keys_route(method, event, owner)
     if parts == ["shares"]:
         return shares_route(method, event, owner)
+    if parts == ["grants"]:
+        return grants_route(method, event, owner)
+    if parts == ["shared"] and method == "GET":
+        return response(200, {"items": shared_cars(owner)})
     if parts == ["files"] and method == "POST":
         payload = body_json(event)
         target = files.presign(owner, payload.get("content_type"), payload.get("size"))
@@ -240,18 +287,23 @@ def route(method, parts, event, owner):
         return admin_route(method, parts[1:], event, owner)
     if parts == ["cars"] and method == "GET":
         # A car made before the counts were kept gets them once here.
-        return response(200, {"items": [public(item if "event_count" in item else count_events(owner, item["id"])) for item in cars(owner)]})
+        found = [item if "event_count" in item else count_events(owner, item["id"]) for item in cars(owner)]
+        if guest:
+            return response(200, {"items": [{**public(item), "access": role_of(guest, item["id"])} for item in found if role_of(guest, item["id"])]})
+        return response(200, {"items": [public(item) for item in found]})
     if parts == ["cars"] and method == "POST":
         return response(201, create_car(owner, body_json(event)))
     if len(parts) >= 2 and parts[0] == "cars":
         car = get_car(owner, parts[1])
-        return car_route(method, parts[2:], event, owner, car)
+        return car_route(method, parts[2:], event, owner, car, guest)
     raise ApiError(404, "not_found")
 
 
-def car_route(method, rest, event, owner, car):
+def car_route(method, rest, event, owner, car, guest=None):
+    # Who made the change: the owner, or a user the car is shared with.
+    by = guest["actor"] if guest else owner
     if not rest and method == "GET":
-        return response(200, public(car))
+        return response(200, {**public(car), **({"access": role_of(guest, car["id"])} if guest else {})})
     if not rest and method == "PUT":
         return response(200, save_car(owner, car, body_json(event)))
     if not rest and method == "DELETE":
@@ -259,16 +311,35 @@ def car_route(method, rest, event, owner, car):
     if rest == ["events"] and method == "GET":
         return response(200, {"items": [public(item) for item in car_events(owner, car["id"])]})
     if rest == ["events"] and method == "POST":
-        return response(201, create_event(owner, car, body_json(event)))
+        return response(201, create_event(owner, car, body_json(event), by))
     if len(rest) == 2 and rest[0] == "events":
         current = get_item(owner, f"EVENT#{car['id']}#", rest[1], "event_not_found")
         if method == "PUT":
-            return response(200, save_event(owner, car, current, body_json(event)))
+            return response(200, save_event(owner, car, current, body_json(event), by))
         if method == "DELETE":
             common.table().delete_item(Key={"pk": current["pk"], "sk": current["sk"]})
+            common.table().delete_item(Key={"pk": pk(owner), "sk": f"DRAFT#{car['id']}#{current['id']}"})
             files.delete([item["path"] for item in current.get("files") or []])
             count_events(owner, car["id"])
             return response(200, {"deleted": current["id"]})
+    if rest == ["drafts"] and method == "GET":
+        return response(200, {"items": [draft_public(item) for item in common.query_all(pk(owner), f"DRAFT#{car['id']}#")
+                                        if int(item.get("expires", 0)) > time.time()]})
+    if len(rest) == 2 and rest[0] == "drafts":
+        if not DRAFT_KEY_RE.match(rest[1]):
+            raise ApiError(404, "draft_not_found")
+        if method == "PUT":
+            return response(200, save_draft(owner, car, rest[1], body_json(event), by))
+        if method == "DELETE":
+            common.table().delete_item(Key={"pk": pk(owner), "sk": f"DRAFT#{car['id']}#{rest[1]}"})
+            return response(200, {"deleted": rest[1]})
+    if rest == ["files"] and method == "POST":
+        # A file of an event of this car goes to the folder of its owner.
+        payload = body_json(event)
+        target = files.presign(owner, payload.get("content_type"), payload.get("size"))
+        if not target:
+            raise ApiError(400, "bad_file")
+        return response(200, target)
     if rest == ["reminders"] and method == "GET":
         return response(200, {"items": reminder_list(owner, car["id"])})
     if rest == ["reminders"] and method == "POST":
@@ -375,6 +446,54 @@ def keys_route(method, event, owner):
     raise ApiError(404, "not_found")
 
 
+# Access of other users to the cars (grants.py) ----------------------------------
+
+def grants_route(method, event, owner):
+    if method == "GET":
+        return response(200, {"items": grants.given(owner)})
+    if method == "POST":
+        payload = body_json(event)
+        car = get_car(owner, text(payload, "car", 32, required=True))
+        email = clean_email(payload.get("email"))
+        if email == owner:
+            raise ApiError(400, "not_yourself")
+        role = payload.get("role", "read")
+        if role not in grants.ROLES:
+            raise ApiError(400, "bad_field", "role")
+        if not user_exists(email):
+            raise ApiError(404, "user_not_found")
+        if not grants.give(owner, car["id"], email, role):
+            raise ApiError(400, "too_many_grants")
+        return response(201, {"car": car["id"], "email": email, "role": role})
+    if method == "DELETE":
+        car, email = query_param(event, "car"), clean_email(query_param(event, "email"))
+        if not grants.take(owner, car, email):
+            raise ApiError(404, "not_found")
+        return response(200, {"deleted": email, "car": car})
+    raise ApiError(404, "not_found")
+
+
+def user_exists(email):
+    try:
+        cognito().admin_get_user(UserPoolId=os.environ["USER_POOL_ID"], Username=email)
+        return True
+    except Exception as exc:
+        if common.error_code(exc) == "UserNotFoundException":
+            return False
+        raise
+
+
+# The cars of others the user may open: a car that went is left out.
+def shared_cars(email):
+    found = []
+    for entry in grants.received(email):
+        car = common.get(pk(entry["owner"]), "CAR#" + entry["car"])
+        if car:
+            found.append({**{key: value for key, value in public(car).items() if key in ("id", "name", "make", "model", "year", "plate", "unit", "sold", "event_count", "last_event")},
+                          "owner": entry["owner"], "access": entry["role"]})
+    return sorted(found, key=lambda item: (item["owner"], item["name"].casefold()))
+
+
 def shares_route(method, event, owner):
     if method == "GET":
         return response(200, {"items": access.list_shares(owner)})
@@ -478,7 +597,8 @@ def delete_car(owner, car):
     items = common.query_all(pk(owner), f"EVENT#{car['id']}#") + common.query_all(pk(owner), f"REMINDER#{car['id']}#")
     files.delete([entry["path"] for item in items for entry in item.get("files") or []]
                  + ([car["photo"]["path"]] if car.get("photo") else []))
-    common.delete_all(items + [car])
+    grants.drop_car(owner, car["id"])
+    common.delete_all(items + common.query_all(pk(owner), f"DRAFT#{car['id']}#") + [car])
     return {"deleted": car["id"], "items": len(items)}
 
 
@@ -565,7 +685,7 @@ def event_fields(owner, payload):
 # The page may name a new event itself (16 hex digits): an event saved
 # without a network waits on the phone and is sent again until it gets
 # through, and the second time it is already there and stays as it is.
-def create_event(owner, car, payload):
+def create_event(owner, car, payload, by=None):
     fields = event_fields(owner, payload)
     wanted = str(payload.get("id") or "")
     if wanted and not re.fullmatch(r"[0-9a-f]{16}", wanted):
@@ -580,22 +700,69 @@ def create_event(owner, car, payload):
     event_id = wanted or new_id()
     now = common.now_iso()
     item = compact({"pk": pk(owner), "sk": f"EVENT#{car['id']}#{event_id}", "id": event_id, "car": car["id"],
-                    **fields, "created": now, "modified": now, "by": owner})
+                    **fields, "created": now, "modified": now, "by": by or owner})
     if not common.put_new(item):
         return public(common.get(pk(owner), item["sk"]))
     count_events(owner, car["id"], events + [item])
+    drop_draft(owner, car["id"], "new-" + fields["kind"], event_id)
     return public(item)
 
 
-def save_event(owner, car, current, payload):
+def save_event(owner, car, current, payload, by=None):
     item = compact({**{key: current[key] for key in ("pk", "sk", "id", "car", "created")}, **event_fields(owner, payload),
-                    "modified": common.now_iso(), "by": owner, "source": current.get("source")})
+                    "modified": common.now_iso(), "by": by or owner, "source": current.get("source")})
     common.put(item)
     count_events(owner, car["id"])
+    drop_draft(owner, car["id"], current["id"])
     # Files taken off the event go from the bucket too.
     kept = {entry["path"] for entry in item.get("files") or []}
     files.delete([entry["path"] for entry in current.get("files") or [] if entry["path"] not in kept])
     return public(item)
+
+
+# Drafts -------------------------------------------------------------------------
+# What an event form holds before it is saved, kept for the car so that
+# another browser of the user, or another user who may change the car, finds
+# it. The page writes it after the first change by hand; a save of the event
+# removes it here too, also when the save waited for the network.
+
+def draft_public(item):
+    try:
+        draft = json.loads(item.get("data") or "{}")
+    except ValueError:
+        draft = {}
+    return {"key": item["key"], "at": item.get("at", ""), "by": item.get("by", ""), "event": item.get("event", ""),
+            "modified": item.get("modified", ""), "draft": draft}
+
+
+def save_draft(owner, car, key, payload, by):
+    draft = payload.get("draft")
+    if not isinstance(draft, dict):
+        raise ApiError(400, "bad_field", "draft")
+    data = json.dumps(draft, ensure_ascii=False, separators=(",", ":"))
+    if len(data.encode("utf-8")) > DRAFT_BYTES:
+        raise ApiError(413, "too_large")
+    at = text(payload, "at", 30)
+    # The id the new event will get, for the save to find its draft.
+    new_event = str(payload.get("event") or "")
+    if key.startswith("new-") and new_event and not re.fullmatch(r"[0-9a-f]{16}", new_event):
+        raise ApiError(400, "bad_field", "event")
+    item = compact({"pk": pk(owner), "sk": f"DRAFT#{car['id']}#{key}", "key": key, "car": car["id"], "data": data, "at": at,
+                    "event": new_event if key.startswith("new-") else None, "by": by, "modified": common.now_iso(),
+                    "expires": int(time.time()) + DRAFT_DAYS * 86400})
+    common.put(item)
+    return draft_public(item)
+
+
+def drop_draft(owner, car_id, key, new_event=None):
+    """The draft of a saved event; that of a new one only when it was the
+    draft of this event, not of one begun since."""
+    sk = f"DRAFT#{car_id}#{key}"
+    if new_event is not None:
+        current = common.get(pk(owner), sk)
+        if not current or current.get("event") != new_event:
+            return
+    common.table().delete_item(Key={"pk": pk(owner), "sk": sk})
 
 
 # Reminders ----------------------------------------------------------------------
@@ -1003,6 +1170,7 @@ def delete_user(email):
     except Exception as exc:
         if common.error_code(exc) != "UserNotFoundException":
             raise
+    grants.drop_user(email)
     items = common.query_all(pk(email))
     files.delete([entry["path"] for item in items for entry in item.get("files") or []])
     common.delete_all(items)

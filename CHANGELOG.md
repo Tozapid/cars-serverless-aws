@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.3.3
+
+### Added
+
+- Access to a car for another user: Settings → Access — the user's email, the car and "View" or "View and change". They find the car on the Cars tab ("Cars shared with me") and in "Whose cars"; with change they add and edit its events, reminders and drafts, while its settings, imports and deletion stay with the owner. Deleting a car or a user drops their grants.
+
+### Changed
+
+- The drafts of an event form are kept with the car in the table rather than in the browser: they open in any browser and for everyone with write access to the car (with a note of whose draft it is). Offline a draft waits in the browser and goes later; saving the event deletes it in the table too, also from the offline queue. Old drafts of the browser move to the table when the car opens.
+- On an iPhone the page no longer zooms in on a tap into a field: fields on touch screens are 16px (Safari zooms into smaller text), the text size does not change on rotation, and the Export menu and the owner picker stay inside the screen.
+
+### Fixed
+
+- A new form wrote a draft without a single edit — from the place found by geolocation and the category filled in — and after "Discard the draft" it came back. A draft is now written only after an edit by hand.
+
 ## v0.3.2
 
 ### Added

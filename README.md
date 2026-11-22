@@ -10,7 +10,7 @@ Everything is Terraform and AWS managed services: no servers, nothing running be
 
 **Gas and petrol, or a charger at home and on the road.** A car that runs on more than one fuel gets the consumption per 100 km and the price of each: gas (LPG), petrol, diesel, methane (in kilograms) and electricity. The station a refuel was made at is a category of its own, with its share of the money and of the litres or kWh.
 
-**Fast to fill in, also on a phone.** Each kind of event has a short form under a link of its own. The place comes from the browser, and the station that was there last time is filled in with its last price; of quantity, unit price and total, two give the third. A form keeps a draft in the browser until it is saved, and a receipt goes in with ⌘V / Ctrl+V.
+**Fast to fill in, also on a phone.** Each kind of event has a short form under a link of its own. The place comes from the browser, and the station that was there last time is filled in with its last price; of quantity, unit price and total, two give the third. A form keeps a draft of the car once it is edited by hand, found again in any browser until it is saved, and a receipt goes in with ⌘V / Ctrl+V.
 
 ## Demo
 
@@ -28,10 +28,11 @@ The demo is English and made up: a Tesla Model 3, charged at home, at work and o
 - **Charts** of costs, kilometres, the odometer, consumption and the price of a kilometre by day, week, month or year, with a crosshair shared across them (as in Grafana), zoom by selecting a stretch, a large view, and series hidden or shown alone from the legend.
 - **A map** of the events (Leaflet and OpenStreetMap), with an icon of their kind and the near ones grouped; a table of the places. The place of an event comes from the browser or from a click on a map, and the categories used near it come first.
 - **Reminders** after so many days, weeks, months or years and kilometres from the last event of their category, on a day of every month, or on chosen days of the week, from a start date; "soon" and "overdue" on the page and once a day by mail.
-- **Short forms** of each kind of event under links of their own, for a phone: the link icon in the title of a new event's form; each at an address of its own, `/add/<kind>/<car>/`, with a manifest of its own (`cloudfront/manifest.js`), so that added to the home screen it opens itself, and a button that says how; **drafts** of every form in the browser.
+- **Short forms** of each kind of event under links of their own, for a phone: the link icon in the title of a new event's form; each at an address of its own, `/add/<kind>/<car>/`, with a manifest of its own (`cloudfront/manifest.js`), so that added to the home screen it opens itself, and a button that says how; **drafts** of every form, kept with the car in the table (`PUT /api/cars/<car>/drafts/<key>`) once a field is changed by hand, so that another browser or a user with write access finds them; offline, the browser keeps them until the API takes them.
 - **Import and export** from two menus next to "Add a car": import of a backup of the Android app Car Expenses or of a JSON file, as new cars or into a chosen one; export of a car to a JSON file with its receipts and photos, which imports again, also into another account, or of its events to CSV.
 - **Without a network**: the page installs on a phone (PWA), opens with the data last loaded, and keeps new events with their files in a queue of the browser until the network is back.
 - **API keys** for programs, read or read and write, and **share links** that open the cars, or one car, read only without a sign-in, for a time or for good; each tells where and when it was made and last used.
+- **Access to a car** for another user, from Settings → Access: read only, or read and write its events, reminders, drafts and files; the car itself, its import and its deletion stay with the owner. The cars shared with a user show on their Cars tab.
 - **Administrators** invite and manage the users, and may look at their cars, read only.
 - **Version**: Settings → Version shows the version of the site and the releases of this repository that came after it.
 - **Account**: two-factor authentication with an authenticator app (TOTP), password change; the page and the mails in English, Russian, French and Italian.
@@ -58,7 +59,7 @@ flowchart LR
 | Page | S3 + CloudFront, on its own domain or on the `*.cloudfront.net` address |
 | Sign-in | Cognito user pool, no self sign-up, optional TOTP; group `admins` |
 | API | API Gateway HTTP API with a Cognito JWT authorizer, Lambda `lambda/app.py` (Python, arm64); two routes without the authorizer for API keys and share links, checked by the Lambda |
-| Data | DynamoDB on demand, one table, a partition per user: cars, events, reminders, API keys, share links |
+| Data | DynamoDB on demand, one table, a partition per user: cars, events, reminders, drafts, access given to other users, API keys, share links |
 | Files | a private S3 bucket under `files/<user>/`, uploaded by the browser through a presigned POST and served by CloudFront with signed cookies for that prefix only |
 | Reminders | EventBridge once a day (`reminder_schedule`) wakes the same Lambda, which mails each user the reminders that became due (production) |
 | Demo reset | Lambda `lambda/reset.py`, EventBridge `rate(1 hour)` |
@@ -173,7 +174,9 @@ The page uses the same API as a program does; with a key, the paths start with `
 | `PUT`, `DELETE /api/cars/<car>/events/<event>` | One event |
 | `GET`, `POST /api/cars/<car>/reminders`, `PUT`, `DELETE /api/cars/<car>/reminders/<reminder>` | The reminders with their state |
 | `POST /api/cars/<car>/import/carexpenses`, `POST /api/cars/<car>/import/json` | The imports |
-| `POST /api/files` | Where the browser uploads a file to (a presigned POST) |
+| `GET /api/cars/<car>/drafts`, `PUT`, `DELETE /api/cars/<car>/drafts/<key>` | The drafts of the event forms of a car (`new-<kind>` or the id of an event), gone after 90 days |
+| `POST /api/files` | Where the browser uploads a file to (a presigned POST); `POST /api/cars/<car>/files` into the folder of the owner of a car shared for writing |
+| `GET`, `POST`, `DELETE /api/grants`, `GET /api/shared` | The access given to other users (`{car, email, role}`, role `read` or `write`); the cars shared with the user |
 
 ```bash
 curl -H "Authorization: Bearer cars_…" https://<site>/api/v1/cars
@@ -192,6 +195,7 @@ The bucket is yours, in the same account: its policy has to let `delivery.logs.a
 
 - `/api/*` takes only a Cognito token (JWT authorizer); the Lambda also wants a verified email in it, and users cannot change their email (the client writes `locale` only).
 - Each user sees and changes only their own cars. Administrators are the members of the Cognito group `admins`, read from the `cognito:groups` claim of the token; they may read the cars of the others (`?owner=<email>`), never change them.
+- An owner may give a registered user access to one car (`lambda/grants.py`): `GRANT#<car>#<email>` in the owner's partition and a pointer `SHARED#<owner>#<car>` in the user's. The user opens it with the same `?owner=<email>`; `read` allows `GET` only, `write` also the events, reminders, drafts and files of that car, never the car itself. Each event remembers who wrote it (`by`). As for an administrator, the file cookie then opens the owner's folder; file paths are random. Deleting a car or a user drops its grants.
 - `/api/v1/…` and `GET /api/share/…` skip the authorizer; the Lambda checks the API key or the token of the link before anything else, and a key or a link reaches the cars of its user only.
 - Receipts and photos are private: every answer of the API sets a CloudFront signed cookie for one hour that opens only the files of that user, the files are served with `Content-Security-Policy: sandbox`, and a PDF downloads.
 - The page bucket is private, read only by the distribution; responses of `/api/*` are never cached.

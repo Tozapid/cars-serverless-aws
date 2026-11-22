@@ -1,6 +1,7 @@
 // The offline side of the page. Without a network the page and its pinned
 // libraries come from the cache, and so do the last answers of the API that
-// it reads (the account, the cars, their events and reminders), marked
+// it reads (the account, the cars and those shared with the user, their
+// events and reminders), marked
 // x-offline with the time they were fetched (x-fetched). With a network
 // everything is fetched as before and the cache only follows. Files, map
 // tiles and every write go past the cache; the page queues the new events
@@ -15,7 +16,7 @@ const SIGN_IN = [
   "https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.15/dist/amazon-cognito-identity.min.js",
   "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js",
 ];
-const READS = /^\/api\/(me|version|cars(\/[^/]+(\/(events|reminders))?)?|share\/.+)$/;
+const READS = /^\/api\/(me|version|shared|cars(\/[^/]+(\/(events|reminders))?)?|share\/.+)$/;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(SHELL)
