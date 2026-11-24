@@ -28,7 +28,7 @@ provider "aws" {
 }
 
 module "cars" {
-  source = "git::https://github.com/Tozapid/cars-serverless-aws.git?ref=v0.3.4"
+  source = "git::https://github.com/Tozapid/cars-serverless-aws.git?ref=v0.4.0"
 
   providers = {
     aws        = aws

@@ -18,7 +18,7 @@ The repository is a Terraform module: a site is a module call pinned to a releas
 
 Sign in with `demo@example.com` / `Demo-Password-1` (the fields are filled in for you).
 
-The demo is English and made up: a Tesla Model 3, charged at home, at work and on the motorway, and a Volkswagen Touran that runs on gas and petrol, with two years of events around Berlin and their reminders. The demo has **no mail**: the reminders that are due show on the page only. Everything else works: add, change and delete cars, events, receipts and photos, the statistics, the charts and the map, reminders, the imports and the export, API keys and share links. The demo user is an administrator, so the users are there to look at; changing them is not. The demo is public and goes back to its initial state **every hour**: the cars, events, files, API keys and share links are wiped, the examples of [`seed/seed.json`](seed/seed.json) are written again, dated back from the day of the reset so the demo always looks recent, the demo password is put back and any other user is deleted. Changing the password and two-factor authentication are hidden in the demo, so no visitor can lock the others out.
+The demo is English and made up: a Tesla Model 3, charged at home, at work and on the motorway, and a Volkswagen Touran that runs on gas and petrol, with two years of events around Berlin and their reminders. The demo has **no mail**: the reminders that are due show on the page only. Everything else works: add, change and delete cars, events, receipts and photos, the statistics, the charts and the map, reminders, the imports and the export, API keys and share links. The demo user is an administrator, so the users are there to look at; changing them is not. The demo is public and goes back to its initial state **six hours after the first change** (a demo nobody changes is not reset): the cars, events, files, API keys and share links are wiped, the examples of [`seed/seed.json`](seed/seed.json) are written again, dated back from the day of the reset so the demo always looks recent, the demo password is put back and any other user is deleted. Changing the password and two-factor authentication are hidden in the demo, so no visitor can lock the others out.
 
 ## Features
 
@@ -51,7 +51,7 @@ flowchart LR
   EB[EventBridge, daily] -->|reminders| L
   L <--> DB[(DynamoDB)]
   L -->|SendEmail| SES[SES]
-  EB2[EventBridge, demo only] --> R[Lambda: hourly reset]
+  EB2[EventBridge Scheduler, demo only, after a change] --> R[Lambda: reset]
 ```
 
 | Part | Service |
@@ -62,7 +62,7 @@ flowchart LR
 | Data | DynamoDB on demand, one table, a partition per user: cars, events, reminders, drafts, access given to other users, API keys, share links |
 | Files | a private S3 bucket under `files/<user>/`, uploaded by the browser through a presigned POST and served by CloudFront with signed cookies for that prefix only |
 | Reminders | EventBridge once a day (`reminder_schedule`) wakes the same Lambda, which mails each user the reminders that became due (production) |
-| Demo reset | Lambda `lambda/reset.py`, EventBridge `rate(1 hour)` |
+| Demo reset | Lambda `lambda/reset.py`, a one-off EventBridge Scheduler schedule that the first change makes |
 
 ### Statistics
 
@@ -104,7 +104,7 @@ The root of this repository is the module. It makes no providers: the caller pas
 
 ```hcl
 module "cars" {
-  source = "git::https://github.com/Tozapid/cars-serverless-aws.git?ref=v0.3.3"
+  source = "git::https://github.com/Tozapid/cars-serverless-aws.git?ref=v0.4.0"
 
   providers = {
     aws        = aws
@@ -131,7 +131,7 @@ module "cars" {
 | `ses_identity` | `true` | The module makes `domain_name` the SES identity (`ses.tf`); `false` when the caller manages it |
 | `totp_issuer` | `Cars` | Name of the site in an authenticator app |
 | `demo` | `false` | Public demo: the sign-in published and filled in, no password change or two-factor authentication, read-only administration, no mails |
-| `reset_schedule` | `""` | The hourly reset of the demo (`rate(1 hour)` there) |
+| `reset_delay_hours` | `0` | Hours after the first change that the demo is reset (`6` there); `0`: no reset |
 | `access_logs_bucket` | `""` | Bucket of the access logs (see [Access logs](#access-logs)) |
 | `files_key_from` | preview: its site | Stack whose CloudFront key signs the file cookies |
 | `file_max_bytes`, `reminder_schedule`, `reminder_lead_days`, `reminder_lead_km`, `releases_repository` | see `variables.tf` | Limits and the reminders |
@@ -142,7 +142,7 @@ With a domain and `sender_address`, the module makes `domain_name` an SES identi
 
 ### The demo
 
-[`demo/`](demo) is the root module of the public demo: the module from `../` with `demo = true`, the published sign-in, the hourly reset and no domain, so it answers at its CloudFront address and touches no DNS; point-in-time recovery is off, and the buckets go with their content on `terraform destroy`.
+[`demo/`](demo) is the root module of the public demo: the module from `../` with `demo = true`, the published sign-in, the reset six hours after a change and no domain, so it answers at its CloudFront address and touches no DNS; point-in-time recovery is off, and the buckets go with their content on `terraform destroy`.
 
 ## Deploy
 
@@ -252,7 +252,7 @@ The tests use no network: DynamoDB, S3, SES, SSM and Cognito are faked (`lambda/
 | `dynamodb.tf`, `s3.tf` | The table, the page and file buckets |
 | `cloudfront.tf`, `cloudfront/`, `dns.tf`, `frontend.tf`, `web/` | The distribution, the domain, the page, its statistics (`stats.js`), charts (`charts.js`), translations (`i18n.js`) and offline side (`sw.js`, `manifest.json`), icons (`favicon.svg`, and the PNGs of phones: `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`) |
 | `ses.tf` | The SES identity of `domain_name` for the reminders (production with `sender_address`) |
-| `reset.tf`, `lambda/reset.py`, `seed/seed.json` | The hourly reset of the demo and its examples |
+| `reset.tf`, `lambda/reset.py`, `seed/seed.json` | The reset of the demo and its examples |
 | `main.tf`, `terraform.tf`, `variables.tf`, `outputs.tf` | The module: its providers (`aws`, `aws.global`), inputs and outputs |
 | `demo/` | The public demo, a call of the module, and the moves of its state |
 | `examples/production/` | A starting point for production |

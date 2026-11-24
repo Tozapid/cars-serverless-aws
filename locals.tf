@@ -24,7 +24,7 @@ locals {
   site_host     = local.custom_domain ? var.domain_name : aws_cloudfront_distribution.web.domain_name
   site_url      = "https://${local.site_host}"
 
-  reset = var.reset_schedule != ""
+  reset = var.reset_delay_hours > 0
   # The reminders by mail (ses.tf), from sender_address on domain_name. The
   # demo sends nothing.
   mail = !var.demo && var.sender_address != ""
