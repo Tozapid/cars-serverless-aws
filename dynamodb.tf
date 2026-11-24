@@ -10,7 +10,7 @@
 # pk = MARK holds the markers that keep a reminder from being mailed twice.
 resource "aws_dynamodb_table" "main" {
   #checkov:skip=CKV_AWS_119:An AWS owned key avoids a dedicated KMS charge.
-  #checkov:skip=CKV_AWS_28:Point-in-time recovery is off in the demo only, which the reset rebuilds every hour.
+  #checkov:skip=CKV_AWS_28:Point-in-time recovery is off in the demo only, which the reset rebuilds.
   name         = local.name
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "pk"
@@ -33,7 +33,7 @@ resource "aws_dynamodb_table" "main" {
     enabled        = true
   }
 
-  # The demo is rebuilt every hour; production keeps 35 days of history.
+  # The reset rebuilds the demo; production keeps 35 days of history.
   point_in_time_recovery {
     enabled = !var.demo
   }
